@@ -6,7 +6,7 @@
 #    By: yadereve <yadereve@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/01 13:00:00 by yadereve          #+#    #+#              #
-#    Updated: 2024/09/03 18:52:14 by yadereve         ###   ########.fr        #
+#    Updated: 2024/09/03 19:16:06 by yadereve         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -54,7 +54,7 @@ ORANGE				=	\033[31m\033[33m
 BLUE				=	\033[1;34m
 PECKED				=	----------
 
-all:header $(NAME)
+all: header $(NAME)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	@mkdir -p $(dir $@)
@@ -62,13 +62,12 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 #	@echo -n .
 
 $(NAME): $(OBJ) $(LIBFT) $(MLX)
-	@echo -n Compiling ...
 	@$(CC) $(CFLAGS) $(OBJ) $(MLX_FLAGS) $(LIBFT) -o $@
 	@echo " [100%]"
 	@echo "$(GREEN)\n$(PECKED) $(NAME) compiled and ready! $(PECKED)$(NC)"
 
 $(MLX):
-	@$(MAKE) -C $(MLX_DIR) --no-print-directory
+	@$(MAKE) -s -C $(MLX_DIR) --no-print-directory
 
 $(LIBFT):
 	@$(MAKE) -C $(LIBFT_DIR) --no-print-directory
@@ -101,14 +100,13 @@ header:
 	@echo "\t                   |::.. . |"
 	@echo "\t                   '-------'"
 	@echo "$(NC)"
-#	@sleep 0.5
-#	@echo -n Compiling ...
-#	@sleep 0.3
+	@sleep 0.5
+	@echo -n Compiling ...
+	@sleep 0.3
 
 clean:
 	@$(RM) $(OBJ_DIR)
 	@$(MAKE) -C $(LIBFT_DIR) clean --no-print-directory
-	@$(MAKE) -C ./libraries/minilibx_opengl_20191021 clean --no-print-directory
 #	@clear
 	@echo "$(ORANGE)\n$(PECKED) program objects cleaned $(PECKED)$(NC)"
 

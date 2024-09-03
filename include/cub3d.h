@@ -6,7 +6,7 @@
 /*   By: yadereve <yadereve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 13:05:26 by yadereve          #+#    #+#             */
-/*   Updated: 2024/09/03 14:50:46 by yadereve         ###   ########.fr       */
+/*   Updated: 2024/09/03 19:06:30 by yadereve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define CUB3D_H
 
 # include "../libraries/libft/libft.h"
-# ifdef Linux
+# ifdef LINUX
 #  include <X11/keysym.h>
 #  include "../libraries/minilibx-linux/mlx.h"
 # else
