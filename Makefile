@@ -6,7 +6,7 @@
 #    By: yadereve <yadereve@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/01 13:00:00 by yadereve          #+#    #+#              #
-#    Updated: 2024/09/04 16:54:27 by yadereve         ###   ########.fr        #
+#    Updated: 2024/09/04 18:47:36 by yadereve         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,6 @@ SRC += $(addprefix $(SRC_DIR)/utils/, $(SRC_UTILS))
 
 OBJ_DIR = objects
 OBJ = $(addprefix $(OBJ_DIR)/,$(SRC:$(SRC_DIR)/%.c=%.o))
-# OBJ = $(addprefix $(OBJ_DIR)/,$(SRC:.c=.o))
 
 UNAME := $(shell uname -s)
 ifeq ($(UNAME), Darwin)
@@ -65,7 +64,7 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 
 $(NAME): $(OBJ) $(MLX_LIB) $(LIBFT)
 	@$(CC) $(CFLAGS) $(OBJ) $(MLX_FLAGS) $(LIBFT) -o $@
-#	@echo "$(GREEN)\n$(PECKED)$(NC) $(NAME) $(GREEN)compiled and ready! $(PECKED)$(NC)"
+	@echo ""
 	@make -f $(MSG) --no-print-directory
 	@echo "\n$(NAME) ready ... $(GREEN)[100%]$(NC)"
 	@echo "more... $(BLUE)make info$(NC)"
@@ -79,14 +78,12 @@ $(LIBFT):
 clean:
 	@$(RM) $(OBJ_DIR)
 	@$(MAKE) -C $(LIBFT_DIR) clean --no-print-directory
-#	@clear
 	@echo "$(ORANGE)\n$(PECKED) program objects cleaned $(PECKED)$(NC)"
 
 
 fclean: clean
 	@$(RM) $(NAME)
 	@$(MAKE) -C $(LIBFT_DIR) fclean --no-print-directory
-#	@clear
 	@echo "$(ORANGE)\n $(PECKED) program name cleaned $(PECKED)$(NC)"
 
 re: fclean all

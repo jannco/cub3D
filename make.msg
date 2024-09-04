@@ -97,8 +97,12 @@ msgmlx:
 
 msgcub:
 #	@make -f make.msg --no-print-directory
-	@echo ""
-	@echo "Player Guide"
+	@echo "$(PURPLE)"
+	@echo "    ▗▄▄▖ ▗▖    ▗▄▖▗▖  ▗▖▗▄▄▄▖▗▄▄▖      ▗▄▄▖▗▖ ▗▖▗▄▄▄▖▗▄▄▄ ▗▄▄▄▖";
+	@echo "    ▐▌ ▐▌▐▌   ▐▌ ▐▌▝▚▞▘ ▐▌   ▐▌ ▐▌    ▐▌   ▐▌ ▐▌  █  ▐▌  █▐▌   ";
+	@echo "    ▐▛▀▘ ▐▌   ▐▛▀▜▌ ▐▌  ▐▛▀▀▘▐▛▀▚▖    ▐▌▝▜▌▐▌ ▐▌  █  ▐▌  █▐▛▀▀▘";
+	@echo "    ▐▌   ▐▙▄▄▖▐▌ ▐▌ ▐▌  ▐▙▄▄▖▐▌ ▐▌    ▝▚▄▞▘▝▚▄▞▘▗▄█▄▖▐▙▄▄▀▐▙▄▄▖";
+	@echo "$(NC)"
 	@echo "$(YELLOW)Objective:$(NC)"
 	@echo "Navigate through the maze from a first-person perspective and find the exit."
 	@echo ""

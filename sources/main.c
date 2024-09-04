@@ -6,7 +6,7 @@
 /*   By: yadereve <yadereve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 13:03:09 by yadereve          #+#    #+#             */
-/*   Updated: 2024/09/04 17:56:30 by yadereve         ###   ########.fr       */
+/*   Updated: 2024/09/04 18:44:18 by yadereve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	main(int argc, char **argv)
 
 	if (argc != 2)
 	{
-		ft_putstr_fd("Usage: ./cub3D assets/maps/map1.cub", STDERR_FILENO);
+		ft_printf("Usage: ./cub3D assets/maps/map1.cub\n");
 		return (EXIT_FAILURE);
 	}
 	// init_map(&game, argv[1]);
