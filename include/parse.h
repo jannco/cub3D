@@ -1,25 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error_handling.c                                   :+:      :+:    :+:   */
+/*   parse.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yadereve <yadereve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/04 17:19:36 by yadereve          #+#    #+#             */
-/*   Updated: 2024/09/04 17:46:52 by yadereve         ###   ########.fr       */
+/*   Created: 2024/09/04 16:43:53 by yadereve          #+#    #+#             */
+/*   Updated: 2024/09/04 17:06:30 by yadereve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/cub3d.h"
+#ifndef PARSE_H
+# define PARSE_H
 
-int	exit_game(t_game *game, char *msg)
+typedef struct s_map
 {
-	// clean_up(game);
-	(void) game;
-	if (msg)
-	{
-		printf("%s", msg);
-		exit (STDERR_FILENO);
-	}
-	return (0);
-}
+
+}	t_map;
+
+t_map	*parse_map(char *file_path);
+void	free_map(t_map *map);
+int		validate_map(t_map *map);
+
+#endif
