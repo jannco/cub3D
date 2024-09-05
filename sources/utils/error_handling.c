@@ -6,20 +6,23 @@
 /*   By: yadereve <yadereve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 17:19:36 by yadereve          #+#    #+#             */
-/*   Updated: 2024/09/04 18:43:39 by yadereve         ###   ########.fr       */
+/*   Updated: 2024/09/04 22:49:21 by yadereve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
+
+void	error_message(char *str)
+{
+	printf("%s\n", str);
+	exit (STDERR_FILENO);
+}
 
 int	exit_game(t_game *game, char *msg)
 {
 	// clean_up(game);
 	(void) game;
 	if (msg)
-	{
-		ft_printf("%s\n", msg);
-		exit (STDERR_FILENO);
-	}
+		error_message(msg);
 	return (0);
 }

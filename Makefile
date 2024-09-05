@@ -6,7 +6,7 @@
 #    By: yadereve <yadereve@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/01 13:00:00 by yadereve          #+#    #+#              #
-#    Updated: 2024/09/04 18:47:36 by yadereve         ###   ########.fr        #
+#    Updated: 2024/09/04 20:53:59 by yadereve         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,12 +22,12 @@ LIBFT = $(LIBFT_DIR)/libft.a
 SRC_DIR = sources
 SRC_MAIN = main.c
 SRC_CONTROLS = input.c movement.c
-SRC_PARSER = validate.c
+SRC_PARSER = parse_map.c validate.c
 SRC_UTILS = error_handling.c math_utils.c
 
 SRC = $(addprefix $(SRC_DIR)/, $(SRC_MAIN))
 SRC += $(addprefix $(SRC_DIR)/controls/, $(SRC_CONTROLS))
-SRC += $(addprefix $(SRC_DIR)/parser/, $(SRC_PARSER))
+SRC += $(addprefix $(SRC_DIR)/parse/, $(SRC_PARSER))
 SRC += $(addprefix $(SRC_DIR)/utils/, $(SRC_UTILS))
 
 OBJ_DIR = objects

@@ -6,7 +6,7 @@
 /*   By: yadereve <yadereve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 13:05:26 by yadereve          #+#    #+#             */
-/*   Updated: 2024/09/04 17:44:33 by yadereve         ###   ########.fr       */
+/*   Updated: 2024/09/05 10:17:50 by yadereve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,11 @@ typedef struct s_game
 	void		*windows;
 }	t_game;
 
-	void	init_map(t_game *game, char *file_path);
+	void	init_map(t_game *game, int argc, char **argv);
 	void	init_mlx(t_game *game);
 	void	init_player(t_map *map);
 	void	start_game(t_game *game);
 	int		exit_game(t_game *game, char *msg);
+	void	error_message(char *str);
 
 #endif
