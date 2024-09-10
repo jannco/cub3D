@@ -6,7 +6,7 @@
 /*   By: yadereve <yadereve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 13:05:26 by yadereve          #+#    #+#             */
-/*   Updated: 2024/09/05 15:21:49 by yadereve         ###   ########.fr       */
+/*   Updated: 2024/09/10 17:36:56 by yadereve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,11 +58,11 @@ typedef struct s_game
 
 }	t_game;
 
-	void	init_map(t_game *game, int argc, char **argv);
+	t_game	*get_game(void);
+	void	init_map(int argc, char **argv);
 	void	init_mlx(t_game *game);
-	void	init_player(t_map *map);
 	void	start_game(t_game *game);
-	int		exit_game(t_game *game, char *msg);
+	int		exit_game(char *msg);
 	void	error_message(char *str);
 
 	void	parse_map(int fd, t_map *map, int rows);
