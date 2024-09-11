@@ -3,95 +3,111 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: yadereve <yadereve@student.42.fr>          +#+  +:+       +#+         #
+#    By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2024/09/01 13:00:00 by yadereve          #+#    #+#              #
-#    Updated: 2024/09/04 20:53:59 by yadereve         ###   ########.fr        #
+#    Created: 2023/11/15 10:09:55 by gabriel           #+#    #+#              #
+#    Updated: 2024/09/11 12:41:46 by gneto-co         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = cub3D
-MSG = make.msg
-CC = cc
-CFLAGS = -Wall -Wextra -Werror -g
-RM = rm -rf
+.PHONY: all re clean fclean bonus
 
-LIBFT_DIR = libraries/libft
-LIBFT = $(LIBFT_DIR)/libft.a
+# Program file name
+NAME		= 	cub3d
 
-SRC_DIR = sources
-SRC_MAIN = main.c
-SRC_CONTROLS = input.c movement.c
-SRC_PARSER = parse_map.c validate.c
-SRC_UTILS = error_handling.c math_utils.c
+# Mode
+BONUS 		= 	0
 
-SRC = $(addprefix $(SRC_DIR)/, $(SRC_MAIN))
-SRC += $(addprefix $(SRC_DIR)/controls/, $(SRC_CONTROLS))
-SRC += $(addprefix $(SRC_DIR)/parse/, $(SRC_PARSER))
-SRC += $(addprefix $(SRC_DIR)/utils/, $(SRC_UTILS))
+# Compiler and compilation flags
+CC			= 	gcc
+CFLAGS		= 	-Werror -Wextra -Wall -g3 #-fsanitize=address
 
-OBJ_DIR = objects
-OBJ = $(addprefix $(OBJ_DIR)/,$(SRC:$(SRC_DIR)/%.c=%.o))
+# Minilibx
+MLX_PATH	= 	minilibx-linux/
+MLX_NAME	= 	libmlx.a
+MLX			= 	$(MLX_PATH)$(MLX_NAME)
+#include "cub3d.h"
 
-UNAME := $(shell uname -s)
-ifeq ($(UNAME), Darwin)
-	MLX_DIR = libraries/minilibx_opengl_20191021
-	MLX_LIB = $(MLX_DIR)/libmlx.a
-	MLX_INC = -I$(MLX_DIR) -I$(MLX_DIR)/libmlx
-	MLX_FLAGS = -L$(MLX_DIR) -lmlx -framework OpenGL -framework AppKit
-	CFLAGS += -DGL_SILENCE_DEPRECATION
-else
-	MLX_DIR = libraries/minilibx-linux
-	MLX_LIB = $(MLX_DIR)/libmlx_Linux.a
-	MLX_INC = -I$(MLX_DIR) -I$(MLX_DIR)/linux
-	MLX_FLAGS = -L$(MLX_DIR) -lmlx_Linux -L/usr/lib -lXext -lX11 -lm -lz
-	CFLAGS += -DLINUX
-endif
+# Libft
+LIBFT_PATH	= 	libft/
+LIBFT_NAME	= 	libft.a
+LIBFT		= 	$(LIBFT_PATH)$(LIBFT_NAME)
 
-GREEN = \033[32m
-ORANGE = \033[31m\033[33m
-BLUE = \033[1;34m
-NC = \033[0m
-PECKED = ----------
+# Sources
+SRC_PATH 	= 	./sources/
+SRC			= 	main.c \
+				start_window.c \
+				math.c \
+				initialize.c \
+				close_free.c \
+				keys_usage.c \
+				square_touches.c \
+				utils/ft_usleep.c \
+				utils/get_data.c \
+				utils/image_utils.c \
+				utils/draw_utils.c \
+				utils/rand.c \
+				game_logic/ducks_logic.c \
+				game_logic/game_logic.c \
+				game_logic/player_logic.c \
+				game_render/game_render.c \
+				game_render/player_render.c \
+				game_render/ducks_render.c \
+				game_render/status_bar_render.c \
+				game_render/map_render.c \
+				
+			
+SRCS		= 	$(addprefix $(SRC_PATH), $(SRC))
 
-all: $(NAME)
+# Objects
+OBJ_PATH	= 	./objects/
+OBJ			= 	$(SRC:.c=.o)
+OBJS		= 	$(addprefix $(OBJ_PATH), $(OBJ))
 
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
-	@mkdir -p $(dir $@)
-	@$(CC) $(CFLAGS) $(MLX_INC) -c $< -o $@
-	@echo -n .
-	@sleep 0.3
+# Includes
+INC			=	-I ./includes/\
+				-I ./libft/\
+				-I ./minilibx-linux/
 
-$(NAME): $(OBJ) $(MLX_LIB) $(LIBFT)
-	@$(CC) $(CFLAGS) $(OBJ) $(MLX_FLAGS) $(LIBFT) -o $@
-	@echo ""
-	@make -f $(MSG) --no-print-directory
-	@echo "\n$(NAME) ready ... $(GREEN)[100%]$(NC)"
-	@echo "more... $(BLUE)make info$(NC)"
+# Main rule
+all: $(OBJ_PATH) $(MLX) $(LIBFT) $(NAME)
 
-$(MLX_LIB):
-	@$(MAKE) -C ./$(MLX_DIR) --no-print-directory
+# Objects directory rule
+$(OBJ_PATH):
+	mkdir -p $(OBJ_PATH)
+	mkdir -p $(OBJ_PATH)/utils
+	mkdir -p $(OBJ_PATH)/game_logic
+	mkdir -p $(OBJ_PATH)/game_render
 
+# Objects rule
+$(OBJ_PATH)%.o: $(SRC_PATH)%.c
+	$(CC) $(CFLAGS) -DBONUS=$(BONUS) -c $< -o $@ $(INC)
+
+# Project file rule
+$(NAME): $(OBJS)
+	$(CC) $(CFLAGS) -DBONUS=$(BONUS) $(OBJS) -o $@ $(INC) $(LIBFT) $(MLX) -lXext -lX11 -lm
+
+# Libft rule
 $(LIBFT):
-	@$(MAKE) -C ./$(LIBFT_DIR) --no-print-directory
+	make -sC $(LIBFT_PATH)
 
+# MLX rule
+$(MLX):
+	make -sC $(MLX_PATH)
+
+bonus:
+	make all BONUS=1
+
+# Clean up build files rule
 clean:
-	@$(RM) $(OBJ_DIR)
-	@$(MAKE) -C $(LIBFT_DIR) clean --no-print-directory
-	@echo "$(ORANGE)\n$(PECKED) program objects cleaned $(PECKED)$(NC)"
+	rm -rf $(OBJ_PATH)
+	make -C $(LIBFT_PATH) clean
+	make -C $(MLX_PATH) clean
 
-
+# Remove program executable
 fclean: clean
-	@$(RM) $(NAME)
-	@$(MAKE) -C $(LIBFT_DIR) fclean --no-print-directory
-	@echo "$(ORANGE)\n $(PECKED) program name cleaned $(PECKED)$(NC)"
+	rm -f $(NAME)
+	make -C $(LIBFT_PATH) fclean
 
+# Clean + remove executable
 re: fclean all
-
-v: all
-	valgrind -s --leak-check=full --show-leak-kinds=all ./$(NAME) assets/maps/map1.cub
-
-info:
-	@make -f $(MSG) msgcub --no-print-directory
-
-.PHONY: all clean fclean re

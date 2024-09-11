@@ -3,28 +3,73 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yadereve <yadereve@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/01 13:03:09 by yadereve          #+#    #+#             */
-/*   Updated: 2024/09/04 22:43:30 by yadereve         ###   ########.fr       */
+/*   Created: 2024/08/27 14:40:33 by gneto-co          #+#    #+#             */
+/*   Updated: 2024/09/11 16:42:20 by gneto-co         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/cub3d.h"
+#include "cub3d.h"
 
-int	main(int argc, char **argv)
+int	update_frame(void)
 {
-	t_game	game;
+	game_logic();
+	game_render();
+	return (0);
+}
 
-	if (argc != 2)
+void	game_window(void)
+{
+	t_data	*data;
+
+	data = get_data();
+	//
+	mlx_hook(data->win, EVENT_CLOSE, 0, close_window, NULL);
+	mlx_hook(data->win, KeyPress, KeyPressMask, (int (*)())key_press, &data);
+	mlx_hook(data->win, KeyRelease, KeyReleaseMask, (int (*)())key_release,
+		&data);
+	mlx_loop_hook(data->mlx, update_frame, NULL);
+	//
+	mlx_loop(data->mlx);
+}
+
+int	map_parser(char *file_name)
+{
+	t_data	*data;
+	int		fd;
+	int		i;
+	int		file_len;
+
+	data = get_data();
+	fd = open(file_name, O_RDONLY);
+	i = 0;
+	file_len = ft_filelen(file_name);
+	data->map.map = malloc(sizeof(char *) * file_len + 1);
+	while (i < file_len)
 	{
-		ft_printf("Usage: ./cub3D assets/maps/map1.cub\n");
-		return (EXIT_FAILURE);
+		data->map.map[i] = get_next_line(fd);
+		i++;
 	}
-	init_map(&game, argc, argv);
-	// init_mlx(&game);
-	// init_player(game.map);
-	// start_game(&game);
-	exit_game(&game, NULL);
-	return (EXIT_SUCCESS);
+	data->map.map[i] = NULL;
+	// map is correct
+	return (true);
+	// if map was wrong
+	// return false
+}
+
+int	main(int ac, char **av)
+{
+	if (ac != 2)
+	{
+		ft_printf(RED "ERROR: " NC "map missing");
+		return (0);
+	}
+	if (map_parser(av[1]) == false)
+		return (0);
+	intro_window();
+	data_initialize();
+	mlx_initialize();
+	game_window();
+	return (0);
 }
