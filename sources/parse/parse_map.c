@@ -6,7 +6,7 @@
 /*   By: yadereve <yadereve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 20:54:12 by yadereve          #+#    #+#             */
-/*   Updated: 2024/09/10 17:38:39 by yadereve         ###   ########.fr       */
+/*   Updated: 2024/09/14 12:01:58 by yadereve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,49 +57,68 @@ void	free_copy_map(char **copy)
 	free(copy);
 }
 
-void	fill(char **validate, t_point size, t_point move, int *collect)
+void fill(char **map_copy, t_point move, bool *is_access)
 {
-	ft_print_array(validate); //MARK
-	ft_printf("move.y = %d\nsize.y = %d\nmove.x = %d\nsize.x = %d\naqui = %c\n", move.y, size.y, move.x, size.x, validate[move.y][move.x]); //MARK
-	if (move.y < 0 || move.y > size.y || move.x < 0 || move.x > size.x
-		|| !ft_strchr("0NSEW", validate[move.y][move.x]))
-		return ;
-	validate[move.y][move.x] = 'V';
-	if (validate[move.y][move.x] == 'V')
-		(*collect)++;
-	fill(validate, size, (t_point){move.x - 1, move.y}, collect);
-	fill(validate, size, (t_point){move.x + 1, move.y}, collect);
-	fill(validate, size, (t_point){move.x, move.y - 1}, collect);
-	fill(validate, size, (t_point){move.x, move.y + 1}, collect);
+	if (map_copy[move.y][move.x] == '\0' || map_copy[move.y][move.x] == ' ')
+	{
+		*is_access = false;
+		return;
+	}
+	if (!ft_strchr("0NEWS", map_copy[move.y][move.x]))
+		return;
+	map_copy[move.y][move.x] = 'V';
+	fill(map_copy, (t_point){move.x - 1, move.y}, is_access);
+	fill(map_copy, (t_point){move.x + 1, move.y}, is_access);
+	fill(map_copy, (t_point){move.x, move.y - 1}, is_access);
+	fill(map_copy, (t_point){move.x, move.y + 1}, is_access);
 }
 
-void	flood_fill(char **validate, t_map *map, int *collect)
+void flood_fill(char **map_copy, t_map *map, bool *is_access)
 {
-	fill(validate, map->size, map->start, collect);
+	fill(map_copy, map->start, is_access);
 }
 
-bool	access_validate(char **valid, t_map *map)
+bool access_validate(char **valid, t_map *map)
 {
-	int	collect;
+	bool is_access;
 
-	collect = 0;
-	flood_fill(valid, map, &collect);
-	// ft_print_array(valid); //MARK
-	// if (collect == map->collect && valid[map->finish.y][map->finish.x] == 'V')
-	// 	return (true);
-	return (false);
+	is_access = true;
+	flood_fill(valid, map, &is_access);
+	return (is_access);
 }
 
-bool	find_start(char **map)
+bool	is_map_valid(char **map)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	if (!map)
+		return (false);
+	while (map[i])
+	{
+		j = 0;
+		while (map[i][j])
+		{
+			if (!ft_strchr("NEWS 10", map[i][j]))
+				return (false);
+			j++;
+		}
+		i++;
+	}
+	return (true);
+}
+
+bool	find_start_position(char **map)
 {
 	t_game	*game;
 	int	i;
 	int	j;
+	int	count;
 
 	game = get_game();
 	i = 0;
-	if (!map)
-		return (false);
+	count = 0;
 	while (map[i])
 	{
 		j = 0;
@@ -109,29 +128,31 @@ bool	find_start(char **map)
 			{
 				game->map.start.x = j;
 				game->map.start.y = i;
-				printf("find\nx: %d\ny: %d\n", game->map.start.x, game->map.start.y); //MARK
-				return (true);
+				count++;
 			}
 			j++;
 		}
 		i++;
 	}
-	return (false);
+	return (count == 1); // Check that there is only one starting position
 }
 
 int		validate_map(t_map *map)
 {
-	char	**validate;
+	char	**map_copy;
+	bool	map_valid;
+	bool	find_start;
+	bool	access;
 
-	validate = copy_map(map);
-	// ft_print_array(validate); //MARK
-	find_start(validate);
-	printf("befor\nx: %d\ny: %d\n", map->start.x, map->start.y); //MARK
-	if (access_validate(validate, map))
-			free_copy_map(validate);
+	map_copy = copy_map(map);
+	map_valid = is_map_valid(map_copy);
+	find_start = find_start_position(map_copy);
+	access = access_validate(map_copy, map);
+	if (map_valid && find_start && access)
+		free_copy_map(map_copy);
 	else
 	{
-		free_copy_map(validate);
+		free_copy_map(map_copy);
 		free_map(map);
 		error_message("Error: map is not valid");
 	}
