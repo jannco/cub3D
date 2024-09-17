@@ -6,13 +6,13 @@
 /*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 13:53:22 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/09/05 13:53:34 by gneto-co         ###   ########.fr       */
+/*   Updated: 2024/09/17 15:59:40 by gneto-co         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-bool	squares_touch(int x1, int y1, int size1, int x2, int y2, int size2)
+bool	squares_touch(double x1, double y1, double size1, double x2, double y2, double size2)
 {
 	bool	horizontal_overlap;
 	bool	vertical_overlap;

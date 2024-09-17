@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ducks.c                                            :+:      :+:    :+:   */
+/*   ducks_logic.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 13:21:00 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/09/05 13:49:34 by gneto-co         ###   ########.fr       */
+/*   Updated: 2024/09/17 15:58:55 by gneto-co         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,11 @@ void	ducks_logic(void)
 	// each duck
 	while (i < data->duck_amount)
 	{
+		// position 
+		get_ducks_position(i, &data->duck[i].x, &data->duck[i].y);
 		// duck got caught
 		if (squares_touch(data->player.x, data->player.y, data->player.size,
-				data->duck[i].x, data->duck[i].y, data->duck[i].size)
+				data->duck[i].x, data->duck[i].y, data->duck_size)
 			&& data->duck[i].status == FREE
 			&& data->player.holding < data->player.capacity)
 		{

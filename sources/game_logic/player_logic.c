@@ -13,46 +13,39 @@
 
 #include "cub3d.h"
 
-bool	map_wall_collision(int x, int y, char c)
+bool	map_wall_collision(double x, double y, char c)
 {
 	t_data	*data;
 	char	**map;
-	int		i;
-	int		j;
-	int		pos_x;
 	int		pos_y;
+	int		pos_x;
 
 	data = get_data();
 	map = data->map.map;
-	i = 0;
-	pos_y = data->map.minimap_start_y;
-	while (map[i])
+	pos_y = 0;
+	while (map[pos_y])
 	{
-		pos_x = data->map.minimap_start_y;
-		j = 0;
-		while (map[i][j])
+		pos_x = 0;
+		while (map[pos_y][pos_x])
 		{
-			if (map[i][j] == c)
+			if (map[pos_y][pos_x] == c)
 			{
-				if (squares_touch(x, y, data->player.size, pos_x, pos_y,
-						data->tile_size))
+				if (squares_touch(x, y, data->player.size, pos_x, pos_y, 1))
 				{
 					return (true);
 				}
 			}
-			pos_x += data->tile_size;
-			j++;
+			pos_x++;
 		}
-		pos_y += data->tile_size;
-		i++;
+		pos_y++;
 	}
 	return (false);
 }
 
 static void	movement(t_player *player)
 {
-	int		temp_x;
-	int		temp_y;
+	double	temp_x;
+	double	temp_y;
 	double	direction_radians;
 	t_data	*data;
 
@@ -60,16 +53,7 @@ static void	movement(t_player *player)
 	temp_x = player->x;
 	temp_y = player->y;
 	// movement
-	/*if (player->move_left)
-		temp_x -= player->move_speed;
-	if (player->move_right)
-		temp_x += player->move_speed;
-	if (player->move_up)
-		temp_y -= player->move_speed;
-	if (player->move_down)
-		temp_y += player->move_speed; */
 	direction_radians = degrees_to_radians(player->direction);
-	// printf("direction: %f\n", direction_radians);
 	if (player->move_up)
 	{
 		temp_x += cos(direction_radians) * player->move_speed;
@@ -96,11 +80,6 @@ static void	movement(t_player *player)
 	if (map_wall_collision(data->player.x, temp_y, WALL) == false)
 		data->player.y = temp_y;
 }
-// screen collision
-/* if (temp_x > 0 && temp_x < data->win_width - player->size)
-	data->player.x = temp_x;
-if (temp_y > 0 && temp_y < data->win_height - player->size * 2)
-	data->player.y = temp_y; */
 
 void	player_logic(void)
 {
@@ -109,8 +88,9 @@ void	player_logic(void)
 
 	data = get_data();
 	player = &(data->player);
-	// player vision update
+	// player movement update
 	movement(player);
+	// player vision update
 	if (player->looking_left)
 		player->direction -= player->looking_speed;
 	if (player->looking_right)

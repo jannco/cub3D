@@ -6,7 +6,7 @@
 /*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 13:21:00 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/09/11 16:44:09 by gneto-co         ###   ########.fr       */
+/*   Updated: 2024/09/17 16:48:48 by gneto-co         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,10 @@ bool	map_vision_wall_collision(int x, int y)
 	data = get_data();
 	map = data->map.map;
 	i = 0;
-	pos_y = data->map.minimap_start_y;
+	pos_y = 0;
 	while (map[i])
 	{
-		pos_x = data->map.minimap_start_x;
+		pos_x = 0;
 		j = 0;
 		while (map[i][j])
 		{
@@ -47,6 +47,7 @@ bool	map_vision_wall_collision(int x, int y)
 	return (false);
 }
 
+
 void	calculate_vision_point(t_player player, double *x, double *y,
 		int distance)
 {
@@ -60,26 +61,31 @@ void	calculate_vision_point(t_player player, double *x, double *y,
 void	draw_vision_line(t_data *data)
 {
 	t_player	player;
-	double		x;
-	double		y;
-	int			distance;
+	double		vp_x;
+	double		vp_y;
+	double		distance;
 
 	player = data->player;
-	player.x += player.size / 2;
-	player.y += player.size / 2;
+	player.x *= data->tile_size;
+	player.y *= data->tile_size;
+	player.x += player.rendered_size / 2;
+	player.y += player.rendered_size / 2;
 	distance = 1;
 	while (1)
 	{
-		calculate_vision_point(player, &x, &y, distance);
-		if (map_vision_wall_collision(x, y) == true)
+		calculate_vision_point(player, &vp_x, &vp_y, distance);
+		// printf("x: %f, y: %f\n", vp_x ,vp_y); // NOTE
+		if (map_vision_wall_collision(vp_x, vp_y) == true)
 		{
-			distance--;
-			calculate_vision_point(player, &x, &y, distance);
+			distance --;
+			calculate_vision_point(player, &vp_x, &vp_y, distance);
+			// printf("x: %f, y: %f\n", x, y); // NOTE
 			break ;
 		}
-		distance++;
+		distance ++;
 	}
-	draw_line(player.x, player.y, (int)x, (int)y, PURPLE_COLOR, 2);
+	draw_line_on_map(PURPLE_COLOR, 2, player.x, player.y, (int)vp_x, (int)vp_y);
+	// draw_line(player.x, player.y, (int)vp_x, (int)vp_y, PURPLE_COLOR, 2);
 }
 
 void	player_render(void)
@@ -88,6 +94,6 @@ void	player_render(void)
 
 	data = get_data();
 	draw_vision_line(data);
-	draw_full_square(data->player.color, data->player.x, data->player.y,
-		data->player.size);
+	draw_full_square(data->player.color, data->screen_width / 2,
+		data->screen_height / 2, data->player.rendered_size);
 }

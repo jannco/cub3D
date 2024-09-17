@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   initialize.c                                       :+:      :+:    :+:   */
+/*   initialize copy.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 13:08:48 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/09/17 16:57:40 by gneto-co         ###   ########.fr       */
+/*   Updated: 2024/09/13 06:56:53 by gneto-co         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	get_screen_resolution(int *width, int *height)
 	XCloseDisplay(display);
 }
 
-void	get_start_position(double *final_x, double *final_y, char c)
+void	get_start_position(int *final_x, int *final_y, char type)
 {
 	t_data	*data;
 	char	**map;
@@ -41,14 +41,13 @@ void	get_start_position(double *final_x, double *final_y, char c)
 		x = 0;
 		while (map[y][x])
 		{
-			if (map[y][x] == c)
+			if (map[y][x] == type)
 			{
 				*final_x = x;
 				*final_y = y;
-				printf("x = %f, y = %f\n", *final_x, *final_y);
 				return ;
 			}
-			x++;
+			x+= data->tile_size;
 		}
 		y++;
 	}
@@ -141,7 +140,6 @@ int	data_initialize(void)
 {
 	t_data	*data;
 	int		i;
-	int		direction;
 	int		start_direction;
 
 	// global
@@ -153,22 +151,32 @@ int	data_initialize(void)
 	get_screen_resolution(&data->screen_width, &data->screen_height);
 	data->win_height = data->screen_height;
 	data->win_width = data->screen_width;
-	data->tile_size = 35; // 35
+	data->tile_size = 35;
+	//
+	// map
+	//
+	data->map.minimap_start_x = 50;
+	data->map.minimap_start_y = 50;
 	//
 	// player
 	//
 	// ---movement
+	i = 0;
+	// while (!data->player.x)
+	// {
+	// 	if (i == 0)
+	// 		direction = (start_direction = NORTH, PLAYER_NORTH);
+	// 	if (i == 1)
+	// 		direction = (start_direction = SOUTH, PLAYER_SOUTH);
+	// 	if (i == 2)
+	// 		direction = (start_direction = EAST, PLAYER_EAST);
+	// 	if (i == 3)
+	// 		direction = (start_direction = WEST, PLAYER_WEST);
+	// 	i++;
+	// }
 	start_direction = get_player_char();
-	if (start_direction == PLAYER_NORTH)
-		direction = NORTH;
-	else if (start_direction == PLAYER_SOUTH)
-		direction = SOUTH;
-	else if (start_direction == PLAYER_EAST)
-		direction = EAST;
-	else if (start_direction == PLAYER_WEST)
-		direction = WEST;
 	get_start_position(&data->player.x, &data->player.y, start_direction);
-	data->player.move_speed = 0.5; // PLAYER SPEED
+	data->player.move_speed = PLAYER_SPEED;
 	data->player.move_left = 0;
 	data->player.move_right = 0;
 	data->player.move_up = 0;
@@ -177,10 +185,9 @@ int	data_initialize(void)
 	data->player.looking_speed = LOOKING_SPEED;
 	data->player.looking_left = 0;
 	data->player.looking_right = 0;
-	data->player.direction = direction;
+	data->player.direction = start_direction;
 	// ---other
-	data->player.size = 0.5;
-	data->player.rendered_size = data->tile_size * data->player.size;
+	data->player.size = data->tile_size - data->tile_size * 0.2;
 	data->player.capacity = PLAYER_CAPACITY;
 	data->player.holding = 0;
 	data->player.color = PINK_COLOR;
@@ -189,7 +196,7 @@ int	data_initialize(void)
 	//
 	data->duck_amount = get_ducks_amount();
 	data->duck = (t_duck *)malloc(sizeof(t_duck) * (data->duck_amount + 1));
-	data->duck_size = 1;
+	data->duck_size = data->player.size;
 	i = 0;
 	while (i < data->duck_amount)
 	{
@@ -200,11 +207,12 @@ int	data_initialize(void)
 	//
 	// camera
 	//
-	data->camera.width = data->screen_width;
-	data->camera.height = data->screen_height;
-	// NOTE
-	// data->camera.x = data->player.x - data->camera.width / 2;
-	// data->camera.y = data->player.y - data->camera.height / 2;
+	data->camera.screen_position_x = 50;
+	data->camera.screen_position_y = 50;
+	data->camera.width = 700;
+	data->camera.height = 700;
+	data->camera.x = data->player.x - data->camera.width / 2;
+	data->camera.y = data->player.y - data->camera.height / 2;
 	//
 	return (0);
 }
