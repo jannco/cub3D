@@ -6,7 +6,7 @@
 /*   By: yadereve <yadereve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 13:21:00 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/09/18 18:07:32 by yadereve         ###   ########.fr       */
+/*   Updated: 2024/09/18 19:41:47 by yadereve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,9 @@ void	draw_dda_line(t_point pos, t_point vp, int cor)
 	t_point	line;
 	double	steps;
 	int		i;
+	t_data	*data;
 
+	data = get_data();
 	delta.x = vp.x - pos.x;
 	delta.y = vp.y - pos.y;
 	steps = fmax(fabs(delta.x), fabs(delta.y));
@@ -67,9 +69,9 @@ void	draw_dda_line(t_point pos, t_point vp, int cor)
 			break ;
 		line.x += inc.x;
 		line.y += inc.y;
+		data->player.distance += sqrt(inc.x * inc.x + inc.y * inc.y);
 		i++;
 	}
-	// draw_line(pos.x, pos.y, (int)x, (int)y, cor, 1);
 	draw_line_on_map(cor, 1, pos, line);
 }
 
@@ -92,11 +94,10 @@ void	draw_vision_line(t_data *data)
 	while (graus_min <= graus_max)
 	{
 		calculate_vision_point(player, &vp, 3000, graus_min); //MARK
+		// calculate_vision_point(player, &vp, 3000, 0); //MARK
 		draw_dda_line(player.pos, vp, PURPLE_COLOR);
 		graus_min++;
 	}
-	// calculate_vision_point(player, &vp, 5000, 0); //MARK
-	// draw_dda_line(player.pos, vp, PURPLE_COLOR);
 }
 
 void	player_render(void)

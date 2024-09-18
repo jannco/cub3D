@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+         #
+#    By: yadereve <yadereve@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/15 10:09:55 by gabriel           #+#    #+#              #
-#    Updated: 2024/09/12 18:34:35 by gneto-co         ###   ########.fr        #
+#    Updated: 2024/09/18 18:29:12 by yadereve         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,8 +55,8 @@ SRC			= 	main.c \
 				game_render/ducks_render.c \
 				game_render/status_bar_render.c \
 				game_render/map_render.c \
-				
-			
+
+
 SRCS		= 	$(addprefix $(SRC_PATH), $(SRC))
 
 # Objects
@@ -74,40 +74,41 @@ all: $(OBJ_PATH) $(MLX) $(LIBFT) $(NAME)
 
 # Objects directory rule
 $(OBJ_PATH):
-	mkdir -p $(OBJ_PATH)
-	mkdir -p $(OBJ_PATH)/utils
-	mkdir -p $(OBJ_PATH)/game_logic
-	mkdir -p $(OBJ_PATH)/game_render
+	@mkdir -p $(OBJ_PATH)
+	@mkdir -p $(OBJ_PATH)/utils
+	@mkdir -p $(OBJ_PATH)/game_logic
+	@mkdir -p $(OBJ_PATH)/game_render
 
 # Objects rule
 $(OBJ_PATH)%.o: $(SRC_PATH)%.c
-	$(CC) $(CFLAGS) -DBONUS=$(BONUS) -c $< -o $@ $(INC)
+	@$(CC) $(CFLAGS) -DBONUS=$(BONUS) -c $< -o $@ $(INC)
 
 # Project file rule
 $(NAME): $(OBJS)
-	$(CC) $(CFLAGS) -DBONUS=$(BONUS) $(OBJS) -o $@ $(INC) $(LIBFT) $(MLX) -lXext -lX11 -lm
+	@$(CC) $(CFLAGS) -DBONUS=$(BONUS) $(OBJS) -o $@ $(INC) $(LIBFT) $(MLX) -lXext -lX11 -lm
 
 # Libft rule
 $(LIBFT):
-	make -sC $(LIBFT_PATH)
+	@make -sC $(LIBFT_PATH)
 
 # MLX rule
 $(MLX):
-	make -sC $(MLX_PATH)
+	@make -sC $(MLX_PATH)
 
 bonus:
 	make all BONUS=1
 
 # Clean up build files rule
 clean:
-	rm -rf $(OBJ_PATH)
-	make -C $(LIBFT_PATH) clean
-	make -C $(MLX_PATH) clean
+	@rm -rf $(OBJ_PATH)
+	@make -C $(LIBFT_PATH) clean
+	@make -C $(MLX_PATH) clean
 
 # Remove program executable
 fclean: clean
-	rm -f $(NAME)
-	make -C $(LIBFT_PATH) fclean
+	@rm -f $(NAME)
+	@make -C $(LIBFT_PATH) fclean
+	@echo "Done"
 
 # Clean + remove executable
 re: fclean all

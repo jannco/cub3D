@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: yadereve <yadereve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 14:38:08 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/09/18 15:45:40 by gneto-co         ###   ########.fr       */
+/*   Updated: 2024/09/18 19:34:08 by yadereve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ typedef struct s_player
 	int			looking_right;
 	int			looking_speed;
 	int			direction;
+	double		distance;
 
 	double		size;
 	double		rendered_size;
@@ -123,8 +124,11 @@ typedef struct s_mlx
 {
 	void		*mlx;
 	void		*win;
+	void		*win2;
 	void		*img;
+	void		*img2;
 	char		*img_data;
+	char		*img_data2;
 	int			bpp;
 	int			line_length;
 	int			endian;
