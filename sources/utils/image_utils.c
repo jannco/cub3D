@@ -6,7 +6,7 @@
 /*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 08:41:27 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/09/05 15:06:03 by gneto-co         ###   ########.fr       */
+/*   Updated: 2024/09/18 15:48:19 by gneto-co         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	put_pixel_to_image(int x, int y, int color)
 	data = get_data();
 	if ((x > 0 && x < data->win_width) && (y > 0 && y < data->win_height))
 	{
-		dst = data->img_data + (y * data->line_length + x * (data->bpp / 8));
+		dst = data->mlx.img_data + (y * data->mlx.line_length + x * (data->mlx.bpp / 8));
 		*(unsigned int *)dst = color;
 	}
 }

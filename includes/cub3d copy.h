@@ -6,7 +6,7 @@
 /*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 14:38:08 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/09/18 15:45:40 by gneto-co         ###   ########.fr       */
+/*   Updated: 2024/09/17 18:33:10 by gneto-co         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,10 @@
 #  define M_PI 3.14159265358979323846
 # endif
 
+//
+// DEFINES
+//
+
 # define EVENT_CLOSE 17
 # define SEC 1000000
 # define DELAY 80000
@@ -42,43 +46,6 @@
 # define SOUTH 90
 # define EAST 0
 # define WEST 180
-
-typedef struct s_point
-{
-	double		x;
-	double		y;
-}				t_point;
-
-typedef struct s_player
-{
-	int			move_left;
-	int			move_right;
-	int			move_up;
-	int			move_down;
-
-	t_point		pos;
-	double		move_speed;
-
-	int			looking_left;
-	int			looking_right;
-	int			looking_speed;
-	int			direction;
-
-	double		size;
-	double		rendered_size;
-	int			color;
-
-	int			capacity;
-	int			holding;
-}				t_player;
-
-typedef struct s_camera
-{
-	t_point		pos;
-	int			width;
-	int			height;
-	// t_point		screen_pos;
-}				t_camera;
 
 # define MAP 'm'
 # define MAP_STRUCTURE "01 L"
@@ -102,6 +69,46 @@ typedef struct s_camera
 # define BACKGROUND_COLOR BLACK_COLOR
 # define LAKE_COLOR 0x3f5ae0
 
+# define FREE 1
+# define CAUGHT 0
+
+//
+// STRUCTURES
+//
+
+typedef struct s_player
+{
+	int			move_left;
+	int			move_right;
+	int			move_up;
+	int			move_down;
+
+	double		x;
+	double		y;
+	double		move_speed;
+
+	int			looking_left;
+	int			looking_right;
+	int			looking_speed;
+	int			direction;
+
+	double		size;
+	int			color;
+
+	int			capacity;
+	int			holding;
+}				t_player;
+
+typedef struct s_camera
+{
+	int			x;
+	int			y;
+	int			width;
+	int			height;
+	int			screen_position_x;
+	int			screen_position_y;
+}				t_camera;
+
 typedef struct s_map
 {
 	char		**map;
@@ -109,15 +116,37 @@ typedef struct s_map
 	int			height;
 }				t_map;
 
-# define FREE 1
-# define CAUGHT 0
-
 typedef struct s_duck
 {
-	t_point		pos;
+	int			x;
+	int			y;
 	bool		special;
 	int			status;
 }				t_duck;
+
+typedef struct s_render
+{
+	int			tile_size;
+	t_camera	camera;
+}				t_render;
+
+typedef struct s_logic
+{
+	t_duck		*duck;
+	int			duck_amount;
+	int			duck_size;
+	int			caught_ducks;
+
+	t_player	player;
+}				t_logic;
+
+typedef struct s_screen
+{
+	int			screen_width;
+	int			screen_height;
+	int			win_width;
+	int			win_height;
+}				t_screen;
 
 typedef struct s_mlx
 {
@@ -130,27 +159,17 @@ typedef struct s_mlx
 	int			endian;
 }				t_mlx;
 
-
 typedef struct s_data
 {
-	int			screen_width;
-	int			screen_height;
-	int			win_width;
-	int			win_height;
-	int			tile_size;
-
+	t_render	render;
+	t_logic		logic;
 	t_mlx		mlx;
-
-	t_duck		*duck;
-	int			duck_amount;
-	int			duck_size;
-	int			caught_ducks;
-
-	t_player	player;
-
 	t_map		map;
-	t_camera	camera;
 }				t_data;
+
+//
+// FUNCTIONS
+//
 
 t_data			*get_data(void);
 void			ft_usleep(unsigned int microseconds);
@@ -181,8 +200,8 @@ int				key_press(int keycode);
 int				key_release(int keycode);
 int				update_frame(void);
 
-bool			squares_touch(t_point square1, double size1, t_point square2,
-					double size2);
+bool			squares_touch(double x1, double y1, double size1, double x2,
+					double y2, double size2);
 
 int				key_press(int keycode);
 int				key_release(int keycode);
@@ -197,12 +216,11 @@ void			player_render(void);
 void			map_render(void);
 void			status_bar_render(void);
 void			draw_item_on_map(int color, int x, int y, int size);
-void			draw_grid_on_map(int color, int x, int y, int size);
-void			draw_line_on_map(int color, int thickness, t_point p1,
-					t_point p2);
+void			draw_line_on_map(int color, int thickness, int x1, int y1,
+					int x2, int y2);
 
 double			degrees_to_radians(double degree);
 
-int				get_ducks_position(int duck_nb, double *duck_x, double *duck_y);
+int				get_ducks_position(int duck_nb, int *duck_x, int *duck_y);
 
 #endif

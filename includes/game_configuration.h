@@ -6,7 +6,7 @@
 /*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 10:10:39 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/09/13 03:58:47 by gneto-co         ###   ########.fr       */
+/*   Updated: 2024/09/18 12:43:29 by gneto-co         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 
 # define HISTORY_MOD false
 
-# define PLAYER_SPEED 10 // 10
+# define PLAYER_SPEED 0.25 // 10
 # define LOOKING_SPEED 5 // 3
 
 # define PLAYER_SIZE 30    // 30

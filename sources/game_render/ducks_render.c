@@ -6,7 +6,7 @@
 /*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 13:21:00 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/09/17 14:37:06 by gneto-co         ###   ########.fr       */
+/*   Updated: 2024/09/18 13:11:45 by gneto-co         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	ducks_render(void)
 	{
 		if (data->duck[i].status == FREE)
 		{
-			draw_item_on_map(DUCK_COLOR, data->duck[i].x, data->duck[i].y, duck_size);
+			draw_item_on_map(DUCK_COLOR, data->duck[i].pos.x, data->duck[i].pos.y, duck_size);
 			// draw_item_on_map(DUCK_COLOR, data->duck[i].x + data->duck_size / 2, data->duck[i].y - data->duck_size / 3, data->duck_size / 1.9);
 			// draw_item_on_map(DUCK_NOZZLE_COLOR, data->duck[i].x + data->duck_size, data->duck[i].y, data->duck_size / 3);
 		}

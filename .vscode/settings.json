@@ -2,6 +2,10 @@
     "files.associations": {
         "array": "c",
         "string": "c",
-        "string_view": "c"
+        "string_view": "c",
+        "atomic": "c",
+        "*.tcc": "c",
+        "ostream": "c",
+        "cub3d.h": "c"
     }
 }

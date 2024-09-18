@@ -6,7 +6,7 @@
 /*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 10:03:40 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/09/17 15:43:22 by gneto-co         ###   ########.fr       */
+/*   Updated: 2024/09/18 13:07:30 by gneto-co         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void	map_structure_selector(char item, int x, int y)
 	else
 		color = BACKGROUND_COLOR;
 	draw_item_on_map(color, x, y, data->tile_size);
+	draw_grid_on_map(BLACK_COLOR, x, y, data->tile_size);
 }
 
 void	map_render(void)
@@ -40,8 +41,8 @@ void	map_render(void)
 	int		x;
 
 	data = get_data();
-	data->camera.x = data->player.x * data->tile_size - data->camera.width / 2 ;
-	data->camera.y = data->player.y * data->tile_size - data->camera.height / 2;
+	data->camera.pos.x = data->player.pos.x * data->tile_size - data->camera.width / 2 ;
+	data->camera.pos.y = data->player.pos.y * data->tile_size - data->camera.height / 2;
 	map = data->map.map;
 	y = 0;
 	while (map[y])

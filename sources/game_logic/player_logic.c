@@ -30,7 +30,8 @@ bool	map_wall_collision(double x, double y, char c)
 		{
 			if (map[pos_y][pos_x] == c)
 			{
-				if (squares_touch(x, y, data->player.size, pos_x, pos_y, 1))
+				if (squares_touch((t_point){x, y}, data->player.size,
+						(t_point){pos_x, pos_y}, 1))
 				{
 					return (true);
 				}
@@ -50,8 +51,8 @@ static void	movement(t_player *player)
 	t_data	*data;
 
 	data = get_data();
-	temp_x = player->x;
-	temp_y = player->y;
+	temp_x = player->pos.x;
+	temp_y = player->pos.y;
 	// movement
 	direction_radians = degrees_to_radians(player->direction);
 	if (player->move_up)
@@ -75,10 +76,10 @@ static void	movement(t_player *player)
 		temp_y += cos(direction_radians) * player->move_speed;
 	}
 	// movement limitations
-	if (map_wall_collision(temp_x, data->player.y, WALL) == false)
-		data->player.x = temp_x;
-	if (map_wall_collision(data->player.x, temp_y, WALL) == false)
-		data->player.y = temp_y;
+	if (map_wall_collision(temp_x, data->player.pos.y, WALL) == false)
+		data->player.pos.x = temp_x;
+	if (map_wall_collision(data->player.pos.x, temp_y, WALL) == false)
+		data->player.pos.y = temp_y;
 }
 
 void	player_logic(void)
@@ -100,7 +101,7 @@ void	player_logic(void)
 	if (player->direction > 360)
 		player->direction -= 360;
 	// player touches lake / save duck
-	if (map_wall_collision(data->player.x, data->player.y, LAKE) == true
+	if (map_wall_collision(data->player.pos.x, data->player.pos.y, LAKE) == true
 		&& player->holding > 0)
 	{
 		player->holding--;
