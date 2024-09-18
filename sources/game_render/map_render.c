@@ -1,22 +1,8 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   map_render.c                                       :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: yadereve <yadereve@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/06 10:03:40 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/09/18 16:01:45 by yadereve         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "cub3d.h"
-
 void	map_structure_selector(char item, int x, int y)
 {
 	int		color;
 	t_data	*data;
-
 	data = get_data();
 	if (item == WALL)
 		color = WALL_COLOR;
@@ -50,22 +36,6 @@ void	map_render(void)
 		x = 0;
 		while (map[y][x])
 		{
-			c = map[i][j];
-			if (c == WALL)
-				color = WALL_COLOR;
-			else if (ft_strchr("NEWS0D", c))
-				color = FLOOR_COLOR;
-			else if (c == LAKE)
-				color = LAKE_COLOR;
-			else
-				color = BACKGROUND_COLOR;
-			draw_full_square(color, x, y, data->tile_size);
-			x += data->tile_size;
-			j++;
-		}
-		y += data->tile_size;
-		i++;
-	}
 			map_structure_selector(map[y][x], x, y);
 			x++;
 		}

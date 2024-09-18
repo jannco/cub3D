@@ -6,143 +6,97 @@
 /*   By: yadereve <yadereve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 13:21:00 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/09/18 16:04:52 by yadereve         ###   ########.fr       */
+/*   Updated: 2024/09/18 18:07:32 by yadereve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-
-bool	map_vision_wall_collision(int x, int y)
+bool	map_vision_wall_collision(t_point line)
 {
 	t_data	*data;
 	char	**mapa;
-	int		map_x;
-	int		map_y;
+	t_point	map;
+	t_point	map_max;
 
 	data = get_data();
-	map = data->map.map;
-	i = 0;
-	pos_y = 0;
-	// if (x % data->tile_size != 0 && y % data->tile_size != 0)
-	// {
-	// 	return false;
-	// }
-	while (map[i])
-	{
-		pos_x = 0;
-		j = 0;
-		while (map[i][j])
-		{
-			if (map[i][j] == WALL)
-			{
-				if (squares_touch(pos, 1, (t_point){pos_x, pos_y}, data->tile_size))
-				{
-					return (true);
-				}
-			}
-			pos_x += data->tile_size;
-			j++;
-		}
-		pos_y += data->tile_size;
-		i++;
-	}
 	mapa = data->map.map;
-
-	if (x < 0 || y < 0 || x >= data->map.width * data->tile_size || y >= data->map.height * data->tile_size)
-	// if (x < 0 || y < 0 || x > data->map.width * 32 || y > data->map.height * 32) //MARK
+	map_max.x = data->map.width * data->tile_size;
+	map_max.y = data->map.height * data->tile_size;
+	if (line.x < 0 || line.y < 0 || line.x >= map_max.x || line.y >= map_max.y)
 		return (true);
-	map_x = (x - data->map.minimap_start_x) / data->tile_size;
-	map_y = (y - data->map.minimap_start_y) / data->tile_size;
-	if (mapa[map_y][map_x] == WALL || mapa[map_y][map_x] == ' ')
+	map.x = (line.x) / data->tile_size;
+	map.y = (line.y) / data->tile_size;
+	if (mapa[(int)map.y][(int)map.x] == WALL ||
+			mapa[(int)map.y][(int)map.x] == VOID)
 		return (true);
 	return (false);
 }
 
 void	calculate_vision_point(t_player player, t_point *pos,
-		int distance)
-void	calculate_vision_point(t_player player, double *x, double *y,
 		int distance, int graus)
 {
 	double	degree_rad;
 
 	degree_rad = degrees_to_radians(player.direction + graus);
-	*x = player.x + distance * cos(degree_rad);
-	*y = player.y + distance * sin(degree_rad);
+	pos->x = player.pos.x + distance * cos(degree_rad);
+	pos->y = player.pos.y + distance * sin(degree_rad);
 }
 
 // ---------------------------------agora---------------------------------------
 
-void	draw_dda_line(double x0, double y0, double x1, double y1, int cor)
+void	draw_dda_line(t_point pos, t_point vp, int cor)
 {
-	double	dx;
-	double	dy;
-	double	x_inc;
-	double	y_inc;
-	double	x;
-	double	y;
+	t_point	delta;
+	t_point	inc;
+	t_point	line;
 	double	steps;
 	int		i;
 
-	dx = x1 - x0;
-	dy = y1 - y0;
-	steps = fmax(fabs(dx), fabs(dy));
-	x = x0;
-	y = y0;
-	x_inc = dx / steps;
-	y_inc = dy / steps;
+	delta.x = vp.x - pos.x;
+	delta.y = vp.y - pos.y;
+	steps = fmax(fabs(delta.x), fabs(delta.y));
+	line.x = pos.x;
+	line.y = pos.y;
+	inc.x = delta.x / steps;
+	inc.y = delta.y / steps;
 	i = 0;
 	while (i < steps)
 	{
-		if (map_vision_wall_collision((int) x, (int)y) == true)
+		if (map_vision_wall_collision(line) == true)
 			break ;
-		x += x_inc;
-		y += y_inc;
+		line.x += inc.x;
+		line.y += inc.y;
 		i++;
 	}
-	draw_line(x0, y0, (int)x, (int)y, cor, 1);
+	// draw_line(pos.x, pos.y, (int)x, (int)y, cor, 1);
+	draw_line_on_map(cor, 1, pos, line);
 }
 
 void	draw_vision_line(t_data *data)
 {
 	t_player	player;
 	t_point		vp;
-	double		distance;
-	double		vp_x;
-	double		vp_y;
 	int			graus;
+	int			graus_max;
+	int			graus_min;
 
-	graus = -30;
+	graus = 60;
+	graus_max = graus / 2;
+	graus_min = (graus / 2) * -1;
 	player = data->player;
 	player.pos.x *= data->tile_size;
 	player.pos.y *= data->tile_size;
 	player.pos.x += player.rendered_size / 2;
 	player.pos.y += player.rendered_size / 2;
-	distance = 1;
-	while (1)
-	player.x += player.size / 2;
-	player.y += player.size / 2;
-
-	while (graus < 30)
+	while (graus_min <= graus_max)
 	{
-		calculate_vision_point(player, &vp, distance);
-		if (map_vision_wall_collision(vp) == true)
-		{
-			distance --;
-			calculate_vision_point(player, &vp, distance);
-			break ;
-		}
-		distance ++;
+		calculate_vision_point(player, &vp, 3000, graus_min); //MARK
+		draw_dda_line(player.pos, vp, PURPLE_COLOR);
+		graus_min++;
 	}
-	draw_line_on_map(PURPLE_COLOR, 2, player.pos, vp);
-	// draw_line(player.x, player.y, (int)vp_x, (int)vp_y, PURPLE_COLOR, 2);
-		calculate_vision_point(player, &vp_x, &vp_y, 5000, graus);
-		draw_dda_line(player.x, player.y, vp_x, vp_y, PURPLE_COLOR);
-		graus++;
-	}
-	// calculate_vision_point(player, &vp_x, &vp_y, 5000, 0); //MARK
-	// draw_dda_line(player.x, player.y, vp_x, vp_y, PURPLE_COLOR);
-
+	// calculate_vision_point(player, &vp, 5000, 0); //MARK
+	// draw_dda_line(player.pos, vp, PURPLE_COLOR);
 }
 
 void	player_render(void)
