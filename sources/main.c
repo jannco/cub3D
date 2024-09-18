@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: yadereve <yadereve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 14:40:33 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/09/11 16:42:20 by gneto-co         ###   ########.fr       */
+/*   Updated: 2024/09/18 13:48:53 by yadereve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,16 @@ int	map_parser(char *file_name)
 	i = 0;
 	file_len = ft_filelen(file_name);
 	data->map.map = malloc(sizeof(char *) * file_len + 1);
+	data->map.width = 0;
+	data->map.height = 0;
 	while (i < file_len)
 	{
 		data->map.map[i] = get_next_line(fd);
+		if (data->map.width < ft_strlen(data->map.map[i]))
+			data->map.width = ft_strlen(data->map.map[i]);
 		i++;
 	}
+	data->map.height = i;
 	data->map.map[i] = NULL;
 	// map is correct
 	return (true);

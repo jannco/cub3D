@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initialize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: yadereve <yadereve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 13:08:48 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/09/11 17:15:18 by gneto-co         ###   ########.fr       */
+/*   Updated: 2024/09/18 15:37:30 by yadereve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	get_start_position(int *final_x, int *final_y, char c)
 			{
 				*final_x = x;
 				*final_y = y;
-				printf("x = %d, y = %d\n", *final_x, *final_y);
+				// printf("x = %d, y = %d\n", *final_x, *final_y); //MARK
 				return ;
 			}
 			x += data->tile_size;
@@ -171,8 +171,8 @@ int	data_initialize(void)
 		get_start_position(&data->player.x, &data->player.y, direction);
 		i++;
 	}
-	printf("player x: %d y:%d direction: %d\n", data->player.x, data->player.y,
-		direction);
+	// printf("player x: %d y:%d direction: %d\n", data->player.x, data->player.y,
+		// direction); //MARK
 	data->player.move_speed = PLAYER_SPEED;
 	data->player.move_left = 0;
 	data->player.move_right = 0;

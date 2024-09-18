@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+         #
+#    By: yadereve <yadereve@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/09 10:51:25 by gneto-co          #+#    #+#              #
-#    Updated: 2024/06/01 11:58:32 by gneto-co         ###   ########.fr        #
+#    Updated: 2024/09/16 12:23:34 by yadereve         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -128,6 +128,7 @@ OBJECTS = $(SOURCES:.c=.o)
 CC = cc
 
 CFLAGS = -Wall -Wextra -Werror
+CFLAGS += -fPIE
 
 all: $(NAME)
 

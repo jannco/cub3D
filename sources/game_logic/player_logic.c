@@ -69,7 +69,7 @@ static void	movement(t_player *player)
 	if (player->move_down)
 		temp_y += player->move_speed; */
 	direction_radians = degrees_to_radians(player->direction);
-	// printf("direction: %f\n", direction_radians);
+	// printf("direction: %f\n", direction_radians); //MARK
 	if (player->move_up)
 	{
 		temp_x += cos(direction_radians) * player->move_speed;

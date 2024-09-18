@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_render.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: yadereve <yadereve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 10:03:40 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/09/11 16:58:26 by gneto-co         ###   ########.fr       */
+/*   Updated: 2024/09/17 15:07:55 by yadereve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,8 @@ void	map_render(void)
 			c = map[i][j];
 			if (c == WALL)
 				color = WALL_COLOR;
-			else if (c == FLOOR || c == PLAYER_EAST || c == PLAYER_WEST
-				|| c == PLAYER_NORTH || c == PLAYER_SOUTH || c == DUCK)
+			else if (ft_strchr("NEWS0D", c))
 				color = FLOOR_COLOR;
-			else if (c == VOID || c == '\0')
-				color = BACKGROUND_COLOR;
 			else if (c == LAKE)
 				color = LAKE_COLOR;
 			else
