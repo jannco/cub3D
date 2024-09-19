@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game_configuration.h                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: yadereve <yadereve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 10:10:39 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/09/18 12:43:29 by gneto-co         ###   ########.fr       */
+/*   Updated: 2024/09/19 18:35:28 by yadereve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@
 
 # define HISTORY_MOD false
 
-# define PLAYER_SPEED 0.25 // 10
-# define LOOKING_SPEED 5 // 3
+# define PLAYER_SPEED 0.5 // 10
+# define LOOKING_SPEED 10 // 3
 
 # define PLAYER_SIZE 30    // 30
 # define PLAYER_CAPACITY 3 // 3

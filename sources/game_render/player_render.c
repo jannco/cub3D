@@ -6,7 +6,7 @@
 /*   By: yadereve <yadereve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 13:21:00 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/09/19 16:55:27 by yadereve         ###   ########.fr       */
+/*   Updated: 2024/09/19 18:48:10 by yadereve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,14 +38,14 @@ void	calculate_vision_point(t_player player, t_point *pos,
 {
 	double	degree_rad;
 
-	degree_rad = degrees_to_radians(player.direction + graus);
+	degree_rad = degrees_to_radians(graus);
 	pos->x = player.pos.x + distance * cos(degree_rad);
 	pos->y = player.pos.y + distance * sin(degree_rad);
 }
 
 // ---------------------------------agora---------------------------------------
 
-void	draw_dda_line(t_point pos, t_point vp, double *distance, int cor)
+void	draw_dda_line(t_point pos, t_point vp, float *distance, int cor)
 {
 	t_point	delta;
 	t_point	step;
@@ -92,15 +92,13 @@ void	draw_vision_line(t_data *data)
 	t_player	player;
 	t_point		vp;
 	int			fov;
-	float		graus;
-	int			wall_hieght;
+	float		wall_hieght;
 	int			screen_x;
-	double		distance;
+	float		distance;
 	float		ray_angl;
 
 
 	fov = 60;
-	graus = -fov / 2;
 	screen_x = 0;
 	player = data->player;
 	player.pos.x *= data->tile_size;
@@ -109,14 +107,16 @@ void	draw_vision_line(t_data *data)
 	player.pos.y += player.rendered_size / 2;
 	while (screen_x < data->win_width)
 	{
-		ray_angl = player.direction + graus + (fov * (double)screen_x / data->win_width);
+		ray_angl = player.direction + ((fov * (float)(screen_x - data->win_width / 2) / data->win_width));
 		calculate_vision_point(player, &vp, 3000, ray_angl);
 		distance = 0;
 		draw_dda_line(player.pos, vp, &distance, PURPLE_COLOR);
-		distance = distance * cos(degrees_to_radians(ray_angl - player.direction));
-		wall_hieght = (int)(data->tile_size / distance * data->win_height);
-		draw_wall_slise(screen_x, wall_hieght, WALL_COLOR);
-		// graus_min += fov / data->win_width;
+		distance *= cos(degrees_to_radians(ray_angl - player.direction));
+		if (distance > 0)
+		{
+			wall_hieght = (int)(data->tile_size / distance * data->win_height);
+			draw_wall_slise(screen_x, wall_hieght, WALL_COLOR);
+		}
 		screen_x++;
 	}
 }
