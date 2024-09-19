@@ -6,7 +6,7 @@
 /*   By: yadereve <yadereve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 13:21:00 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/09/19 18:48:10 by yadereve         ###   ########.fr       */
+/*   Updated: 2024/09/19 18:57:17 by yadereve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,8 +83,8 @@ void	draw_wall_slise(int x, int wall_height, int cor)
 	start = (data->win_height - wall_height) / 2;
 	end = (data->win_height + wall_height) / 2;
 	draw_line2(x, start, x, end, cor, 1);
-	draw_line2(x, 0, x, start, SILVER_COLOR, 1);
-	draw_line2(x, end, x, data->win_height, DARK_GREEN_COLOR, 1);
+	draw_line2(x, 0, x, start, LIGHT_BLUE_COLOR, 1);
+	draw_line2(x, end, x, data->win_height, LIGHT_GREEN_COLOR, 1);
 }
 
 void	draw_vision_line(t_data *data)

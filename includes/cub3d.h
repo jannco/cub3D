@@ -6,7 +6,7 @@
 /*   By: yadereve <yadereve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 14:38:08 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/09/19 15:35:45 by yadereve         ###   ########.fr       */
+/*   Updated: 2024/09/19 19:33:56 by yadereve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ typedef struct s_player
 	int			looking_left;
 	int			looking_right;
 	int			looking_speed;
-	int			direction;
+	float			direction;
 
 	double		size;
 	double		rendered_size;

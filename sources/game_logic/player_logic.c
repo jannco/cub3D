@@ -87,16 +87,27 @@ void	player_logic(void)
 {
 	t_data		*data;
 	t_player	*player;
+	float		smoothing_factor;
+	float		target_direction;
 
 	data = get_data();
 	player = &(data->player);
+	smoothing_factor = 0.3;
 	// player movement update
 	movement(player);
 	// player vision update
+	// if (player->looking_left)
+	// 	player->direction -= player->looking_speed;
+	// if (player->looking_right)
+	// 	player->direction += player->looking_speed;
+
+	target_direction = player->direction;
 	if (player->looking_left)
-		player->direction -= player->looking_speed;
+		target_direction -= player->looking_speed;
 	if (player->looking_right)
-		player->direction += player->looking_speed;
+		target_direction += player->looking_speed;
+	player->direction = player->direction + (target_direction - player->direction) * smoothing_factor;
+
 	if (player->direction < 0)
 		player->direction += 360;
 	if (player->direction > 360)
