@@ -6,7 +6,7 @@
 /*   By: yadereve <yadereve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 14:40:33 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/09/18 16:02:02 by yadereve         ###   ########.fr       */
+/*   Updated: 2024/09/19 10:12:04 by yadereve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,17 @@ void	game_window(void)
 	t_data	*data;
 
 	data = get_data();
-	//
+	// win1
 	mlx_hook(data->mlx.win, EVENT_CLOSE, 0, close_window, NULL);
 	mlx_hook(data->mlx.win, KeyPress, KeyPressMask, (int (*)())key_press, &data);
 	mlx_hook(data->mlx.win, KeyRelease, KeyReleaseMask, (int (*)())key_release,
 		&data);
+	// win2
+	mlx_hook(data->mlx.win2, EVENT_CLOSE, 0, close_window, NULL);
+	mlx_hook(data->mlx.win2, KeyPress, KeyPressMask, (int (*)())key_press, &data);
+	mlx_hook(data->mlx.win2, KeyRelease, KeyReleaseMask, (int (*)())key_release,
+		&data);
+
 	mlx_loop_hook(data->mlx.mlx, update_frame, NULL);
 	//
 	mlx_loop(data->mlx.mlx);

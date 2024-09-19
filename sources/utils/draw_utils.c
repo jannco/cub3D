@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: yadereve <yadereve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 13:04:59 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/09/11 15:30:21 by gneto-co         ###   ########.fr       */
+/*   Updated: 2024/09/19 12:15:56 by yadereve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,52 @@ void	draw_line(int x1, int y1, int x2, int y2, int color,
 			while (j <= thickness / 2)
 			{
 				put_pixel_to_image(x1 + i, y1 + j, color);
+				j++;
+			}
+			i++;
+		}
+		if (x1 == x2 && y1 == y2)
+			break ;
+		e2 = err;
+		if (e2 > -dx)
+		{
+			err -= dy;
+			x1 += sx;
+		}
+		if (e2 < dy)
+		{
+			err += dx;
+			y1 += sy;
+		}
+	}
+}
+
+void	draw_line2(int x1, int y1, int x2, int y2, int color,
+		int thickness)
+{
+	int	dx;
+	int	dy;
+	int	sx;
+	int	sy;
+	int	err;
+	int	e2;
+	int	i;
+	int	j;
+
+	dx = abs(x2 - x1);
+	dy = abs(y2 - y1);
+	sx = (x1 < x2) ? 1 : -1;
+	sy = (y1 < y2) ? 1 : -1;
+	err = (dx > dy ? dx : -dy) / 2;
+	while (1)
+	{
+		i = -thickness / 2;
+		while (i <= thickness / 2)
+		{
+			j = -thickness / 2;
+			while (j <= thickness / 2)
+			{
+				put_pixel_to_image2(x1 + i, y1 + j, color);
 				j++;
 			}
 			i++;
@@ -105,10 +151,10 @@ void	draw_full_triangle(int color, int pos_x, int pos_y, int height)
 	int	width;
 
 	y = 0;
-	while (y <= height) 
+	while (y <= height)
 	{
 		width = height - y;
-		
+
 		x = pos_x - width / 2;
 		while (x <= pos_x + width / 2)
 		{

@@ -6,7 +6,7 @@
 /*   By: yadereve <yadereve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 13:21:00 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/09/18 19:41:47 by yadereve         ###   ########.fr       */
+/*   Updated: 2024/09/19 12:48:22 by yadereve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	calculate_vision_point(t_player player, t_point *pos,
 void	draw_dda_line(t_point pos, t_point vp, int cor)
 {
 	t_point	delta;
-	t_point	inc;
+	t_point	step;
 	t_point	line;
 	double	steps;
 	int		i;
@@ -60,44 +60,78 @@ void	draw_dda_line(t_point pos, t_point vp, int cor)
 	steps = fmax(fabs(delta.x), fabs(delta.y));
 	line.x = pos.x;
 	line.y = pos.y;
-	inc.x = delta.x / steps;
-	inc.y = delta.y / steps;
+	step.x = delta.x / steps;
+	step.y = delta.y / steps;
 	i = 0;
 	while (i < steps)
 	{
 		if (map_vision_wall_collision(line) == true)
 			break ;
-		line.x += inc.x;
-		line.y += inc.y;
-		data->player.distance += sqrt(inc.x * inc.x + inc.y * inc.y);
+		line.x += step.x;
+		line.y += step.y;
+		data->player.distance += sqrt(step.x * step.x + step.y * step.y);
 		i++;
 	}
 	draw_line_on_map(cor, 1, pos, line);
+}
+
+void	draw_wall_slise(int x, int wall_height, int cor)
+{
+	t_data *data;
+	int		start;
+	int		end;
+
+	data = get_data();
+	start = (data->win_height - wall_height) / 2;
+	end = (data->win_height + wall_height) / 2;
+	draw_line2(x, start, x, end, cor, 1);
+	draw_line2(x, 0, x, start, BLUE_COLOR, 1);
+	draw_line2(x, end, x, data->win_height, WHITE_COLOR, 1);
 }
 
 void	draw_vision_line(t_data *data)
 {
 	t_player	player;
 	t_point		vp;
-	int			graus;
+	int			fov;
 	int			graus_max;
 	int			graus_min;
+	int			wall_hieght;
+	int			screen_x;
 
-	graus = 60;
-	graus_max = graus / 2;
-	graus_min = (graus / 2) * -1;
+	fov = 60;
+	graus_max = fov / 2;
+	graus_min = -graus_max;
+	screen_x = 0;
 	player = data->player;
 	player.pos.x *= data->tile_size;
 	player.pos.y *= data->tile_size;
 	player.pos.x += player.rendered_size / 2;
 	player.pos.y += player.rendered_size / 2;
-	while (graus_min <= graus_max)
+	while (graus_min <= graus_max && screen_x < data->win_width)
 	{
 		calculate_vision_point(player, &vp, 3000, graus_min); //MARK
 		// calculate_vision_point(player, &vp, 3000, 0); //MARK
 		draw_dda_line(player.pos, vp, PURPLE_COLOR);
+		wall_hieght = (int)(data->tile_size / data->player.distance * data->win_height);
+		printf("wall: %d\n", wall_hieght);
+		draw_wall_slise(screen_x, wall_hieght, WALL_COLOR);
 		graus_min++;
+		screen_x++;
 	}
+	// while (screen_x < data->win_width)
+	// {
+	// 	calculate_vision_point(player, &vp, 3000, graus_min);
+	// 	draw_dda_line(player.pos, vp, PURPLE_COLOR);
+	// 	wall_hieght = (int)(data->tile_size / data->player.distance * data->win_height);
+	// 	draw_wall_slise(graus_min, wall_hieght, WALL_COLOR);
+	// 	screen_x++;
+	// }
+}
+
+void	draw_scene()
+{
+
 }
 
 void	player_render(void)

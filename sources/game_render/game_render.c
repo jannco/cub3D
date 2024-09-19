@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game_render.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: yadereve <yadereve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 13:21:00 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/09/18 15:51:16 by gneto-co         ###   ########.fr       */
+/*   Updated: 2024/09/19 12:38:39 by yadereve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,4 +49,5 @@ void	game_render(void)
 	ducks_render();
 	status_bar_render();
 	mlx_put_image_to_window(data->mlx.mlx, data->mlx.win, data->mlx.img, 0, 0);
+	mlx_put_image_to_window(data->mlx.mlx, data->mlx.win2, data->mlx.img2, 0, 0);
 }

@@ -6,7 +6,7 @@
 /*   By: yadereve <yadereve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 14:38:08 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/09/18 19:34:08 by yadereve         ###   ########.fr       */
+/*   Updated: 2024/09/19 12:16:44 by yadereve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,11 +159,14 @@ typedef struct s_data
 t_data			*get_data(void);
 void			ft_usleep(unsigned int microseconds);
 void			put_pixel_to_image(int x, int y, int color);
+void			put_pixel_to_image2(int x, int y, int color);
 
 void			draw_full_square(int color, int pos_x, int pos_y, int size);
 void			draw_empty_square(int color, int pos_x, int pos_y, int size);
 void			draw_background(int color);
 void			draw_line(int x1, int y1, int x2, int y2, int color,
+					int thickness);
+void			draw_line2(int x1, int y1, int x2, int y2, int color,
 					int thickness);
 void			draw_full_triangle(int color, int pos_x, int pos_y, int height);
 
