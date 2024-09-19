@@ -6,7 +6,7 @@
 /*   By: yadereve <yadereve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 13:08:48 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/09/18 19:45:28 by yadereve         ###   ########.fr       */
+/*   Updated: 2024/09/19 15:36:44 by yadereve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,7 +131,6 @@ int	data_initialize(void)
 	player->looking_speed = LOOKING_SPEED;
 	player->looking_left = 0;
 	player->looking_right = 0;
-	player->distance = 0;
 	// ---other
 	player->size = 0.5;
 	player->rendered_size = data->tile_size * player->size;

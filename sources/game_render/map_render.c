@@ -9,8 +9,6 @@ void	map_structure_selector(char item, int x, int y)
 	else if (item == FLOOR || item == PLAYER_EAST || item == PLAYER_WEST
 		|| item == PLAYER_NORTH || item == PLAYER_SOUTH || item == DUCK)
 		color = FLOOR_COLOR;
-	else if (item == VOID || item == '\0')
-		color = BACKGROUND_COLOR;
 	else if (item == LAKE)
 		color = LAKE_COLOR;
 	else

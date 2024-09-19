@@ -68,13 +68,13 @@ static void	movement(t_player *player)
 	}
 	if (player->move_left)
 	{
-		temp_x += sin(direction_radians) * player->move_speed;
-		temp_y -= cos(direction_radians) * player->move_speed;
+		temp_x += sin(direction_radians - PI_2) * player->move_speed;
+		temp_y -= cos(direction_radians - PI_2) * player->move_speed;
 	}
 	if (player->move_right)
 	{
-		temp_x -= sin(direction_radians) * player->move_speed;
-		temp_y += cos(direction_radians) * player->move_speed;
+		temp_x -= sin(direction_radians + PI_2) * player->move_speed;
+		temp_y += cos(direction_radians + PI_2) * player->move_speed;
 	}
 	// movement limitations
 	if (map_wall_collision(temp_x, data->player.pos.y, WALL) == false)

@@ -6,7 +6,7 @@
 /*   By: yadereve <yadereve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 14:38:08 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/09/19 12:16:44 by yadereve         ###   ########.fr       */
+/*   Updated: 2024/09/19 15:35:45 by yadereve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,11 @@
 # include <sys/time.h>
 # include <time.h>
 # include <unistd.h>
-# ifndef M_PI
-#  define M_PI 3.14159265358979323846
-# endif
+
+# define M_PI 3.14159265358979323846
+# define PI_2 2 * M_PI
+# define PI_0_5 M_PI / 2
+# define PI_1_5 PI_0_5 * 3
 
 # define EVENT_CLOSE 17
 # define SEC 1000000
@@ -63,7 +65,6 @@ typedef struct s_player
 	int			looking_right;
 	int			looking_speed;
 	int			direction;
-	double		distance;
 
 	double		size;
 	double		rendered_size;

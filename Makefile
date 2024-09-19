@@ -6,7 +6,7 @@
 #    By: yadereve <yadereve@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/15 10:09:55 by gabriel           #+#    #+#              #
-#    Updated: 2024/09/18 18:29:12 by yadereve         ###   ########.fr        #
+#    Updated: 2024/09/19 16:38:18 by yadereve         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -86,6 +86,7 @@ $(OBJ_PATH)%.o: $(SRC_PATH)%.c
 # Project file rule
 $(NAME): $(OBJS)
 	@$(CC) $(CFLAGS) -DBONUS=$(BONUS) $(OBJS) -o $@ $(INC) $(LIBFT) $(MLX) -lXext -lX11 -lm
+	@echo "done"
 
 # Libft rule
 $(LIBFT):
