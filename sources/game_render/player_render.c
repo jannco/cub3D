@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player_render.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yadereve <yadereve@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 13:21:00 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/09/19 18:57:17 by yadereve         ###   ########.fr       */
+/*   Updated: 2024/09/20 10:18:49 by gneto-co         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,14 @@ bool	map_vision_wall_collision(t_point line)
 	mapa = data->map.map;
 	map_max.x = data->map.width * data->tile_size;
 	map_max.y = data->map.height * data->tile_size;
+	
 	if (line.x < 0 || line.y < 0 || line.x >= map_max.x || line.y >= map_max.y)
 		return (true);
 	map.x = (line.x) / data->tile_size;
 	map.y = (line.y) / data->tile_size;
 	if (mapa[(int)map.y][(int)map.x] == WALL ||
-			mapa[(int)map.y][(int)map.x] == VOID)
-		return (true);
+			mapa[(int)map.y][(int)map.x] == VOID || (mapa[(int)map.y][(int)map.x] == DUCK) || (mapa[(int)map.y][(int)map.x] == LAKE))
+		return (data->temp_type = mapa[(int)map.y][(int)map.x], true);
 	return (false);
 }
 
@@ -96,6 +97,7 @@ void	draw_vision_line(t_data *data)
 	int			screen_x;
 	float		distance;
 	float		ray_angl;
+	int color;
 
 
 	fov = 60;
@@ -115,7 +117,14 @@ void	draw_vision_line(t_data *data)
 		if (distance > 0)
 		{
 			wall_hieght = (int)(data->tile_size / distance * data->win_height);
-			draw_wall_slise(screen_x, wall_hieght, WALL_COLOR);
+			if (data->temp_type == DUCK)
+				color = DUCK_COLOR;
+			else if (data->temp_type == LAKE)
+				color = LAKE_COLOR;
+			else
+				color = WALL_COLOR;
+				
+			draw_wall_slise(screen_x, wall_hieght, color);
 		}
 		screen_x++;
 	}

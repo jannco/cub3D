@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initialize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yadereve <yadereve@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 13:08:48 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/09/19 19:11:55 by yadereve         ###   ########.fr       */
+/*   Updated: 2024/09/20 10:34:18 by gneto-co         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,7 @@ void	map_info_selector(t_point pos, char c)
 	data = get_data();
 	if (c == DUCK)
 	{
-		data->duck[duck_i].pos.x = pos.x;
-		data->duck[duck_i].pos.y = pos.y;
+		data->duck[duck_i].pos = pos;
 		data->duck[duck_i].status = FREE;
 		duck_i++;
 	}
@@ -122,13 +121,13 @@ int	data_initialize(void)
 	//
 	// ---movement
 	player = &data->player;
-	player->move_speed = PLAYER_SPEED; // PLAYER SPEED
+	player->move_speed = PLAYER_REGULAR_SPEED;
 	player->move_left = 0;
 	player->move_right = 0;
 	player->move_up = 0;
 	player->move_down = 0;
 	// ---looking
-	player->looking_speed = LOOKING_SPEED;
+	player->looking_speed = LOOKING_REGULAR_SPEED;
 	player->looking_left = 0;
 	player->looking_right = 0;
 	// ---other

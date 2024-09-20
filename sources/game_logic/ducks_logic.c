@@ -6,7 +6,7 @@
 /*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 13:21:00 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/09/18 15:43:47 by gneto-co         ###   ########.fr       */
+/*   Updated: 2024/09/20 10:05:45 by gneto-co         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ void	ducks_logic(void)
 			data->duck[i].status = CAUGHT;
 			ft_printf("\a");
 			data->player.holding++;
+			// removing duck from map
+			data->map.map[(int)data->duck[i].pos.y][(int)data->duck[i].pos.x] = FLOOR;
 		}
 		i++;
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yadereve <yadereve@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 14:38:08 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/09/19 19:33:56 by yadereve         ###   ########.fr       */
+/*   Updated: 2024/09/20 10:30:55 by gneto-co         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ typedef struct s_player
 	int			move_right;
 	int			move_up;
 	int			move_down;
+	int			running;
 
 	t_point		pos;
 	double		move_speed;
@@ -119,6 +120,7 @@ typedef struct s_duck
 	t_point		pos;
 	bool		special;
 	int			status;
+	t_point		map_pos;
 }				t_duck;
 
 typedef struct s_mlx
@@ -150,6 +152,8 @@ typedef struct s_data
 	int			duck_amount;
 	int			duck_size;
 	int			caught_ducks;
+
+	char		temp_type;
 
 	t_player	player;
 

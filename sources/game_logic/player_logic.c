@@ -55,7 +55,11 @@ static void	movement(t_player *player)
 	temp_y = player->pos.y;
 	// movement
 	direction_radians = degrees_to_radians(player->direction);
-	// printf("direction: %f\n", direction_radians); //MARK
+	
+	if (player->running)
+		player->move_speed = PLAYER_RUNNING_SPEED;
+	else
+		player->move_speed = PLAYER_REGULAR_SPEED;
 	if (player->move_up)
 	{
 		temp_x += cos(direction_radians) * player->move_speed;
@@ -100,14 +104,17 @@ void	player_logic(void)
 	// 	player->direction -= player->looking_speed;
 	// if (player->looking_right)
 	// 	player->direction += player->looking_speed;
-
 	target_direction = player->direction;
+	if (player->running)
+		player->looking_speed = LOOKING_RUNNING_SPEED;
+	else
+		player->looking_speed = LOOKING_REGULAR_SPEED;
 	if (player->looking_left)
 		target_direction -= player->looking_speed;
 	if (player->looking_right)
 		target_direction += player->looking_speed;
-	player->direction = player->direction + (target_direction - player->direction) * smoothing_factor;
-
+	player->direction = player->direction + (target_direction
+			- player->direction) * smoothing_factor;
 	if (player->direction < 0)
 		player->direction += 360;
 	if (player->direction > 360)
