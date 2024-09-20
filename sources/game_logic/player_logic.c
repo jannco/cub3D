@@ -123,9 +123,9 @@ void	player_logic(void)
 	if (map_wall_collision(data->player.pos.x, data->player.pos.y, LAKE) == true
 		&& player->holding > 0)
 	{
-		player->holding--;
 		ft_usleep(SEC * 1);
 		ft_printf("\a");
+		player->holding--;
 		data->caught_ducks++;
 	}
 	// player save all ducks

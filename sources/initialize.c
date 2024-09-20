@@ -6,7 +6,7 @@
 /*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 13:08:48 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/09/20 15:05:01 by gneto-co         ###   ########.fr       */
+/*   Updated: 2024/09/20 23:48:12 by gneto-co         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,8 +114,15 @@ int	data_initialize(void)
 	//
 	get_screen_resolution(&data->screen_width, &data->screen_height);
 	data->win_height = data->screen_height;
-	data->win_width  = data->screen_width;
+	data->win_width = data->screen_width;
 	data->tile_size = 50; // 35
+	//
+	// map info
+	//
+	data->minimap.scale = 10;
+	data->minimap.size = data->win_width / 6;
+	data->minimap.pos = (t_point){data->win_width - data->minimap.size
+		- (data->minimap.size / 12), (data->minimap.size / 12)};
 	//
 	// player
 	//
@@ -143,13 +150,6 @@ int	data_initialize(void)
 	data->duck_amount = map_item_count(DUCK);
 	data->duck = (t_duck *)malloc(sizeof(t_duck) * (data->duck_amount + 1));
 	data->duck_size = 1;
-	//
-	// map info
-	//
-	data->minimap.scale = 10;
-	data->minimap.size = data->win_width / 6;
-	data->minimap.pos = (t_point){data->win_width - data->minimap.size
-		- (data->minimap.size / 12), (data->minimap.size / 12)};
 	//
 	//
 	//
