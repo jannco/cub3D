@@ -6,7 +6,7 @@
 /*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 13:08:48 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/09/20 10:34:18 by gneto-co         ###   ########.fr       */
+/*   Updated: 2024/09/20 12:19:13 by gneto-co         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ int	data_initialize(void)
 	//
 	get_screen_resolution(&data->screen_width, &data->screen_height);
 	data->win_height = data->screen_height;
-	data->win_width = data->screen_width;
+	data->win_width  = data->screen_width;
 	data->tile_size = 50; // 35
 	//
 	// player
@@ -133,6 +133,7 @@ int	data_initialize(void)
 	// ---other
 	player->size = 0.5;
 	player->rendered_size = data->tile_size * player->size;
+	player->minimap_rendered_size = data->minimap.scale * player->size;
 	player->capacity = PLAYER_CAPACITY;
 	player->holding = 0;
 	player->color = PINK_COLOR;
@@ -143,12 +144,14 @@ int	data_initialize(void)
 	data->duck = (t_duck *)malloc(sizeof(t_duck) * (data->duck_amount + 1));
 	data->duck_size = 1;
 	//
-	// camera
-	//
-	data->camera.width = data->screen_width;
-	data->camera.height = data->screen_height;
-	//
 	// map info
+	//
+	data->minimap.scale = 10;
+	data->minimap.size = data->win_width / 6;
+	data->minimap.pos = (t_point){data->win_width - data->minimap.size
+		- (data->minimap.size / 12), (data->minimap.size / 12)};
+	//
+	//
 	//
 	get_map_info();
 	return (0);
@@ -160,15 +163,16 @@ int	mlx_initialize(void)
 
 	data = get_data();
 	data->mlx.mlx = mlx_init();
-	data->mlx.win = mlx_new_window(data->mlx.mlx, data->win_width, data->win_height,
-			"cub3d");
-	data->mlx.img = mlx_new_image(data->mlx.mlx, data->win_width, data->win_height);
+	data->mlx.win = mlx_new_window(data->mlx.mlx, data->win_width,
+			data->win_height, "cub3d");
+	data->mlx.img = mlx_new_image(data->mlx.mlx, data->win_width,
+			data->win_height);
 	data->mlx.img_data = mlx_get_data_addr(data->mlx.img, &data->mlx.bpp,
 			&data->mlx.line_length, &data->mlx.endian);
-
-	data->mlx.win2 = mlx_new_window(data->mlx.mlx, data->win_width, data->win_height,
-			"Raycaster");
-	data->mlx.img2 = mlx_new_image(data->mlx.mlx, data->win_width, data->win_height);
+	data->mlx.win2 = mlx_new_window(data->mlx.mlx, data->win_width,
+			data->win_height, "Raycaster");
+	data->mlx.img2 = mlx_new_image(data->mlx.mlx, data->win_width,
+			data->win_height);
 	data->mlx.img_data2 = mlx_get_data_addr(data->mlx.img2, &data->mlx.bpp,
 			&data->mlx.line_length, &data->mlx.endian);
 	return (0);

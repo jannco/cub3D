@@ -6,7 +6,7 @@
 /*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 13:21:00 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/09/05 13:56:14 by gneto-co         ###   ########.fr       */
+/*   Updated: 2024/09/20 11:11:58 by gneto-co         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ void	status_bar_render(void)
 	i = 0;
 	while (i < data->player.capacity)
 	{
+		// MARK
+		// MARK
 		draw_empty_square(ORANGE_COLOR, data->screen_width - 100 - (i * 30), 30,
 			20);
 		if (data->player.holding > i)

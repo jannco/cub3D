@@ -13,8 +13,9 @@ void	map_structure_selector(char item, int x, int y)
 		color = LAKE_COLOR;
 	else
 		color = BACKGROUND_COLOR;
-	draw_item_on_map(color, x, y, data->tile_size);
-	draw_grid_on_map(BLACK_COLOR, x, y, data->tile_size);
+	draw_item_on_map(color, x, y, data->minimap.scale);
+	// MARK
+	// draw_grid_on_map(BLACK_COLOR, x, y, data->tile_size);
 }
 
 void	map_render(void)
@@ -25,8 +26,8 @@ void	map_render(void)
 	int		x;
 
 	data = get_data();
-	data->camera.pos.x = data->player.pos.x * data->tile_size - data->camera.width / 2 ;
-	data->camera.pos.y = data->player.pos.y * data->tile_size - data->camera.height / 2;
+	data->camera.pos.x = data->player.pos.x * data->minimap.scale - (data->minimap.pos.x + data->minimap.size / 2);
+	data->camera.pos.y = data->player.pos.y * data->minimap.scale - (data->minimap.pos.y + data->minimap.size / 2);
 	map = data->map.map;
 	y = 0;
 	while (map[y])
@@ -41,6 +42,4 @@ void	map_render(void)
 	}
 	// NOTE
 	// draw_item_on_map(RED_COLOR, data->player.x, data->player.y, data->tile_size);
-	// draw_full_square(PURPLE_COLOR, data->camera.width, data->camera.height, 10);
-	// printf("player.x: %d, player.y: %d\n", data->player.x, data->player.y);
 }

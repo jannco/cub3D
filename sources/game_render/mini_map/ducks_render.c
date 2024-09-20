@@ -6,7 +6,7 @@
 /*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 13:21:00 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/09/18 13:11:45 by gneto-co         ###   ########.fr       */
+/*   Updated: 2024/09/20 11:26:04 by gneto-co         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	ducks_render(void)
 	
 
 	data = get_data();
-	duck_size = data->tile_size - data->tile_size * 0.3;
+	duck_size = data->minimap.scale;
 	i = 0;
 	while (i < data->duck_amount)
 	{

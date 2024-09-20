@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   player_render.c                                    :+:      :+:    :+:   */
+/*   raycaster_map_render.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 13:21:00 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/09/20 10:18:49 by gneto-co         ###   ########.fr       */
+/*   Updated: 2024/09/20 11:44:38 by gneto-co         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-bool	map_vision_wall_collision(t_point line)
+static bool	map_vision_wall_collision(t_point line)
 {
 	t_data	*data;
 	char	**mapa;
@@ -34,7 +34,7 @@ bool	map_vision_wall_collision(t_point line)
 	return (false);
 }
 
-void	calculate_vision_point(t_player player, t_point *pos,
+static void	calculate_vision_point(t_player player, t_point *pos,
 		int distance, float graus)
 {
 	double	degree_rad;
@@ -46,7 +46,7 @@ void	calculate_vision_point(t_player player, t_point *pos,
 
 // ---------------------------------agora---------------------------------------
 
-void	draw_dda_line(t_point pos, t_point vp, float *distance, int cor)
+void	get_dda_line(t_point pos, t_point vp, float *distance)
 {
 	t_point	delta;
 	t_point	step;
@@ -71,10 +71,9 @@ void	draw_dda_line(t_point pos, t_point vp, float *distance, int cor)
 		*distance += sqrt(step.x * step.x + step.y * step.y);
 		i++;
 	}
-	draw_line_on_map(cor, 1, pos, line);
 }
 
-void	draw_wall_slise(int x, int wall_height, int cor)
+void	draw_wall_slice(int x, int wall_height, int cor)
 {
 	t_data *data;
 	int		start;
@@ -88,12 +87,12 @@ void	draw_wall_slise(int x, int wall_height, int cor)
 	draw_line2(x, end, x, data->win_height, LIGHT_GREEN_COLOR, 1);
 }
 
-void	draw_vision_line(t_data *data)
+void	render_raycaster(t_data *data)
 {
 	t_player	player;
 	t_point		vp;
 	int			fov;
-	float		wall_hieght;
+	float		wall_height;
 	int			screen_x;
 	float		distance;
 	float		ray_angl;
@@ -112,11 +111,11 @@ void	draw_vision_line(t_data *data)
 		ray_angl = player.direction + ((fov * (float)(screen_x - data->win_width / 2) / data->win_width));
 		calculate_vision_point(player, &vp, 3000, ray_angl);
 		distance = 0;
-		draw_dda_line(player.pos, vp, &distance, PURPLE_COLOR);
+		get_dda_line(player.pos, vp, &distance);
 		distance *= cos(degrees_to_radians(ray_angl - player.direction));
 		if (distance > 0)
 		{
-			wall_hieght = (int)(data->tile_size / distance * data->win_height);
+			wall_height = (int)(data->tile_size / distance * data->win_height);
 			if (data->temp_type == DUCK)
 				color = DUCK_COLOR;
 			else if (data->temp_type == LAKE)
@@ -124,18 +123,16 @@ void	draw_vision_line(t_data *data)
 			else
 				color = WALL_COLOR;
 				
-			draw_wall_slise(screen_x, wall_hieght, color);
+			draw_wall_slice(screen_x, wall_height, color);
 		}
 		screen_x++;
 	}
 }
 
-void	player_render(void)
+void	raycaster_map_render(void)
 {
 	t_data	*data;
 
 	data = get_data();
-	draw_vision_line(data);
-	draw_full_square(data->player.color, data->screen_width / 2,
-		data->screen_height / 2, data->player.rendered_size);
+	render_raycaster(data);
 }

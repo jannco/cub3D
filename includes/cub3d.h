@@ -6,7 +6,7 @@
 /*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 14:38:08 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/09/20 10:30:55 by gneto-co         ###   ########.fr       */
+/*   Updated: 2024/09/20 12:34:14 by gneto-co         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,10 +65,11 @@ typedef struct s_player
 	int			looking_left;
 	int			looking_right;
 	int			looking_speed;
-	float			direction;
+	float		direction;
 
 	double		size;
 	double		rendered_size;
+	double 		minimap_rendered_size;
 	int			color;
 
 	int			capacity;
@@ -110,7 +111,17 @@ typedef struct s_map
 	char		**map;
 	int			width;
 	int			height;
+	t_point		minimap_pos;
+	int			minimap_size;
+	int			minimap_scale;
 }				t_map;
+
+typedef struct s_minimap
+{
+	t_point		pos;
+	int			size;
+	int			scale;
+}				t_minimap;
 
 # define FREE 1
 # define CAUGHT 0
@@ -137,7 +148,6 @@ typedef struct s_mlx
 	int			endian;
 }				t_mlx;
 
-
 typedef struct s_data
 {
 	int			screen_width;
@@ -158,6 +168,7 @@ typedef struct s_data
 	t_player	player;
 
 	t_map		map;
+	t_minimap	minimap;
 	t_camera	camera;
 }				t_data;
 
@@ -170,6 +181,11 @@ void			draw_full_square(int color, int pos_x, int pos_y, int size);
 void			draw_empty_square(int color, int pos_x, int pos_y, int size);
 void			draw_background(int color);
 void			draw_line(int x1, int y1, int x2, int y2, int color,
+					int thickness);
+void			minimap_draw_full_square(int color, int pos_x, int pos_y, int size);
+void			minimap_draw_empty_square(int color, int pos_x, int pos_y, int size);
+void			minimap_draw_background(int color);
+void			minimap_draw_line(int x1, int y1, int x2, int y2, int color,
 					int thickness);
 void			draw_line2(int x1, int y1, int x2, int y2, int color,
 					int thickness);
@@ -208,6 +224,7 @@ void			ducks_render(void);
 void			player_render(void);
 void			map_render(void);
 void			status_bar_render(void);
+void			raycaster_map_render(void);
 void			draw_item_on_map(int color, int x, int y, int size);
 void			draw_grid_on_map(int color, int x, int y, int size);
 void			draw_line_on_map(int color, int thickness, t_point p1,

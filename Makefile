@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: yadereve <yadereve@student.42.fr>          +#+  +:+       +#+         #
+#    By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/15 10:09:55 by gabriel           #+#    #+#              #
-#    Updated: 2024/09/19 16:38:18 by yadereve         ###   ########.fr        #
+#    Updated: 2024/09/20 11:41:15 by gneto-co         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,25 +36,30 @@ LIBFT		= 	$(LIBFT_PATH)$(LIBFT_NAME)
 # Sources
 SRC_PATH 	= 	./sources/
 SRC			= 	main.c \
+				\
 				start_window.c \
 				math.c \
 				initialize.c \
 				close_free.c \
 				keys_usage.c \
 				square_touches.c \
+				\
 				utils/ft_usleep.c \
 				utils/get_data.c \
 				utils/image_utils.c \
 				utils/draw_utils.c \
 				utils/rand.c \
+				\
 				game_logic/ducks_logic.c \
 				game_logic/game_logic.c \
 				game_logic/player_logic.c \
+				\
 				game_render/game_render.c \
-				game_render/player_render.c \
-				game_render/ducks_render.c \
-				game_render/status_bar_render.c \
-				game_render/map_render.c \
+				game_render/raycaster_map/raycaster_map_render.c \
+				game_render/mini_map/player_render.c \
+				game_render/mini_map/ducks_render.c \
+				game_render/mini_map/status_bar_render.c \
+				game_render/mini_map/map_render.c \
 
 
 SRCS		= 	$(addprefix $(SRC_PATH), $(SRC))
@@ -78,6 +83,8 @@ $(OBJ_PATH):
 	@mkdir -p $(OBJ_PATH)/utils
 	@mkdir -p $(OBJ_PATH)/game_logic
 	@mkdir -p $(OBJ_PATH)/game_render
+	@mkdir -p $(OBJ_PATH)/game_render/mini_map
+	@mkdir -p $(OBJ_PATH)/game_render/raycaster_map
 
 # Objects rule
 $(OBJ_PATH)%.o: $(SRC_PATH)%.c
