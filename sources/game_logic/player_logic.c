@@ -124,6 +124,7 @@ void	player_logic(void)
 		&& player->holding > 0)
 	{
 		player->holding--;
+		ft_usleep(SEC * 1);
 		ft_printf("\a");
 		data->caught_ducks++;
 	}

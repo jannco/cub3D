@@ -6,7 +6,7 @@
 /*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 13:08:48 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/09/20 12:19:13 by gneto-co         ###   ########.fr       */
+/*   Updated: 2024/09/20 15:05:01 by gneto-co         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,12 +168,6 @@ int	mlx_initialize(void)
 	data->mlx.img = mlx_new_image(data->mlx.mlx, data->win_width,
 			data->win_height);
 	data->mlx.img_data = mlx_get_data_addr(data->mlx.img, &data->mlx.bpp,
-			&data->mlx.line_length, &data->mlx.endian);
-	data->mlx.win2 = mlx_new_window(data->mlx.mlx, data->win_width,
-			data->win_height, "Raycaster");
-	data->mlx.img2 = mlx_new_image(data->mlx.mlx, data->win_width,
-			data->win_height);
-	data->mlx.img_data2 = mlx_get_data_addr(data->mlx.img2, &data->mlx.bpp,
 			&data->mlx.line_length, &data->mlx.endian);
 	return (0);
 }
