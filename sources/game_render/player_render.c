@@ -6,32 +6,49 @@
 /*   By: yadereve <yadereve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 13:21:00 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/09/19 18:57:17 by yadereve         ###   ########.fr       */
+/*   Updated: 2024/09/20 14:18:24 by yadereve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-bool	map_vision_wall_collision(t_point line)
+//	very fast
+bool	map_vision_wall_collision(t_point position)
 {
-	t_data	*data;
-	char	**mapa;
-	t_point	map;
-	t_point	map_max;
+	t_data *data;
+	char **map;
+	int map_x;
+	int map_y;
 
 	data = get_data();
-	mapa = data->map.map;
-	map_max.x = data->map.width * data->tile_size;
-	map_max.y = data->map.height * data->tile_size;
-	if (line.x < 0 || line.y < 0 || line.x >= map_max.x || line.y >= map_max.y)
-		return (true);
-	map.x = (line.x) / data->tile_size;
-	map.y = (line.y) / data->tile_size;
-	if (mapa[(int)map.y][(int)map.x] == WALL ||
-			mapa[(int)map.y][(int)map.x] == VOID)
-		return (true);
-	return (false);
+	map = data->map.map;
+	map_x = position.x / data->tile_size;
+	map_y = position.y / data->tile_size;
+	if (map_y < 0 || map_x < 0 || map_x >= data->map.width ||
+			map_y >= data->map.height)
+		return true;
+	return (map[map_y][map_x] == WALL || map[map_y][map_x] == VOID);
 }
+// ---old---
+// bool	map_vision_wall_collision(t_point line)
+// {
+// 	t_data	*data;
+// 	char	**mapa;
+// 	t_point	map;
+// 	t_point	map_max;
+
+// 	data = get_data();
+// 	mapa = data->map.map;
+// 	map_max.x = data->map.width * data->tile_size;
+// 	map_max.y = data->map.height * data->tile_size;
+// 	if (line.x < 0 || line.y < 0 || line.x >= map_max.x || line.y >= map_max.y)
+// 		return (true);
+// 	map.x = (line.x) / data->tile_size;
+// 	map.y = (line.y) / data->tile_size;
+// 	if (mapa[(int)map.y][(int)map.x] == WALL ||
+// 			mapa[(int)map.y][(int)map.x] == VOID)
+// 		return (true);
+// 	return (false);
+// }
 
 void	calculate_vision_point(t_player player, t_point *pos,
 		int distance, float graus)
@@ -45,7 +62,7 @@ void	calculate_vision_point(t_player player, t_point *pos,
 
 // ---------------------------------agora---------------------------------------
 
-void	draw_dda_line(t_point pos, t_point vp, float *distance, int cor)
+void	draw_dda_line(t_point pos, t_point vp, double *distance, int cor)
 {
 	t_point	delta;
 	t_point	step;
@@ -68,6 +85,7 @@ void	draw_dda_line(t_point pos, t_point vp, float *distance, int cor)
 		line.x += step.x;
 		line.y += step.y;
 		*distance += sqrt(step.x * step.x + step.y * step.y);
+		// fprintf(stderr, "%f\n", *distance); //MARK
 		i++;
 	}
 	draw_line_on_map(cor, 1, pos, line);
@@ -92,11 +110,10 @@ void	draw_vision_line(t_data *data)
 	t_player	player;
 	t_point		vp;
 	int			fov;
-	float		wall_hieght;
-	int			screen_x;
-	float		distance;
-	float		ray_angl;
-
+	double		wall_hieght;
+	double		screen_x;
+	double		distance;
+	double		ray_angl;
 
 	fov = 60;
 	screen_x = 0;
@@ -107,7 +124,7 @@ void	draw_vision_line(t_data *data)
 	player.pos.y += player.rendered_size / 2;
 	while (screen_x < data->win_width)
 	{
-		ray_angl = player.direction + ((fov * (float)(screen_x - data->win_width / 2) / data->win_width));
+		ray_angl = player.direction + ((fov * (double)(screen_x - data->win_width / 2) / data->win_width));
 		calculate_vision_point(player, &vp, 3000, ray_angl);
 		distance = 0;
 		draw_dda_line(player.pos, vp, &distance, PURPLE_COLOR);

@@ -43,6 +43,13 @@ bool	map_wall_collision(double x, double y, char c)
 	return (false);
 }
 
+void	lerp_movement(t_player *player, double target_x, double target_y,
+	float smoothing_factor)
+{
+	player->pos.x += (target_x - player->pos.x) * (smoothing_factor);
+	player->pos.y += (target_y - player->pos.y) * (smoothing_factor);
+}
+
 static void	movement(t_player *player)
 {
 	double	temp_x;
@@ -78,9 +85,11 @@ static void	movement(t_player *player)
 	}
 	// movement limitations
 	if (map_wall_collision(temp_x, data->player.pos.y, WALL) == false)
-		data->player.pos.x = temp_x;
+		// data->player.pos.x = temp_x;
+		lerp_movement(player, temp_x, player->pos.y, 0.2);
 	if (map_wall_collision(data->player.pos.x, temp_y, WALL) == false)
-		data->player.pos.y = temp_y;
+		// data->player.pos.y = temp_y;
+		lerp_movement(player, player->pos.x, temp_y, 0.2);
 }
 
 void	player_logic(void)
@@ -92,7 +101,7 @@ void	player_logic(void)
 
 	data = get_data();
 	player = &(data->player);
-	smoothing_factor = 0.3;
+	smoothing_factor = 0.1;
 	// player movement update
 	movement(player);
 	// player vision update

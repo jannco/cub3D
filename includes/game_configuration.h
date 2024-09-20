@@ -6,7 +6,7 @@
 /*   By: yadereve <yadereve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 10:10:39 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/09/19 20:06:01 by yadereve         ###   ########.fr       */
+/*   Updated: 2024/09/20 12:15:58 by yadereve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # define HISTORY_MOD false
 
 # define PLAYER_SPEED 0.5 // 10
-# define LOOKING_SPEED 5 // 3
+# define LOOKING_SPEED 30 // 3
 
 // # define PLAYER_SIZE 30    // 30
 # define PLAYER_CAPACITY 3 // 3
