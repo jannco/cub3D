@@ -12,7 +12,7 @@ void	map_structure_selector(char item, int x, int y)
 	else if (item == LAKE)
 		color = LAKE_COLOR;
 	else
-		color = BACKGROUND_COLOR;
+		return;
 	draw_item_on_map(color, x, y, data->minimap.scale);
 	// MARK
 	// draw_grid_on_map(BLACK_COLOR, x, y, data->tile_size);

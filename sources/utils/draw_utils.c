@@ -6,7 +6,7 @@
 /*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 13:04:59 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/09/20 12:31:50 by gneto-co         ###   ########.fr       */
+/*   Updated: 2024/09/20 12:36:11 by gneto-co         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ void	draw_line2(int x1, int y1, int x2, int y2, int color, int thickness)
 			j = -thickness / 2;
 			while (j <= thickness / 2)
 			{
-				put_pixel_to_image2(x1 + i, y1 + j, color);
+				put_pixel_to_image(x1 + i, y1 + j, color);
 				j++;
 			}
 			i++;
