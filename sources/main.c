@@ -6,7 +6,7 @@
 /*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 14:40:33 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/09/20 15:04:45 by gneto-co         ###   ########.fr       */
+/*   Updated: 2024/09/23 17:28:55 by gneto-co         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,12 @@ void	game_window(void)
 	t_data	*data;
 
 	data = get_data();
-	// win1
 	mlx_hook(data->mlx.win, EVENT_CLOSE, 0, close_window, NULL);
-	mlx_hook(data->mlx.win, KeyPress, KeyPressMask, (int (*)())key_press, &data);
+	mlx_hook(data->mlx.win, KeyPress, KeyPressMask, (int (*)())key_press,
+		&data);
 	mlx_hook(data->mlx.win, KeyRelease, KeyReleaseMask, (int (*)())key_release,
 		&data);
-
 	mlx_loop_hook(data->mlx.mlx, update_frame, NULL);
-	//
 	mlx_loop(data->mlx.mlx);
 }
 
@@ -73,7 +71,7 @@ int	main(int ac, char **av)
 	}
 	if (map_parser(av[1]) == false)
 		return (0);
-	intro_window();
+	intro_window(); // TODO
 	data_initialize();
 	mlx_initialize();
 	game_window();

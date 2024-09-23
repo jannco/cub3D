@@ -6,7 +6,7 @@
 #    By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/15 10:09:55 by gabriel           #+#    #+#              #
-#    Updated: 2024/09/20 18:42:20 by gneto-co         ###   ########.fr        #
+#    Updated: 2024/09/23 21:39:01 by gneto-co         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,6 +50,7 @@ SRC			= 	main.c \
 				utils/draw_utils.c \
 				utils/rand.c \
 				\
+				game_logic/wall_collision.c \
 				game_logic/ducks_logic.c \
 				game_logic/game_logic.c \
 				game_logic/player_logic.c \

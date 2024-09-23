@@ -6,7 +6,7 @@
 /*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 13:08:48 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/09/20 23:48:12 by gneto-co         ###   ########.fr       */
+/*   Updated: 2024/09/23 17:28:24 by gneto-co         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,33 +101,23 @@ void	get_map_info(void)
 	}
 }
 
-int	data_initialize(void)
+void	data_initialize_screen_map(t_data *data)
 {
-	t_data		*data;
-	t_player	*player;
-
-	// global
-	data = get_data();
-	srand(time(NULL));
-	//
 	// screen
-	//
 	get_screen_resolution(&data->screen_width, &data->screen_height);
 	data->win_height = data->screen_height;
 	data->win_width = data->screen_width;
-	data->tile_size = 50; // 35
-	//
+	data->tile_size = 50;
 	// map info
-	//
 	data->minimap.scale = 10;
 	data->minimap.size = data->win_width / 6;
 	data->minimap.pos = (t_point){data->win_width - data->minimap.size
 		- (data->minimap.size / 12), (data->minimap.size / 12)};
-	//
-	// player
-	//
+}
+
+void	data_initialize_player_ducks(t_data *data, t_player *player)
+{
 	// ---movement
-	player = &data->player;
 	player->move_speed = PLAYER_REGULAR_SPEED;
 	player->move_left = 0;
 	player->move_right = 0;
@@ -144,16 +134,21 @@ int	data_initialize(void)
 	player->capacity = PLAYER_CAPACITY;
 	player->holding = 0;
 	player->color = PINK_COLOR;
-	//
 	// ducks
-	//
 	data->duck_amount = map_item_count(DUCK);
 	data->duck = (t_duck *)malloc(sizeof(t_duck) * (data->duck_amount + 1));
 	data->duck_size = 1;
 	//
-	//
-	//
 	get_map_info();
+}
+
+int	data_initialize(void)
+{
+	t_data	*data;
+
+	data = get_data();
+	data_initialize_player_ducks(data, &data->player);
+	data_initialize_screen_map(data);
 	return (0);
 }
 

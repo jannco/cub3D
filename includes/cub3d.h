@@ -6,7 +6,7 @@
 /*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 14:38:08 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/09/20 19:04:56 by gneto-co         ###   ########.fr       */
+/*   Updated: 2024/09/23 21:39:48 by gneto-co         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,14 +106,26 @@ typedef struct s_camera
 # define BACKGROUND_COLOR BLACK_COLOR
 # define LAKE_COLOR 0x3f5ae0
 
+typedef struct s_texture
+{
+	void		*img_ptr;
+	int			*data;
+	int			width;
+	int			height;
+	int			bpp;
+	int			line_length;
+	int			endian;
+}				t_texture;
+
 typedef struct s_map
 {
 	char		**map;
 	int			width;
 	int			height;
-	t_point		minimap_pos;
-	int			minimap_size;
-	int			minimap_scale;
+
+	t_texture	wall_texture;
+	t_texture	duck_texture;
+	t_texture	lake_texture;
 }				t_map;
 
 typedef struct s_minimap
@@ -217,6 +229,7 @@ int				key_release(int keycode);
 void			game_logic(void);
 void			ducks_logic(void);
 void			player_logic(void);
+bool			map_wall_collision(double x, double y, char c);
 
 void			game_render(void);
 void			ducks_render(void);
