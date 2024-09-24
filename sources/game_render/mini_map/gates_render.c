@@ -1,34 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   game_render.c                                      :+:      :+:    :+:   */
+/*   gates_render.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 13:21:00 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/09/24 12:45:34 by gneto-co         ###   ########.fr       */
+/*   Updated: 2024/09/24 12:43:27 by gneto-co         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	minimap_render(void)
-{
-	minimap_draw_background(GREY_COLOR);
-	map_render();
-	player_render();
-	ducks_render();
-	gates_render();
-}
-
-void	game_render(void)
+void	gates_render(void)
 {
 	t_data	*data;
+	int		i;
+	int gate_size;
+	
 
 	data = get_data();
-	draw_background(BACKGROUND_COLOR);
-	raycaster_map_render();
-	minimap_render();
-	status_bar_render();
-	mlx_put_image_to_window(data->mlx.mlx, data->mlx.win, data->mlx.img, 0, 0);
+	gate_size = data->minimap.scale;
+	i = 0;
+	while (i < data->gate_amount)
+	{
+		if (data->gate[i].status == CLOSED)
+		{
+			draw_item_on_map(GATE_COLOR, data->gate[i].pos.x, data->gate[i].pos.y, gate_size);
+		}
+		i++;
+	}
 }

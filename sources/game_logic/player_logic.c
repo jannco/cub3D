@@ -61,21 +61,18 @@ static void	mouse_vision_update(t_player *player, float *target_direction)
 
 	data = get_data();
 	gap = 100;
-	// right
 	if (player->mouse_old_x < player->mouse_new_x - gap)
 		*target_direction += player->looking_speed * 3;
 	else if (player->mouse_old_x < player->mouse_new_x)
 		*target_direction += player->looking_speed;
 	else if (player->mouse_old_x > data->win_width - gap)
 		*target_direction += player->looking_speed * 2;
-	// left
 	if (player->mouse_old_x > player->mouse_new_x + gap)
 		*target_direction -= player->looking_speed * 3;
 	else if (player->mouse_old_x > player->mouse_new_x)
 		*target_direction -= player->looking_speed;
 	else if (player->mouse_old_x < gap)
 		*target_direction -= player->looking_speed * 2;
-	//
 	player->mouse_old_x = player->mouse_new_x;
 }
 

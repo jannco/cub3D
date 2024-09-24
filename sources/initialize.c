@@ -6,7 +6,7 @@
 /*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 13:08:48 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/09/24 12:00:23 by gneto-co         ###   ########.fr       */
+/*   Updated: 2024/09/24 12:32:54 by gneto-co         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ void	map_info_selector(t_point pos, char c)
 {
 	t_data		*data;
 	static int	duck_i;
+	static int	gate_i;
 
 	data = get_data();
 	if (c == DUCK)
@@ -63,6 +64,12 @@ void	map_info_selector(t_point pos, char c)
 		data->duck[duck_i].pos = pos;
 		data->duck[duck_i].status = FREE;
 		duck_i++;
+	}
+	if (c == GATE)
+	{
+		data->gate[gate_i].pos = pos;
+		data->gate[gate_i].status = CLOSED;
+		gate_i++;
 	}
 	if (ft_strchr(PLAYER, c))
 	{
@@ -140,6 +147,10 @@ void	data_initialize_player_ducks(t_data *data, t_player *player)
 	data->duck_amount = map_item_count(DUCK);
 	data->duck = (t_duck *)malloc(sizeof(t_duck) * (data->duck_amount + 1));
 	data->duck_size = 1;
+	// gates
+	data->gate_amount = map_item_count(GATE);
+	data->gate = (t_gate *)malloc(sizeof(t_gate) * (data->gate_amount + 1));
+	data->gate_size = 1;
 	//
 	get_map_info();
 }

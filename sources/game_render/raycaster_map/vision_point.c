@@ -6,7 +6,7 @@
 /*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 11:08:14 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/09/24 11:28:59 by gneto-co         ###   ########.fr       */
+/*   Updated: 2024/09/24 12:46:18 by gneto-co         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ static bool	map_vision_wall_collision(t_point line)
 	if (mapa[(int)map.y][(int)map.x] == WALL
 		|| mapa[(int)map.y][(int)map.x] == VOID
 		|| (mapa[(int)map.y][(int)map.x] == DUCK)
+		|| (mapa[(int)map.y][(int)map.x] == GATE)
 		|| (mapa[(int)map.y][(int)map.x] == LAKE))
 		return (data->temp_type = mapa[(int)map.y][(int)map.x], true);
 	return (false);

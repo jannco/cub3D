@@ -6,7 +6,7 @@
 /*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 13:21:00 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/09/05 13:52:01 by gneto-co         ###   ########.fr       */
+/*   Updated: 2024/09/24 12:44:58 by gneto-co         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,4 +16,5 @@ void	game_logic(void)
 {
 	player_logic();
 	ducks_logic();
+	gates_logic();
 }
