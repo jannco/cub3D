@@ -48,9 +48,11 @@ static void	movement_update(t_data *data, t_player *player)
 	temp_y = player->pos.y;
 	direction_radians = degrees_to_radians(player->direction);
 	update_speed(player, &temp_x, &temp_y, direction_radians);
-	if (map_wall_collision(temp_x, data->player.pos.y, WALL) == false)
+	if (map_wall_collision(temp_x, data->player.pos.y, WALL) == false
+		&& map_wall_collision(temp_x, data->player.pos.y, GATE) == false)
 		data->player.pos.x = temp_x;
-	if (map_wall_collision(data->player.pos.x, temp_y, WALL) == false)
+	if (map_wall_collision(data->player.pos.x, temp_y, WALL) == false
+		&& map_wall_collision(data->player.pos.x, temp_y, GATE) == false)
 		data->player.pos.y = temp_y;
 }
 

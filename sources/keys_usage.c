@@ -6,7 +6,7 @@
 /*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 13:36:53 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/09/24 11:58:54 by gneto-co         ###   ########.fr       */
+/*   Updated: 2024/09/24 15:58:26 by gneto-co         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,9 @@ int	key_press(int keycode)
 	// running
 	if (keycode == XK_Control_L)
 		data->player.running = 1;
+	// action
+	if (keycode == XK_space)
+		data->player.action = 1;
 	return (0);
 }
 
@@ -59,6 +62,9 @@ int	key_release(int keycode)
 	// running
 	if (keycode == XK_Control_L)
 		data->player.running = 0;
+	// action
+	if (keycode == XK_space)
+		data->player.action = 0;
 	// closing
 	if (keycode == XK_Escape)
 		close_window(NULL);

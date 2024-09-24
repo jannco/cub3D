@@ -6,7 +6,7 @@
 /*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 13:21:39 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/09/20 15:11:30 by gneto-co         ###   ########.fr       */
+/*   Updated: 2024/09/24 15:42:52 by gneto-co         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,10 @@ void	data_clear(void)
 	data = get_data();
 	if (data->duck)
 		free(data->duck);
+	if (data->gate)
+		free(data->gate);
+	if (data->backpack)
+		free(data->backpack);
 	if (data->map.map)
 		ft_free_array(data->map.map);
 }

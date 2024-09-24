@@ -1,21 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   game_logic.c                                       :+:      :+:    :+:   */
+/*   backpack_render.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 13:21:00 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/09/24 15:39:30 by gneto-co         ###   ########.fr       */
+/*   Updated: 2024/09/24 15:42:13 by gneto-co         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	game_logic(void)
+void	backpacks_render(void)
 {
-	player_logic();
-	backpacks_logic();
-	ducks_logic();
-	gates_logic();
+	t_data	*data;
+	int		i;
+	int backpack_size;
+	
+
+	data = get_data();
+	backpack_size = data->minimap.scale;
+	i = 0;
+	while (i < data->backpack_amount)
+	{
+		if (data->backpack[i].status == FREE)
+		{
+			draw_item_on_map(BACKPACK_COLOR, data->backpack[i].pos.x, data->backpack[i].pos.y, backpack_size);
+		}
+		i++;
+	}
 }

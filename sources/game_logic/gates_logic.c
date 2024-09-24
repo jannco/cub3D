@@ -6,7 +6,7 @@
 /*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 13:21:00 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/09/24 13:01:48 by gneto-co         ###   ########.fr       */
+/*   Updated: 2024/09/24 16:03:53 by gneto-co         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static void	open_gates(int i, t_point gate_sensor, int gap)
 
 	data = get_data();
 	if (squares_touch(data->player.pos, data->player.size, gate_sensor, gap
-			* 2))
+			* 2) && (data->player.action || data->gate[i].status == OPENED))
 	{
 		data->gate[i].status = OPENED;
 		gettimeofday(&data->gate[i].open_time, NULL);

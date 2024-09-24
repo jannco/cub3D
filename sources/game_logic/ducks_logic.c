@@ -6,7 +6,7 @@
 /*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 13:21:00 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/09/24 15:18:57 by gneto-co         ###   ########.fr       */
+/*   Updated: 2024/09/24 16:06:51 by gneto-co         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,24 +101,21 @@ static void	catch_ducks(t_data *data)
 // put ducks on lake
 static void	save_ducks(t_data *data)
 {
+	if (data->caught_ducks >= data->duck_amount && data->duck_amount > 0)
+	{
+		ft_usleep(SEC * 1);
+		close_window(NULL);
+	}
 	if (map_wall_collision(data->player.pos.x, data->player.pos.y, LAKE) == true
 		&& data->player.holding > 0)
 	{
-		ft_usleep(SEC * 1);
 		ft_printf("\a");
 		data->player.holding--;
 		data->caught_ducks++;
 	}
 }
 
-// player save all ducks
-static void	complete_game(t_data *data)
-{
-	if (data->caught_ducks >= data->duck_amount && data->duck_amount > 0)
-	{
-		close_window(NULL);
-	}
-}
+
 
 void	ducks_logic(void)
 {
@@ -127,5 +124,4 @@ void	ducks_logic(void)
 	data = get_data();
 	catch_ducks(data);
 	save_ducks(data);
-	complete_game(data);
 }

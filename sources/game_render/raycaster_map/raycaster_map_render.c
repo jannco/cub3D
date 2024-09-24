@@ -6,7 +6,7 @@
 /*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 13:21:00 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/09/24 12:46:03 by gneto-co         ###   ########.fr       */
+/*   Updated: 2024/09/24 15:38:02 by gneto-co         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ static int	type_selector(t_data *data)
 		return (GATE_COLOR);
 	else if (data->temp_type == LAKE)
 		return (LAKE_COLOR);
+	else if (data->temp_type == BACKPACK)
+		return (BACKPACK_COLOR);
 	else
 		return (WALL_COLOR);
 }

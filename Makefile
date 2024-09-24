@@ -6,7 +6,7 @@
 #    By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/15 10:09:55 by gabriel           #+#    #+#              #
-#    Updated: 2024/09/24 12:43:54 by gneto-co         ###   ########.fr        #
+#    Updated: 2024/09/24 15:38:44 by gneto-co         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,6 +53,7 @@ SRC			= 	main.c \
 				game_logic/wall_collision.c \
 				game_logic/ducks_logic.c \
 				game_logic/gates_logic.c \
+				game_logic/backpack_logic.c \
 				game_logic/game_logic.c \
 				game_logic/player_logic.c \
 				\
@@ -63,6 +64,7 @@ SRC			= 	main.c \
 				game_render/mini_map/player_render.c \
 				game_render/mini_map/ducks_render.c \
 				game_render/mini_map/gates_render.c \
+				game_render/mini_map/backpack_render.c \
 				game_render/mini_map/status_bar_render.c \
 				game_render/mini_map/map_render.c \
 				game_render/mini_map/minimap_utils.c \

@@ -6,7 +6,7 @@
 /*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 14:38:08 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/09/24 12:50:41 by gneto-co         ###   ########.fr       */
+/*   Updated: 2024/09/24 15:57:40 by gneto-co         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ typedef struct s_player
 	int				running;
 	int				mouse_old_x;
 	int				mouse_new_x;
+	int				action;
 
 	t_point			pos;
 	double			move_speed;
@@ -98,6 +99,8 @@ typedef struct s_camera
 
 # define GATE 'G'
 
+# define BACKPACK 'B'
+
 # define PLAYER "NSEW"
 # define PLAYER_NORTH 'N'
 # define PLAYER_SOUTH 'S'
@@ -109,6 +112,8 @@ typedef struct s_camera
 # define BACKGROUND_COLOR BLACK_COLOR
 # define LAKE_COLOR 0x3f5ae0
 # define GATE_COLOR 0x8f3700
+# define BACKPACK_COLOR 0xa1154f
+
 
 typedef struct s_texture
 {
@@ -145,11 +150,16 @@ typedef struct s_minimap
 # define OPENED 1
 # define CLOSED 0
 
+typedef struct s_backpack
+{
+	t_point			pos;
+	int				status;
+}					t_backpack;
+
 typedef struct s_duck
 {
 	t_point			pos;
 	int				status;
-	t_point			map_pos;
 }					t_duck;
 
 typedef struct s_gate
@@ -157,7 +167,6 @@ typedef struct s_gate
 	t_point			pos;
 	int				status;
 	struct timeval	open_time;
-	t_point			map_pos;
 }					t_gate;
 
 typedef struct s_mlx
@@ -180,6 +189,10 @@ typedef struct s_data
 	int				tile_size;
 
 	t_mlx			mlx;
+
+	t_backpack		*backpack;
+	int				backpack_amount;
+	int				backpack_size;
 
 	t_gate			*gate;
 	int				gate_amount;
@@ -249,6 +262,7 @@ int					key_release(int keycode);
 
 void				game_logic(void);
 void				gates_logic(void);
+void				backpacks_logic(void);
 void				ducks_logic(void);
 void				player_logic(void);
 bool				map_wall_collision(double x, double y, char c);
@@ -256,6 +270,7 @@ bool				map_wall_collision(double x, double y, char c);
 void				game_render(void);
 void				ducks_render(void);
 void				gates_render(void);
+void				backpacks_render(void);
 void				player_render(void);
 void				map_render(void);
 void				status_bar_render(void);

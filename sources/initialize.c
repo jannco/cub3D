@@ -6,7 +6,7 @@
 /*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 13:08:48 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/09/24 12:32:54 by gneto-co         ###   ########.fr       */
+/*   Updated: 2024/09/24 15:41:34 by gneto-co         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ void	map_info_selector(t_point pos, char c)
 	t_data		*data;
 	static int	duck_i;
 	static int	gate_i;
+	static int	backpack_i;
 
 	data = get_data();
 	if (c == DUCK)
@@ -70,6 +71,12 @@ void	map_info_selector(t_point pos, char c)
 		data->gate[gate_i].pos = pos;
 		data->gate[gate_i].status = CLOSED;
 		gate_i++;
+	}
+	if (c == BACKPACK)
+	{
+		data->backpack[backpack_i].pos = pos;
+		data->backpack[backpack_i].status = FREE;
+		backpack_i++;
 	}
 	if (ft_strchr(PLAYER, c))
 	{
@@ -134,8 +141,8 @@ void	data_initialize_player_ducks(t_data *data, t_player *player)
 	player->looking_speed = LOOKING_REGULAR_SPEED;
 	player->looking_left = 0;
 	player->looking_right = 0;
-	player->mouse_new_x=0;
-	player->mouse_old_x=0;
+	player->mouse_new_x = 0;
+	player->mouse_old_x = 0;
 	// ---other
 	player->size = 0.5;
 	player->rendered_size = data->tile_size * player->size;
@@ -151,6 +158,11 @@ void	data_initialize_player_ducks(t_data *data, t_player *player)
 	data->gate_amount = map_item_count(GATE);
 	data->gate = (t_gate *)malloc(sizeof(t_gate) * (data->gate_amount + 1));
 	data->gate_size = 1;
+	// backpack
+	data->backpack_amount = map_item_count(BACKPACK);
+	data->backpack = (t_backpack *)malloc(sizeof(t_backpack)
+			* (data->backpack_amount + 1));
+	data->backpack_size = 1;
 	//
 	get_map_info();
 }
