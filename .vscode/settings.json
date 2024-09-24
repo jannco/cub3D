@@ -7,6 +7,8 @@
         "*.tcc": "c",
         "ostream": "c",
         "cub3d.h": "c",
-        "game_configuration.h": "c"
+        "game_configuration.h": "c",
+        "initializer_list": "c",
+        "utility": "c"
     }
 }
