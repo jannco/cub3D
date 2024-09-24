@@ -6,7 +6,7 @@
 /*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 14:38:08 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/09/23 21:46:45 by gneto-co         ###   ########.fr       */
+/*   Updated: 2024/09/24 11:56:19 by gneto-co         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ typedef struct s_player
 	int			move_up;
 	int			move_down;
 	int			running;
+	int			mouse_old_x;
+	int			mouse_new_x;
 
 	t_point		pos;
 	double		move_speed;
@@ -218,6 +220,7 @@ int				get_random_value(int min, int max);
 void			game_render(void);
 int				key_press(int keycode);
 int				key_release(int keycode);
+int				mouse_move(int x, int y, void *param);
 int				update_frame(void);
 
 bool			squares_touch(t_point square1, double size1, t_point square2,
@@ -238,6 +241,8 @@ void			map_render(void);
 void			status_bar_render(void);
 void			raycaster_map_render(void);
 void			xpm_image_render(char *str, t_point pos);
+void			vision_point(int fov, int screen_x, float *distance,
+					t_player player);
 void			draw_item_on_map(int color, int x, int y, int size);
 void			draw_grid_on_map(int color, int x, int y, int size);
 void			draw_line_on_map(int color, int thickness, t_point p1,

@@ -6,7 +6,7 @@
 /*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 13:36:53 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/09/20 10:31:16 by gneto-co         ###   ########.fr       */
+/*   Updated: 2024/09/24 11:58:54 by gneto-co         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,5 +62,16 @@ int	key_release(int keycode)
 	// closing
 	if (keycode == XK_Escape)
 		close_window(NULL);
+	return (0);
+}
+
+int	mouse_move(int x, int y, void *param)
+{
+	t_data	*data;
+
+	(void)param;
+	(void)y;
+	data = get_data();
+	data->player.mouse_new_x = x;
 	return (0);
 }

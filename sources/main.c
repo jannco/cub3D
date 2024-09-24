@@ -6,7 +6,7 @@
 /*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 14:40:33 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/09/23 17:28:55 by gneto-co         ###   ########.fr       */
+/*   Updated: 2024/09/24 11:36:04 by gneto-co         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void	game_window(void)
 		&data);
 	mlx_hook(data->mlx.win, KeyRelease, KeyReleaseMask, (int (*)())key_release,
 		&data);
+	mlx_hook(data->mlx.win, 6, 1L << 6, mouse_move, NULL);
 	mlx_loop_hook(data->mlx.mlx, update_frame, NULL);
 	mlx_loop(data->mlx.mlx);
 }

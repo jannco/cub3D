@@ -54,6 +54,31 @@ static void	movement_update(t_data *data, t_player *player)
 		data->player.pos.y = temp_y;
 }
 
+static void	mouse_vision_update(t_player *player, float *target_direction)
+{
+	t_data	*data;
+	int		gap;
+
+	data = get_data();
+	gap = 100;
+	// right
+	if (player->mouse_old_x < player->mouse_new_x - gap)
+		*target_direction += player->looking_speed * 3;
+	else if (player->mouse_old_x < player->mouse_new_x)
+		*target_direction += player->looking_speed;
+	else if (player->mouse_old_x > data->win_width - gap)
+		*target_direction += player->looking_speed * 2;
+	// left
+	if (player->mouse_old_x > player->mouse_new_x + gap)
+		*target_direction -= player->looking_speed * 3;
+	else if (player->mouse_old_x > player->mouse_new_x)
+		*target_direction -= player->looking_speed;
+	else if (player->mouse_old_x < gap)
+		*target_direction -= player->looking_speed * 2;
+	//
+	player->mouse_old_x = player->mouse_new_x;
+}
+
 static void	vision_update(t_player *player)
 {
 	float	smoothing_factor;
@@ -69,6 +94,7 @@ static void	vision_update(t_player *player)
 		target_direction -= player->looking_speed;
 	if (player->looking_right)
 		target_direction += player->looking_speed;
+	mouse_vision_update(player, &target_direction);
 	player->direction = player->direction + (target_direction
 			- player->direction) * smoothing_factor;
 	if (player->direction < 0)
@@ -77,20 +103,17 @@ static void	vision_update(t_player *player)
 		player->direction -= 360;
 }
 
-static void	get_speed(t_player *player)
+void	player_logic(void)
 {
+	t_data		*data;
+	t_player	*player;
+
+	data = get_data();
+	player = &data->player;
 	if (player->running)
 		player->move_speed = PLAYER_RUNNING_SPEED;
 	else
 		player->move_speed = PLAYER_REGULAR_SPEED;
-}
-
-void	player_logic(void)
-{
-	t_data	*data;
-
-	data = get_data();
-	get_speed(&data->player);
 	movement_update(data, &data->player);
 	vision_update(&data->player);
 }
