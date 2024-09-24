@@ -6,7 +6,7 @@
 /*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 13:07:29 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/09/05 13:43:47 by gneto-co         ###   ########.fr       */
+/*   Updated: 2024/09/24 17:26:35 by gneto-co         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,12 @@
 
 void	intro_window(void)
 {
-	if (HISTORY_MOD == true)
+	if (HISTORY_MOD == ON)
 		display_text_letter_by_letter(INTRO);
 }
 
 void	end_window(void)
 {
-	if (HISTORY_MOD == true)
+	if (HISTORY_MOD == ON)
 		display_text_letter_by_letter(END);
 }

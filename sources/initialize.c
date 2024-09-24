@@ -6,7 +6,7 @@
 /*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 13:08:48 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/09/24 15:41:34 by gneto-co         ###   ########.fr       */
+/*   Updated: 2024/09/24 17:42:14 by gneto-co         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,6 +127,9 @@ void	data_initialize_screen_map(t_data *data)
 	data->minimap.size = data->win_width / 6;
 	data->minimap.pos = (t_point){data->win_width - data->minimap.size
 		- (data->minimap.size / 12), (data->minimap.size / 12)};
+	// text
+	data->text.pos = (t_point){10,data->win_height-100};
+	data->text.str = "lets save our little ducks";
 }
 
 void	data_initialize_player_ducks(t_data *data, t_player *player)

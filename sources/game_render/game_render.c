@@ -6,7 +6,7 @@
 /*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 13:21:00 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/09/24 15:39:54 by gneto-co         ###   ########.fr       */
+/*   Updated: 2024/09/24 17:39:59 by gneto-co         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	minimap_render(void)
 	ducks_render();
 	gates_render();
 	backpacks_render();
+	text_render();
 }
 
 void	game_render(void)

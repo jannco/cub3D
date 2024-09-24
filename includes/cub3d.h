@@ -6,7 +6,7 @@
 /*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 14:38:08 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/09/24 15:57:40 by gneto-co         ###   ########.fr       */
+/*   Updated: 2024/09/24 17:40:11 by gneto-co         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,6 @@ typedef struct s_camera
 # define GATE_COLOR 0x8f3700
 # define BACKPACK_COLOR 0xa1154f
 
-
 typedef struct s_texture
 {
 	void			*img_ptr;
@@ -150,6 +149,9 @@ typedef struct s_minimap
 # define OPENED 1
 # define CLOSED 0
 
+# define ON 1
+# define OFF 2
+
 typedef struct s_backpack
 {
 	t_point			pos;
@@ -168,6 +170,12 @@ typedef struct s_gate
 	int				status;
 	struct timeval	open_time;
 }					t_gate;
+
+typedef struct s_text
+{
+	t_point			pos;
+	char			*str;
+}					t_text;
 
 typedef struct s_mlx
 {
@@ -203,6 +211,8 @@ typedef struct s_data
 	int				duck_size;
 	int				caught_ducks;
 
+	t_text			text;
+	
 	char			temp_type;
 
 	t_player		player;
@@ -275,7 +285,10 @@ void				player_render(void);
 void				map_render(void);
 void				status_bar_render(void);
 void				raycaster_map_render(void);
+
 void				xpm_image_render(char *str, t_point pos);
+void				text_render();
+
 void				vision_point(int fov, int screen_x, float *distance,
 						t_player player);
 void				draw_item_on_map(int color, int x, int y, int size);

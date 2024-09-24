@@ -6,7 +6,7 @@
 /*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 13:21:00 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/09/24 16:06:51 by gneto-co         ###   ########.fr       */
+/*   Updated: 2024/09/24 18:02:06 by gneto-co         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ static void	map_update(int i, int y, int x)
 			+ x] = DUCK;
 		data->duck[i].pos.y += y;
 		data->duck[i].pos.x += x;
+		data->text.str = "quack quack quack";
 	}
 }
 
@@ -89,9 +90,15 @@ static void	catch_ducks(t_data *data)
 		{
 			data->duck[i].status = CAUGHT;
 			ft_printf("\a");
+			data->text.str = "gotcha";
 			data->player.holding++;
 			data->map.map[(int)data->duck[i].pos.y][(int)data->duck[i].pos.x] = FLOOR;
 		}
+		if (squares_touch(data->player.pos, data->player.size,
+				data->duck[i].pos, data->duck_size)
+			&& data->duck[i].status == FREE
+			&& data->player.holding >= data->player.capacity)
+			data->text.str = "cant grab more ducks";
 		if (data->duck[i].status == FREE)
 			ducks_movement(i);
 		i++;
@@ -110,12 +117,11 @@ static void	save_ducks(t_data *data)
 		&& data->player.holding > 0)
 	{
 		ft_printf("\a");
+		data->text.str = "here you are safe";
 		data->player.holding--;
 		data->caught_ducks++;
 	}
 }
-
-
 
 void	ducks_logic(void)
 {

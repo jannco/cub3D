@@ -6,7 +6,7 @@
 #    By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/15 10:09:55 by gabriel           #+#    #+#              #
-#    Updated: 2024/09/24 15:38:44 by gneto-co         ###   ########.fr        #
+#    Updated: 2024/09/24 17:27:38 by gneto-co         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -59,6 +59,7 @@ SRC			= 	main.c \
 				\
 				game_render/game_render.c \
 				game_render/images_render.c \
+				game_render/text_render.c \
 				game_render/raycaster_map/raycaster_map_render.c \
 				game_render/raycaster_map/vision_point.c \
 				game_render/mini_map/player_render.c \
