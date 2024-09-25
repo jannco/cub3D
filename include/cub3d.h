@@ -6,7 +6,7 @@
 /*   By: yadereve <yadereve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 13:05:26 by yadereve          #+#    #+#             */
-/*   Updated: 2024/09/25 18:22:50 by yadereve         ###   ########.fr       */
+/*   Updated: 2024/09/25 19:38:51 by yadereve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,10 @@
 # define EAST 0
 # define WEST 180
 
+# define SNEAKING 1
+# define WALKING 2
+# define RUNNING 3
+
 # ifdef __APPLE__
 // MAC
 #  include "../libraries/minilibx_opengl_20191021/mlx.h"
@@ -55,6 +59,7 @@
 #  define XK_Left		0x7B
 #  define XK_Right		0x7C
 #  define XK_Control_L	0x3B
+#  define XK_Shift_L	0x38
 #  define XK_space		0x31
 # else
 // Linux
@@ -69,6 +74,7 @@
 #  define XK_Left		0xff51
 #  define XK_Right		0xff53
 #  define XK_Control_L	0xffe3
+#  define XK_Shift_L	0xffe1
 #  define XK_space		0x0020
 # endif
 
@@ -85,30 +91,30 @@ typedef struct s_point
 
 typedef struct s_player
 {
-	int				move_left;
-	int				move_right;
-	int				move_up;
-	int				move_down;
-	int				running;
-	int				mouse_old_x;
-	int				mouse_new_x;
-	int				action;
+int				move_left;
+int				move_right;
+int				move_up;
+int				move_down;
+int				status;
+int				mouse_old_x;
+int				mouse_new_x;
+int				action;
 
-	t_point			pos;
-	double			move_speed;
+t_point			pos;
+double			move_speed;
 
-	int				looking_left;
-	int				looking_right;
-	int				looking_speed;
-	float			direction;
+int				looking_left;
+int				looking_right;
+int				looking_speed;
+float			direction;
 
-	double			size;
-	double			rendered_size;
-	double			minimap_rendered_size;
-	int				color;
+double			size;
+double			rendered_size;
+double			minimap_rendered_size;
+int				color;
 
-	int				capacity;
-	int				holding;
+int				capacity;
+int				holding;
 }					t_player;
 
 typedef struct s_camera
@@ -133,7 +139,7 @@ typedef struct s_camera
 
 # define BACKPACK 'B'
 
-# define PLAYER "NSEW"
+# define PLAYER "NEWS"
 # define PLAYER_NORTH 'N'
 # define PLAYER_SOUTH 'S'
 # define PLAYER_EAST 'E'
@@ -169,7 +175,6 @@ typedef struct s_map
 
 	t_point	start;
 	t_point	size;
-	int		player;
 	int		space;
 }					t_map;
 
@@ -227,36 +232,36 @@ typedef struct s_mlx
 
 typedef struct s_data
 {
-	int				screen_width;
-	int				screen_height;
-	int				win_width;
-	int				win_height;
-	int				tile_size;
+int				screen_width;
+int				screen_height;
+int				win_width;
+int				win_height;
+int				tile_size;
 
-	t_mlx			mlx;
+t_mlx			mlx;
 
-	t_backpack		*backpack;
-	int				backpack_amount;
-	int				backpack_size;
+t_backpack		*backpack;
+int				backpack_amount;
+int				backpack_size;
 
-	t_gate			*gate;
-	int				gate_amount;
-	int				gate_size;
+t_gate			*gate;
+int				gate_amount;
+int				gate_size;
 
-	t_duck			*duck;
-	int				duck_amount;
-	int				duck_size;
-	int				caught_ducks;
+t_duck			*duck;
+int				duck_amount;
+int				duck_size;
+int				caught_ducks;
 
-	t_text			text;
+t_text			text;
 
-	char			temp_type;
+char			temp_type;
 
-	t_player		player;
+t_player		player;
 
-	t_map			map;
-	t_minimap		minimap;
-	t_camera		camera;
+t_map			map;
+t_minimap		minimap;
+t_camera		camera;
 }					t_data;
 
 typedef struct s_game
@@ -268,15 +273,14 @@ typedef struct s_game
 
 }	t_game;
 
-void	init_map(int argc, char **argv);
-void	init_mlx(t_game *game);
-void	start_game(t_game *game);
-int		exit_game(char *msg);
-void	error_message(char *str);
-
-void	parse_map(int fd, t_map *map, int rows);
-void	free_map(t_map *map);
-int		validate_map(t_map *map);
+void				init_map(int argc, char **argv);
+// void				init_mlx(t_game *game);
+// void				start_game(t_game *game);
+int					exit_game(char *msg);
+void				error_message(char *str);
+void				parse_map(int fd, t_map *map, int rows);
+void				free_map(t_map *map);
+int					validate_map(t_map *map);
 
 t_data				*get_data(void);
 void				ft_usleep(unsigned int microseconds);
@@ -314,6 +318,8 @@ void				game_render(void);
 int					key_press(int keycode);
 int					key_release(int keycode);
 int					mouse_move(int x, int y, void *param);
+int					mouse_press(int button, int x, int y, void *param);
+int					mouse_release(int button, int x, int y, void *param);
 int					update_frame(void);
 
 bool				squares_touch(t_point square1, double size1,
@@ -339,7 +345,7 @@ void				status_bar_render(void);
 void				raycaster_map_render(void);
 
 void				xpm_image_render(char *str, t_point pos);
-void				text_render();
+void				text_render(void);
 
 void				vision_point(int fov, int screen_x, float *distance,
 						t_player player);

@@ -6,7 +6,7 @@
 /*   By: yadereve <yadereve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 13:21:00 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/09/24 19:48:05 by yadereve         ###   ########.fr       */
+/*   Updated: 2024/09/25 18:53:44 by yadereve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static void	open_gates(int i, t_point gate_sensor, int gap)
 		&& (data->player.action || data->gate[i].status == OPENED))
 	{
 		if (data->gate[i].status == CLOSED)
-			data->text.str = "how put this gate here";
+			data->text.str = "knock knock";
 		data->gate[i].status = OPENED;
 		gettimeofday(&data->gate[i].open_time, NULL);
 		data->map.map[(int)data->gate[i].pos.y][(int)data->gate[i].pos.x] = FLOOR;

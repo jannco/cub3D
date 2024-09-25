@@ -85,7 +85,7 @@ static void	vision_update(t_player *player)
 
 	smoothing_factor = 0.3;
 	target_direction = player->direction;
-	if (player->running)
+	if (player->status == RUNNING)
 		player->looking_speed = LOOKING_RUNNING_SPEED;
 	else
 		player->looking_speed = LOOKING_REGULAR_SPEED;
@@ -109,8 +109,10 @@ void	player_logic(void)
 
 	data = get_data();
 	player = &data->player;
-	if (player->running)
+	if (player->status == RUNNING)
 		player->move_speed = PLAYER_RUNNING_SPEED;
+	else if (player->status == SNEAKING)
+		player->move_speed = PLAYER_SNEAKING_SPEED;
 	else
 		player->move_speed = PLAYER_REGULAR_SPEED;
 	movement_update(data, &data->player);

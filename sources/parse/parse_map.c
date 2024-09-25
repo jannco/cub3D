@@ -6,7 +6,7 @@
 /*   By: yadereve <yadereve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 20:54:12 by yadereve          #+#    #+#             */
-/*   Updated: 2024/09/25 18:18:22 by yadereve         ###   ########.fr       */
+/*   Updated: 2024/09/25 19:29:57 by yadereve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -203,7 +203,6 @@ void	init_map(int argc, char **argv)
 	t_data	*data;
 
 	data = get_data();
-	data->map.player = 0;
 	data->map.space = 0;
 	if (argc != 2)
 	{
