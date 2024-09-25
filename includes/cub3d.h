@@ -6,7 +6,7 @@
 /*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 14:38:08 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/09/24 17:40:11 by gneto-co         ###   ########.fr       */
+/*   Updated: 2024/09/25 10:43:54 by gneto-co         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,10 @@
 # define EAST 0
 # define WEST 180
 
+# define SNEAKING 1
+# define WALKING 2
+# define RUNNING 3
+
 typedef struct s_point
 {
 	double			x;
@@ -57,7 +61,7 @@ typedef struct s_player
 	int				move_right;
 	int				move_up;
 	int				move_down;
-	int				running;
+	int				status;
 	int				mouse_old_x;
 	int				mouse_new_x;
 	int				action;
@@ -212,7 +216,7 @@ typedef struct s_data
 	int				caught_ducks;
 
 	t_text			text;
-	
+
 	char			temp_type;
 
 	t_player		player;
@@ -262,6 +266,8 @@ void				game_render(void);
 int					key_press(int keycode);
 int					key_release(int keycode);
 int					mouse_move(int x, int y, void *param);
+int					mouse_press(int button, int x, int y, void *param);
+int					mouse_release(int button, int x, int y, void *param);
 int					update_frame(void);
 
 bool				squares_touch(t_point square1, double size1,
@@ -287,7 +293,7 @@ void				status_bar_render(void);
 void				raycaster_map_render(void);
 
 void				xpm_image_render(char *str, t_point pos);
-void				text_render();
+void				text_render(void);
 
 void				vision_point(int fov, int screen_x, float *distance,
 						t_player player);

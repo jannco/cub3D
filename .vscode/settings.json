@@ -9,6 +9,7 @@
         "cub3d.h": "c",
         "game_configuration.h": "c",
         "initializer_list": "c",
-        "utility": "c"
+        "utility": "c",
+        "vector": "c"
     }
 }

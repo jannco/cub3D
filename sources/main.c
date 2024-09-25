@@ -6,7 +6,7 @@
 /*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 14:40:33 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/09/24 17:26:42 by gneto-co         ###   ########.fr       */
+/*   Updated: 2024/09/25 10:42:10 by gneto-co         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ void	game_window(void)
 	mlx_hook(data->mlx.win, KeyRelease, KeyReleaseMask, (int (*)())key_release,
 		&data);
 	mlx_hook(data->mlx.win, 6, 1L << 6, mouse_move, NULL);
+	mlx_hook(data->mlx.win, 4, 1L << 2, mouse_press, NULL);
+	mlx_hook(data->mlx.win, 5, 1L << 3, mouse_release, NULL);
 	mlx_loop_hook(data->mlx.mlx, update_frame, NULL);
 	mlx_loop(data->mlx.mlx);
 }
@@ -66,13 +68,10 @@ int	map_parser(char *file_name)
 int	main(int ac, char **av)
 {
 	if (ac != 2)
-	{
-		ft_printf(RED "ERROR: " NC "map missing");
-		return (0);
-	}
+		return (ft_printf(RED "ERROR: " NC "map missing"), 0);
 	if (map_parser(av[1]) == false)
 		return (0);
-	intro_window(); // TODO
+	intro_window();
 	data_initialize();
 	mlx_initialize();
 	game_window();

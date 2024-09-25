@@ -6,7 +6,7 @@
 /*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 13:21:00 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/09/24 15:38:02 by gneto-co         ###   ########.fr       */
+/*   Updated: 2024/09/25 10:27:35 by gneto-co         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,16 @@ void	draw_wall_slice(int x, int wall_height, int cor)
 	t_data	*data;
 	int		start;
 	int		end;
+	int		gap;
 
 	data = get_data();
-	start = (data->win_height - wall_height) / 2;
-	end = (data->win_height + wall_height) / 2;
+	gap = 0;
+	if (data->player.status == RUNNING)
+		gap = 100;
+	if (data->player.status == SNEAKING)
+		gap = -100;
+	start = (data->win_height - wall_height) / 2 + gap;
+	end = (data->win_height + wall_height) / 2 + gap;
 	draw_line(x, start, x, end, cor, 1);
 	draw_line(x, 0, x, start, LIGHT_BLUE_COLOR, 1);
 	draw_line(x, end, x, data->win_height, LIGHT_GREEN_COLOR, 1);

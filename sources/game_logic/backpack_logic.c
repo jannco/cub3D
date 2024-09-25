@@ -6,39 +6,44 @@
 /*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 13:21:00 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/09/24 17:45:40 by gneto-co         ###   ########.fr       */
+/*   Updated: 2024/09/25 10:01:49 by gneto-co         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
 // catch backpack
-static void	catch_backpacks(t_data *data)
+static void	catch_backpacks(t_point sensor, int gap, int i)
 {
-	int	i;
+	t_data	*data;
 
-	i = 0;
-	while (i < data->backpack_amount)
+	data = get_data();
+	if (squares_touch(data->player.pos, data->player.size, sensor, gap * 2)
+		&& data->backpack[i].status == FREE && data->player.action)
 	{
-		if (squares_touch(data->player.pos, data->player.size,
-				data->backpack[i].pos, data->backpack_size)
-			&& data->backpack[i].status == FREE)
-		{
-			data->backpack[i].status = CAUGHT;
-			ft_printf("\a");
-			data->text.str = "nice backpack";
-
-			data->player.capacity += 2;
-			data->map.map[(int)data->backpack[i].pos.y][(int)data->backpack[i].pos.x] = FLOOR;
-		}
-		i++;
+		data->backpack[i].status = CAUGHT;
+		ft_printf("\a");
+		data->text.str = "nice backpack";
+		data->player.capacity += 2;
+		data->map.map[(int)data->backpack[i].pos.y][(int)data->backpack[i].pos.x] = FLOOR;
 	}
 }
 
 void	backpacks_logic(void)
 {
+	int		i;
+	t_point	backpack_sensor;
+	int		gap;
 	t_data	*data;
 
 	data = get_data();
-	catch_backpacks(data);
+	gap = 2;
+	i = 0;
+	while (i < data->backpack_amount)
+	{
+		backpack_sensor = (t_point){data->backpack[i].pos.x - gap,
+			data->backpack[i].pos.y - gap};
+		catch_backpacks(backpack_sensor, gap, i);
+		i++;
+	}
 }

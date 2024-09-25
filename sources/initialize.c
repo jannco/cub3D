@@ -6,7 +6,7 @@
 /*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 13:08:48 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/09/24 17:42:14 by gneto-co         ###   ########.fr       */
+/*   Updated: 2024/09/25 10:26:44 by gneto-co         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,6 +136,7 @@ void	data_initialize_player_ducks(t_data *data, t_player *player)
 {
 	// ---movement
 	player->move_speed = PLAYER_REGULAR_SPEED;
+	player->status = WALKING;
 	player->move_left = 0;
 	player->move_right = 0;
 	player->move_up = 0;

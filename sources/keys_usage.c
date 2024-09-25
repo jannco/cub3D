@@ -6,7 +6,7 @@
 /*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 13:36:53 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/09/24 15:58:26 by gneto-co         ###   ########.fr       */
+/*   Updated: 2024/09/25 10:44:10 by gneto-co         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,10 @@ int	key_press(int keycode)
 		data->player.looking_right = 1;
 	// running
 	if (keycode == XK_Control_L)
-		data->player.running = 1;
+		data->player.status = RUNNING;
+	// sneaking
+	if (keycode == XK_Shift_L)
+		data->player.status = SNEAKING;
 	// action
 	if (keycode == XK_space)
 		data->player.action = 1;
@@ -61,7 +64,10 @@ int	key_release(int keycode)
 		data->player.looking_right = 0;
 	// running
 	if (keycode == XK_Control_L)
-		data->player.running = 0;
+		data->player.status = WALKING;
+	// sneaking
+	if (keycode == XK_Shift_L)
+		data->player.status = WALKING;
 	// action
 	if (keycode == XK_space)
 		data->player.action = 0;
@@ -79,5 +85,31 @@ int	mouse_move(int x, int y, void *param)
 	(void)y;
 	data = get_data();
 	data->player.mouse_new_x = x;
+	return (0);
+}
+
+int	mouse_press(int button, int x, int y, void *param)
+{
+	t_data	*data;
+
+	(void)param;
+	(void)button;
+	(void)y;
+	(void)x;
+	data = get_data();
+	data->player.action = 1;
+	return (0);
+}
+
+int	mouse_release(int button, int x, int y, void *param)
+{
+	t_data	*data;
+
+	(void)param;
+	(void)button;
+	(void)y;
+	(void)x;
+	data = get_data();
+	data->player.action = 0;
 	return (0);
 }
