@@ -1,18 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   math_utils.c                                       :+:      :+:    :+:   */
+/*   get_data.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yadereve <yadereve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/11 12:41:06 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/09/24 19:43:39 by yadereve         ###   ########.fr       */
+/*   Created: 2024/08/27 14:37:22 by gneto-co          #+#    #+#             */
+/*   Updated: 2024/09/24 20:55:04 by yadereve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
 
-double	degrees_to_radians(double degree)
+t_data	*get_data(void)
 {
-	return (degree * (M_PI / 180.0));
+	static t_data	data;
+
+	return (&data);
 }

@@ -1,18 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   math_utils.c                                       :+:      :+:    :+:   */
+/*   game_logic.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yadereve <yadereve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/11 12:41:06 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/09/24 19:43:39 by yadereve         ###   ########.fr       */
+/*   Created: 2024/09/05 13:21:00 by gneto-co          #+#    #+#             */
+/*   Updated: 2024/09/24 19:48:02 by yadereve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
 
-double	degrees_to_radians(double degree)
+void	game_logic(void)
 {
-	return (degree * (M_PI / 180.0));
+	player_logic();
+	backpacks_logic();
+	ducks_logic();
+	gates_logic();
 }

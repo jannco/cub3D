@@ -1,18 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   math_utils.c                                       :+:      :+:    :+:   */
+/*   text_render.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yadereve <yadereve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/11 12:41:06 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/09/24 19:43:39 by yadereve         ###   ########.fr       */
+/*   Created: 2024/09/20 18:41:20 by gneto-co          #+#    #+#             */
+/*   Updated: 2024/09/25 11:49:52 by yadereve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
 
-double	degrees_to_radians(double degree)
+void	text_render(void)
 {
-	return (degree * (M_PI / 180.0));
+	int		i;
+	char	*name;
+	t_data	*data;
+	t_text	text;
+
+	data = get_data();
+	text = data->text;
+	i = 0;
+	while (text.str[i])
+	{
+		if (ft_isalpha(text.str[i]))
+		{
+			name = ft_multi_strjoin("assets/textures/letters/%c.xpm",
+					ft_tolower(text.str[i]));
+			xpm_image_render(name, text.pos);
+			free(name);
+		}
+		text.pos.x += 40;
+		i++;
+	}
 }

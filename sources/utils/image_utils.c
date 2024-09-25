@@ -1,18 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   math_utils.c                                       :+:      :+:    :+:   */
+/*   image_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yadereve <yadereve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/11 12:41:06 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/09/24 19:43:39 by yadereve         ###   ########.fr       */
+/*   Created: 2024/09/03 08:41:27 by gneto-co          #+#    #+#             */
+/*   Updated: 2024/09/24 20:55:06 by yadereve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
 
-double	degrees_to_radians(double degree)
+void	put_pixel_to_image(int x, int y, int color)
 {
-	return (degree * (M_PI / 180.0));
+	char	*dst;
+	t_data	*data;
+
+	data = get_data();
+	if ((x > 0 && x < data->win_width) && (y > 0 && y < data->win_height))
+	{
+		dst = data->mlx.img_data + (y * data->mlx.line_length + x * (data->mlx.bpp / 8));
+		*(unsigned int *)dst = color;
+	}
 }

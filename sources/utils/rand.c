@@ -1,18 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   math_utils.c                                       :+:      :+:    :+:   */
+/*   rand.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yadereve <yadereve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/11 12:41:06 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/09/24 19:43:39 by yadereve         ###   ########.fr       */
+/*   Created: 2024/09/03 17:43:47 by gneto-co          #+#    #+#             */
+/*   Updated: 2024/09/24 20:55:22 by yadereve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
 
-double	degrees_to_radians(double degree)
+int get_random_value(int min, int max)
 {
-	return (degree * (M_PI / 180.0));
+    int range;
+    int random_value;
+
+    if (min >= max)
+        return (0);
+
+    range = max - min + 1;
+    random_value = rand() % range + min;
+
+    return random_value;
 }

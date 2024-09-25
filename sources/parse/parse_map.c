@@ -6,18 +6,11 @@
 /*   By: yadereve <yadereve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 20:54:12 by yadereve          #+#    #+#             */
-/*   Updated: 2024/09/14 12:01:58 by yadereve         ###   ########.fr       */
+/*   Updated: 2024/09/25 18:18:22 by yadereve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
-
-t_game	*get_game(void)
-{
-	static t_game	game;
-
-	return (&game);
-}
 
 void	free_map(t_map *map)
 {
@@ -59,14 +52,14 @@ void	free_copy_map(char **copy)
 
 void fill(char **map_copy, t_point move, bool *is_access)
 {
-	if (map_copy[move.y][move.x] == '\0' || map_copy[move.y][move.x] == ' ')
+	if (map_copy[(int)move.y][(int)move.x] == '\0' || map_copy[(int)move.y][(int)move.x] == ' ')
 	{
 		*is_access = false;
 		return;
 	}
-	if (!ft_strchr("0NEWS", map_copy[move.y][move.x]))
+	if (!ft_strchr("0NEWS", map_copy[(int)move.y][(int)move.x]))
 		return;
-	map_copy[move.y][move.x] = 'V';
+	map_copy[(int)move.y][(int)move.x] = 'V';
 	fill(map_copy, (t_point){move.x - 1, move.y}, is_access);
 	fill(map_copy, (t_point){move.x + 1, move.y}, is_access);
 	fill(map_copy, (t_point){move.x, move.y - 1}, is_access);
@@ -111,12 +104,12 @@ bool	is_map_valid(char **map)
 
 bool	find_start_position(char **map)
 {
-	t_game	*game;
+	t_data	*data;
 	int	i;
 	int	j;
 	int	count;
 
-	game = get_game();
+	data = get_data();
 	i = 0;
 	count = 0;
 	while (map[i])
@@ -126,8 +119,8 @@ bool	find_start_position(char **map)
 		{
 			if (ft_strchr("NEWS", map[i][j]))
 			{
-				game->map.start.x = j;
-				game->map.start.y = i;
+				data->map.start.x = j;
+				data->map.start.y = i;
 				count++;
 			}
 			j++;
@@ -135,6 +128,22 @@ bool	find_start_position(char **map)
 		i++;
 	}
 	return (count == 1); // Check that there is only one starting position
+}
+
+void	find_map_size(t_map *map)
+{
+	int	i;
+
+	i = 0;
+	map->width = 0;
+	map->height = 0;
+	while (map->map[i])
+	{
+		if (map->width < ft_strlen(map->map[i]))
+			map->width = ft_strlen(map->map[i]);
+		i++;
+	}
+	map->height = i;
 }
 
 int		validate_map(t_map *map)
@@ -145,7 +154,9 @@ int		validate_map(t_map *map)
 	bool	access;
 
 	map_copy = copy_map(map);
+	find_map_size(map);
 	map_valid = is_map_valid(map_copy);
+	map_valid = true; //FIXME
 	find_start = find_start_position(map_copy);
 	access = access_validate(map_copy, map);
 	if (map_valid && find_start && access)
@@ -162,17 +173,17 @@ int		validate_map(t_map *map)
 void	parse_map(int fd, t_map *map, int rows)
 {
 	char	*line;
-	int		len;
 
 	line = get_next_line(fd);
-	len = ft_strlen(line);
-	if (map->size.x < len)
-		map->size.x = len;
 	if (line)
+	{
+		if (!ft_strchr(" 1", line[0]))
+			parse_map(fd, map, rows);
 		parse_map(fd, map, rows + 1);
+	}
 	else
 	{
-		map->map = ft_calloc(rows + 1, sizeof(char *)); //LEAK
+		map->map = ft_calloc(rows + 1, sizeof(char *));
 		if (map->map == NULL)
 			error_message("Error: Invalid memory allocatin.");
 		map->size.y = rows;
@@ -189,11 +200,11 @@ void	parse_map(int fd, t_map *map, int rows)
 void	init_map(int argc, char **argv)
 {
 	int		fd;
-	t_game	*game;
+	t_data	*data;
 
-	game = get_game();
-	game->map.player = 0;
-	game->map.space = 0;
+	data = get_data();
+	data->map.player = 0;
+	data->map.space = 0;
 	if (argc != 2)
 	{
 		ft_printf("Usage: ./cub3D assets/maps/map1.cub\n");
@@ -204,7 +215,7 @@ void	init_map(int argc, char **argv)
 	fd = open(argv[1], O_RDONLY);
 	if (fd < 0)
 		error_message("Error: Invalid file");
-	parse_map(fd, &game->map, 0);
+	parse_map(fd, &data->map, 0);
 	close(fd);
-	validate_map(&game->map);
+	validate_map(&data->map);
 }

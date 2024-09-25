@@ -6,14 +6,15 @@
 #    By: yadereve <yadereve@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/01 13:00:00 by yadereve          #+#    #+#              #
-#    Updated: 2024/09/04 20:53:59 by yadereve         ###   ########.fr        #
+#    Updated: 2024/09/25 13:58:15 by yadereve         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = cub3D
+NAME_BONUS = cub3D_bonus
 MSG = make.msg
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g
+CFLAGS = -Wall -Wextra -Werror
 RM = rm -rf
 
 LIBFT_DIR = libraries/libft
@@ -23,11 +24,19 @@ SRC_DIR = sources
 SRC_MAIN = main.c
 SRC_CONTROLS = input.c movement.c
 SRC_PARSER = parse_map.c validate.c
-SRC_UTILS = error_handling.c math_utils.c
+SRC_GAME_LOGIC = backpack_logic.c game_logic.c player_logic.c ducks_logic.c gates_logic.c wall_collision.c
+SRC_GAME_RENDER = game_render.c images_render.c text_render.c
+SRC_MINI_MAP = backpack_render.c gates_render.c minimap_utils.c status_bar_render.c ducks_render.c map_render.c player_render.c
+SRC_RAYCASTER_MAP = raycaster_map_render.c vision_point.c
+SRC_UTILS = close_free.c ft_usleep.c initialize.c rand.c draw_utils.c get_data.c keys_usage.c square_touches.c error_handling.c image_utils.c math_utils.c start_window.c
 
 SRC = $(addprefix $(SRC_DIR)/, $(SRC_MAIN))
 SRC += $(addprefix $(SRC_DIR)/controls/, $(SRC_CONTROLS))
 SRC += $(addprefix $(SRC_DIR)/parse/, $(SRC_PARSER))
+SRC += $(addprefix $(SRC_DIR)/game_logic/, $(SRC_GAME_LOGIC))
+SRC += $(addprefix $(SRC_DIR)/game_render/, $(SRC_GAME_RENDER))
+SRC += $(addprefix $(SRC_DIR)/game_render/mini_map/, $(SRC_MINI_MAP))
+SRC += $(addprefix $(SRC_DIR)/game_render/raycaster_map/, $(SRC_RAYCASTER_MAP))
 SRC += $(addprefix $(SRC_DIR)/utils/, $(SRC_UTILS))
 
 OBJ_DIR = objects
@@ -39,12 +48,14 @@ ifeq ($(UNAME), Darwin)
 	MLX_LIB = $(MLX_DIR)/libmlx.a
 	MLX_INC = -I$(MLX_DIR) -I$(MLX_DIR)/libmlx
 	MLX_FLAGS = -L$(MLX_DIR) -lmlx -framework OpenGL -framework AppKit
+	MLX_FLAGS += -L/opt/X11/lib -lX11
 	CFLAGS += -DGL_SILENCE_DEPRECATION
+	CFLAGS += -I/opt/X11/include
 else
 	MLX_DIR = libraries/minilibx-linux
 	MLX_LIB = $(MLX_DIR)/libmlx_Linux.a
 	MLX_INC = -I$(MLX_DIR) -I$(MLX_DIR)/linux
-	MLX_FLAGS = -L$(MLX_DIR) -lmlx_Linux -L/usr/lib -lXext -lX11 -lm -lz
+	MLX_FLAGS = -L$(MLX_DIR) -lmlx_Linux -lXext -lX11 -lm -lz
 	CFLAGS += -DLINUX
 endif
 
@@ -60,7 +71,7 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	@mkdir -p $(dir $@)
 	@$(CC) $(CFLAGS) $(MLX_INC) -c $< -o $@
 	@echo -n .
-	@sleep 0.3
+	@sleep 0.1
 
 $(NAME): $(OBJ) $(MLX_LIB) $(LIBFT)
 	@$(CC) $(CFLAGS) $(OBJ) $(MLX_FLAGS) $(LIBFT) -o $@
@@ -68,6 +79,9 @@ $(NAME): $(OBJ) $(MLX_LIB) $(LIBFT)
 	@make -f $(MSG) --no-print-directory
 	@echo "\n$(NAME) ready ... $(GREEN)[100%]$(NC)"
 	@echo "more... $(BLUE)make info$(NC)"
+
+bonus:
+	@echo "@ORANGEerror 101NC"
 
 $(MLX_LIB):
 	@$(MAKE) -C ./$(MLX_DIR) --no-print-directory
