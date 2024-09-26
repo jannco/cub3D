@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game_render.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yadereve <yadereve@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 13:21:00 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/09/25 11:34:55 by yadereve         ###   ########.fr       */
+/*   Updated: 2024/09/26 15:49:51 by gneto-co         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,10 @@ void	game_render(void)
 	data = get_data();
 	draw_background(BACKGROUND_COLOR);
 	raycaster_map_render();
+	if (data->player.action)
+	{
+		xpm_image_render("assets/textures/wings_100.xpm", (t_point){-100, 0});
+	}
 	minimap_render();
 	status_bar_render();
 	mlx_put_image_to_window(data->mlx.mlx, data->mlx.win, data->mlx.img, 0, 0);

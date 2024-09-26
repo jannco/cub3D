@@ -8,6 +8,7 @@
 		"istream": "c",
 		"locale": "c",
 		"__config": "c",
-		"vector": "c"
+		"vector": "c",
+		"random": "c"
 	}
 }

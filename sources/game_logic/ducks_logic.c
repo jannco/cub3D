@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ducks_logic.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yadereve <yadereve@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 13:21:00 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/09/25 19:02:00 by yadereve         ###   ########.fr       */
+/*   Updated: 2024/09/26 15:05:45 by gneto-co         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,68 +41,66 @@ static void	move_duck(int i, int direction)
 		map_update(i, 0, -1);
 }
 
-static bool	sensor(int i, double x, double y, double gap)
-{
-	t_point	duck_sensor;
-	t_data	*data;
-
-	data = get_data();
-	duck_sensor = data->duck[i].pos;
-	duck_sensor.x += gap * x;
-	duck_sensor.y += gap * y;
-	if (squares_touch(data->player.pos, data->player.size, duck_sensor, gap))
-		return (true);
-	return (false);
-}
-
 // ducks movement
-static void	ducks_movement(int i)
+static void	ducks_movement(t_data *data, int i)
 {
 	double	gap;
+	t_point	dif;
 
 	gap = 1.5;
-	// north sensor
-	if (sensor(i, -1 * gap, -2 * gap, gap) || sensor(i, 0 * gap, -2 * gap, gap))
-		move_duck(i, SOUTH);
-	// south sensor
-	if (sensor(i, -1 * gap, +1 * gap, gap) || sensor(i, 0 * gap, +1 * gap, gap))
-		move_duck(i, NORTH);
-	// east sensor
-	if (sensor(i, +1 * gap, -1 * gap, gap) || sensor(i, +1 * gap, 0 * gap, gap))
-		move_duck(i, WEST);
-	// west sensor
-	if (sensor(i, -2 * gap, -1 * gap, gap) || sensor(i, -2 * gap, 0 * gap, gap))
-		move_duck(i, EAST);
+	if (sensor(data->duck[i].pos, gap, data->duck_size))
+	{
+		dif.x = (data->duck[i].pos.x - data->duck_size / 2)
+			- (data->player.pos.x - data->player.size / 2);
+		dif.y = (data->duck[i].pos.y - data->duck_size / 2)
+			- (data->player.pos.y - data->player.size / 2);
+		if (fabs(dif.y) > fabs(dif.x))
+		{
+			// north sensor
+			if (dif.y > 0)
+				move_duck(i, SOUTH);
+			// south sensor
+			else
+				move_duck(i, NORTH);
+		}
+		else
+		{
+			// west sensor
+			if (dif.x > 0)
+				move_duck(i, EAST);
+			// east sensor
+			else
+				move_duck(i, WEST);
+		}
+	}
 }
 
 // catch duck
 static void	catch_ducks(t_data *data)
 {
-	int	i;
+	int		i;
+	double	gap;
 
+	gap = 0.5;
 	i = 0;
 	while (i < data->duck_amount)
 	{
-		if (squares_touch(data->player.pos, data->player.size,
-				data->duck[i].pos, data->duck_size)
-			&& data->duck[i].status == FREE
-			&& data->player.holding < data->player.capacity
-			&& data->player.action)
+		if (sensor(data->duck[i].pos, gap, data->duck_size)
+			&& data->duck[i].status == FREE && data->player.action)
 		{
-			data->duck[i].status = CAUGHT;
-			ft_printf("\a");
-			data->text.str = "gotcha";
-			data->player.holding++;
-			data->map.map[(int)data->duck[i].pos.y][(int)data->duck[i].pos.x] = FLOOR;
+			if (data->player.holding < data->player.capacity)
+			{
+				data->duck[i].status = CAUGHT;
+				ft_printf("\a");
+				data->text.str = "gotcha";
+				data->player.holding++;
+				data->map.map[(int)data->duck[i].pos.y][(int)data->duck[i].pos.x] = FLOOR;
+			}
+			else
+				data->text.str = "cant grab more ducks";
 		}
-		if (squares_touch(data->player.pos, data->player.size,
-				data->duck[i].pos, data->duck_size)
-			&& data->duck[i].status == FREE
-			&& data->player.holding >= data->player.capacity
-			&& data->player.action)
-			data->text.str = "cant grab more ducks";
 		if (data->duck[i].status == FREE && data->player.status != SNEAKING)
-			ducks_movement(i);
+			ducks_movement(data, i);
 		i++;
 	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yadereve <yadereve@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 13:05:26 by yadereve          #+#    #+#             */
-/*   Updated: 2024/09/25 19:38:51 by yadereve         ###   ########.fr       */
+/*   Updated: 2024/09/26 14:58:17 by gneto-co         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,11 @@
 # define CUB3D_H
 
 // # include "parse.h"
+# include "../libraries/libft/libft.h"
+# include "X11/X.h"
 # include "colors.h"
 # include "game_configuration.h"
-# include "../libraries/libft/libft.h"
+# include <X11/Xlib.h>
 # include <errno.h>
 # include <fcntl.h>
 # include <math.h>
@@ -26,9 +28,6 @@
 # include <sys/time.h>
 # include <time.h>
 # include <unistd.h>
-
-# include <X11/Xlib.h>
-# include "X11/X.h"
 
 // # define M_PI 3.14159265358979323846
 # define PI_2 2 * M_PI
@@ -51,37 +50,37 @@
 # ifdef __APPLE__
 // MAC
 #  include "../libraries/minilibx_opengl_20191021/mlx.h"
-#  define XK_Escape		0x35
-#  define XK_w 			0x0D
-#  define XK_a 			0x00
-#  define XK_s 			0x01
-#  define XK_d 			0x02
-#  define XK_Left		0x7B
-#  define XK_Right		0x7C
-#  define XK_Control_L	0x3B
-#  define XK_Shift_L	0x38
-#  define XK_space		0x31
+#  define XK_Escape 0x35
+#  define XK_w 0x0D
+#  define XK_a 0x00
+#  define XK_s 0x01
+#  define XK_d 0x02
+#  define XK_Left 0x7B
+#  define XK_Right 0x7C
+#  define XK_Control_L 0x3B
+#  define XK_Shift_L 0x38
+#  define XK_space 0x31
 # else
 // Linux
 #  include "../libraries/minilibx-linux/mlx.h"
-#  define XK_Escape		0xff1b
-#  define XK_w			0x0077
-#  define XK_a			0x0061
-#  define XK_s			0x0073
-#  define XK_d			0x0064
-#  define XK_Up			0xff52
-#  define XK_Down		0xff54
-#  define XK_Left		0xff51
-#  define XK_Right		0xff53
-#  define XK_Control_L	0xffe3
-#  define XK_Shift_L	0xffe1
-#  define XK_space		0x0020
+#  define XK_Escape 0xff1b
+#  define XK_w 0x0077
+#  define XK_a 0x0061
+#  define XK_s 0x0073
+#  define XK_d 0x0064
+#  define XK_Up 0xff52
+#  define XK_Down 0xff54
+#  define XK_Left 0xff51
+#  define XK_Right 0xff53
+#  define XK_Control_L 0xffe3
+#  define XK_Shift_L 0xffe1
+#  define XK_space 0x0020
 # endif
 
-# define KeyPressMask	(1L<<0)
-# define KeyReleaseMask	(1L<<1)
-# define KeyPress		2
-# define KeyRelease		3
+// # define KeyPressMask (1L << 0)
+// # define KeyReleaseMask (1L << 1)
+# define KeyPress 2
+# define KeyRelease 3
 
 typedef struct s_point
 {
@@ -91,30 +90,30 @@ typedef struct s_point
 
 typedef struct s_player
 {
-int				move_left;
-int				move_right;
-int				move_up;
-int				move_down;
-int				status;
-int				mouse_old_x;
-int				mouse_new_x;
-int				action;
+	int				move_left;
+	int				move_right;
+	int				move_up;
+	int				move_down;
+	int				status;
+	int				mouse_old_x;
+	int				mouse_new_x;
+	int				action;
 
-t_point			pos;
-double			move_speed;
+	t_point			pos;
+	double			move_speed;
 
-int				looking_left;
-int				looking_right;
-int				looking_speed;
-float			direction;
+	int				looking_left;
+	int				looking_right;
+	int				looking_speed;
+	float			direction;
 
-double			size;
-double			rendered_size;
-double			minimap_rendered_size;
-int				color;
+	double			size;
+	double			rendered_size;
+	double			minimap_rendered_size;
+	int				color;
 
-int				capacity;
-int				holding;
+	int				capacity;
+	int				holding;
 }					t_player;
 
 typedef struct s_camera
@@ -173,9 +172,9 @@ typedef struct s_map
 	t_texture		duck_texture;
 	t_texture		lake_texture;
 
-	t_point	start;
-	t_point	size;
-	int		space;
+	t_point			start;
+	t_point			size;
+	int				space;
 }					t_map;
 
 typedef struct s_minimap
@@ -232,46 +231,46 @@ typedef struct s_mlx
 
 typedef struct s_data
 {
-int				screen_width;
-int				screen_height;
-int				win_width;
-int				win_height;
-int				tile_size;
+	int				screen_width;
+	int				screen_height;
+	int				win_width;
+	int				win_height;
+	int				tile_size;
 
-t_mlx			mlx;
+	t_mlx			mlx;
 
-t_backpack		*backpack;
-int				backpack_amount;
-int				backpack_size;
+	t_backpack		*backpack;
+	int				backpack_amount;
+	int				backpack_size;
 
-t_gate			*gate;
-int				gate_amount;
-int				gate_size;
+	t_gate			*gate;
+	int				gate_amount;
+	int				gate_size;
 
-t_duck			*duck;
-int				duck_amount;
-int				duck_size;
-int				caught_ducks;
+	t_duck			*duck;
+	int				duck_amount;
+	int				duck_size;
+	int				caught_ducks;
 
-t_text			text;
+	t_text			text;
 
-char			temp_type;
+	char			temp_type;
 
-t_player		player;
+	t_player		player;
 
-t_map			map;
-t_minimap		minimap;
-t_camera		camera;
+	t_map			map;
+	t_minimap		minimap;
+	t_camera		camera;
 }					t_data;
 
 typedef struct s_game
 {
-	t_map		map;
-	t_player	*player;
-	void		*mlx;
-	void		*windows;
+	t_map			map;
+	t_player		*player;
+	void			*mlx;
+	void			*windows;
 
-}	t_game;
+}					t_game;
 
 void				init_map(int argc, char **argv);
 // void				init_mlx(t_game *game);
@@ -329,6 +328,7 @@ int					key_press(int keycode);
 int					key_release(int keycode);
 
 void				game_logic(void);
+bool				sensor(t_point item_pos, double gap, double item_size);
 void				gates_logic(void);
 void				backpacks_logic(void);
 void				ducks_logic(void);

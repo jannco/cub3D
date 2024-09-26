@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   gates_logic.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yadereve <yadereve@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 13:21:00 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/09/25 18:53:44 by yadereve         ###   ########.fr       */
+/*   Updated: 2024/09/26 14:43:32 by gneto-co         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,13 @@ static void	close_gates(int i)
 }
 
 // open gate
-static void	open_gates(int i, t_point gate_sensor, int gap)
+static void	open_gates(int i, int gap)
 {
 	t_data	*data;
 
 	data = get_data();
-	if (squares_touch(data->player.pos, data->player.size, gate_sensor, gap * 2)
-		&& (data->player.action || data->gate[i].status == OPENED))
+	if (sensor(data->gate[i].pos, gap, data->gate_size) && (data->player.action
+			|| data->gate[i].status == OPENED))
 	{
 		if (data->gate[i].status == CLOSED)
 			data->text.str = "knock knock";
@@ -51,17 +51,14 @@ void	gates_logic(void)
 {
 	int		i;
 	int		gap;
-	t_point	gate_sensor;
 	t_data	*data;
 
 	data = get_data();
 	i = 0;
-	gap = 2;
+	gap = 1.5;
 	while (i < data->gate_amount)
 	{
-		gate_sensor = (t_point){data->gate[i].pos.x - gap, data->gate[i].pos.y
-			- gap};
-		open_gates(i, gate_sensor, gap);
+		open_gates(i, gap);
 		close_gates(i);
 		i++;
 	}

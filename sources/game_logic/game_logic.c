@@ -3,14 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   game_logic.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yadereve <yadereve@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 13:21:00 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/09/24 19:48:02 by yadereve         ###   ########.fr       */
+/*   Updated: 2024/09/26 15:03:00 by gneto-co         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
+
+bool	sensor(t_point item_pos, double gap, double item_size)
+{
+	t_data	*data;
+
+	data = get_data();
+	item_pos.x -= gap;
+	item_pos.y -= gap;
+	if (squares_touch(data->player.pos, data->player.size, item_pos, gap * 2
+			+ item_size))
+		return (true);
+	return (false);
+}
 
 void	game_logic(void)
 {
