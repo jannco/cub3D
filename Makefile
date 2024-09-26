@@ -6,7 +6,7 @@
 #    By: yadereve <yadereve@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/01 13:00:00 by yadereve          #+#    #+#              #
-#    Updated: 2024/09/25 13:58:15 by yadereve         ###   ########.fr        #
+#    Updated: 2024/09/26 11:56:02 by yadereve         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -62,6 +62,7 @@ endif
 GREEN = \033[32m
 ORANGE = \033[31m\033[33m
 BLUE = \033[1;34m
+RED = \033[0;31m
 NC = \033[0m
 PECKED = ----------
 
@@ -80,8 +81,8 @@ $(NAME): $(OBJ) $(MLX_LIB) $(LIBFT)
 	@echo "\n$(NAME) ready ... $(GREEN)[100%]$(NC)"
 	@echo "more... $(BLUE)make info$(NC)"
 
-bonus:
-	@echo "@ORANGEerror 101NC"
+bonus: all
+	@echo "$(RED)error 3301$(NC)"
 
 $(MLX_LIB):
 	@$(MAKE) -C ./$(MLX_DIR) --no-print-directory

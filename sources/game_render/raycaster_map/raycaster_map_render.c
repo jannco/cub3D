@@ -6,30 +6,39 @@
 /*   By: yadereve <yadereve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 13:21:00 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/09/25 18:50:48 by yadereve         ###   ########.fr       */
+/*   Updated: 2024/09/26 19:37:53 by yadereve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/cub3d.h"
 
-void	draw_wall_slice(int x, int wall_height, int cor)
+void	draw_wall_slice(int x, int wall_height, int color)
 {
 	t_data	*data;
-	int		start;
-	int		end;
+	int		wall_start;
+	int		wall_end;
 	int		gap;
+	int		y;
 
 	data = get_data();
 	gap = 0;
+	y = 0;
 	if (data->player.status == RUNNING)
 		gap = 100;
 	if (data->player.status == SNEAKING)
 		gap = -100;
-	start = (data->win_height - wall_height) / 2 + gap;
-	end = (data->win_height + wall_height) / 2 + gap;
-	draw_line(x, start, x, end, cor, 1);
-	draw_line(x, 0, x, start, LIGHT_BLUE_COLOR, 1);
-	draw_line(x, end, x, data->win_height, LIGHT_GREEN_COLOR, 1);
+	wall_start = (data->screen_height - wall_height) / 2 + gap;
+	wall_end = wall_start + wall_height + gap;
+	while (y < data->screen_height)
+	{
+		if (y < wall_start)
+			put_pixel_to_image(x, y, LIGHT_BLUE_COLOR);
+		else if (y > wall_end)
+			put_pixel_to_image(x, y, LIGHT_GREEN_COLOR);
+		else
+			put_pixel_to_image(x, y, color);
+		y++;
+	}
 }
 
 static int	type_selector(t_data *data)
@@ -50,18 +59,16 @@ void	render_raycaster(t_data *data)
 {
 	t_player	player;
 	int			fov;
-	float		wall_height;
+	int			wall_height;
 	int			screen_x;
 	float		distance;
 
 	fov = 60;
 	screen_x = 0;
 	player = data->player;
-	player.pos.x *= data->tile_size;
-	player.pos.y *= data->tile_size;
-	player.pos.x += player.rendered_size / 2;
-	player.pos.y += player.rendered_size / 2;
-	while (screen_x < data->win_width)
+	player.pos.x *= data->tile_size + (player.rendered_size / 2);
+	player.pos.y *= data->tile_size + (player.rendered_size / 2);
+	while (screen_x < data->screen_width)
 	{
 		vision_point(fov, screen_x, &distance, player);
 		if (distance > 0)
@@ -80,3 +87,4 @@ void	raycaster_map_render(void)
 	data = get_data();
 	render_raycaster(data);
 }
+
