@@ -6,7 +6,7 @@
 /*   By: yadereve <yadereve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 20:54:12 by yadereve          #+#    #+#             */
-/*   Updated: 2024/09/25 19:29:57 by yadereve         ###   ########.fr       */
+/*   Updated: 2024/09/27 16:46:24 by yadereve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -185,14 +185,14 @@ void	parse_map(int fd, t_map *map, int rows)
 	{
 		map->map = ft_calloc(rows + 1, sizeof(char *));
 		if (map->map == NULL)
-			error_message("Error: Invalid memory allocatin.");
+			error_message("Invalid memory allocatin.");
 		map->size.y = rows;
 	}
 	if (line)
 	{
 		map->map[rows] = ft_strtrim(line, "\n");
 		if (map->map[rows] == NULL)
-			error_message("Error: Invalid memory allocatin.");
+			error_message("Invalid memory allocatin.");
 		free(line);
 	}
 }
@@ -210,10 +210,10 @@ void	init_map(int argc, char **argv)
 		exit (EXIT_FAILURE);
 	}
 	if (ft_strncmp(argv[1] + ft_strlen(argv[1]) - 4, ".cub", 4))
-		error_message("Error: The map file must have a .cub extension.");
+		error_message("The map file must have a .cub extension.");
 	fd = open(argv[1], O_RDONLY);
 	if (fd < 0)
-		error_message("Error: Invalid file");
+		error_message("Invalid file");
 	parse_map(fd, &data->map, 0);
 	close(fd);
 	validate_map(&data->map);

@@ -6,14 +6,14 @@
 /*   By: yadereve <yadereve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 13:07:29 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/09/24 20:55:32 by yadereve         ###   ########.fr       */
+/*   Updated: 2024/09/27 16:18:40 by yadereve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
 
 #define INTRO \
-    "\n\n" BOLD \
+	"\n\n" BOLD \
 	BRIGHT_YELLOW "Five little ducks" WHITE " went out one day\n" \
 	"Over the " GREEN "hill " WHITE "and far away\n" \
 	YELLOW "Mother duck" WHITE " said, \"Quack, quack, quack, quack\"\n" \
@@ -34,8 +34,8 @@
 		if (text[i] == '\n'|| text[i] == '.')
 			ft_usleep(DELAY * 10);
 		ft_putchar(text[i]);
-        if (ft_isalnum(text[i]) || text[i] == ' ')
-		    ft_usleep(DELAY);
+		if (ft_isalnum(text[i]) || text[i] == ' ')
+			ft_usleep(DELAY);
 		i++;
 	}
 	ft_usleep(DELAY * 10);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: yadereve <yadereve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 13:05:26 by yadereve          #+#    #+#             */
-/*   Updated: 2024/09/27 11:58:03 by gneto-co         ###   ########.fr       */
+/*   Updated: 2024/09/27 17:31:22 by yadereve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,9 +140,9 @@ typedef struct s_camera
 
 # define PLAYER "NEWS"
 # define PLAYER_NORTH 'N'
-# define PLAYER_SOUTH 'S'
 # define PLAYER_EAST 'E'
 # define PLAYER_WEST 'W'
+# define PLAYER_SOUTH 'S'
 
 # define WALL_COLOR 0xf27446
 # define FLOOR_COLOR 0x25853b
@@ -153,13 +153,21 @@ typedef struct s_camera
 
 typedef struct s_texture
 {
-	void			*img_ptr;
-	int				*data;
-	int				width;
-	int				height;
-	int				bpp;
-	int				line_length;
-	int				endian;
+	void				*img;
+	char				*addr;
+	int					bits_per_pixel;
+	int					line_length;
+	int					endian;
+	int					x;
+	int					y;
+	int					width;
+	int					height;
+	int					move_sprite_x;
+	int					move_sprite_y;
+	int					move_key;
+	t_point				tmp;
+	struct s_texture	*next;
+
 }					t_texture;
 
 typedef struct s_map
@@ -262,6 +270,8 @@ typedef struct s_data
 	t_map			map;
 	t_minimap		minimap;
 	t_camera		camera;
+	t_texture		wall;
+
 }					t_data;
 
 typedef struct s_game
@@ -280,6 +290,9 @@ int					exit_game(char *msg);
 void				error_message(char *str);
 void				parse_map(int fd, t_map *map, int rows);
 void				free_map(t_map *map);
+void	error_img(t_mlx *date);
+void	error_malloc(t_mlx	*date);
+void	init_textures(t_texture *tmp_img, int i, char *path);
 int					validate_map(t_map *map);
 
 t_data				*get_data(void);

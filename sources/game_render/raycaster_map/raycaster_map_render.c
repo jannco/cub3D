@@ -3,16 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   raycaster_map_render.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: yadereve <yadereve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 13:21:00 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/09/27 13:15:42 by gneto-co         ###   ########.fr       */
+/*   Updated: 2024/09/27 17:38:40 by yadereve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/cub3d.h"
 
-void	draw_wall_slice(int x, int wall_height, int color)
+int	put_color(int x, int y, int wall_height)
+{
+	t_data	*data;
+	int color;
+	float m;
+
+	data = get_data();
+	m = wall_height / data->wall.height;
+	color = 
+	return (color);
+}
+
+void	draw_slice(int x, int wall_height, int color)
 {
 	t_data	*data;
 	int		wall_start;
@@ -36,6 +48,7 @@ void	draw_wall_slice(int x, int wall_height, int color)
 		else if (y > wall_end + gap)
 			put_pixel_to_image(x, y, LIGHT_GREEN_COLOR);
 		else
+			color = put_color(x, y, wall_height);
 			put_pixel_to_image(x, y, color);
 		y++;
 	}
@@ -68,13 +81,14 @@ void	render_raycaster(t_data *data)
 	player = data->player;
 	player.pos.x *= data->tile_size + (player.size / 2);
 	player.pos.y *= data->tile_size + (player.size / 2);
+	init_textures(&data->wall, 1, NULL);
 	while (screen_x < data->screen_width)
 	{
 		vision_point(fov, screen_x, &distance, player);
 		if (distance > 0)
 		{
 			wall_height = (int)(data->tile_size / distance * data->win_height);
-			draw_wall_slice(screen_x, wall_height, type_selector(data));
+			draw_slice(screen_x, wall_height, type_selector(data));
 		}
 		screen_x++;
 	}
