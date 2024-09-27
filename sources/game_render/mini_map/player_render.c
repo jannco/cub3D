@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player_render.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: yadereve <yadereve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 13:21:00 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/09/27 12:13:09 by gneto-co         ###   ########.fr       */
+/*   Updated: 2024/09/27 14:45:49 by yadereve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ void	draw_vision_line(t_data *data)
 	{
 		ray_angl = player.direction + ((fov * (float)(screen_x - data->win_width
 						/ 2) / data->win_width));
-		calculate_vision_point(player, &vp, 3000, ray_angl);
+		calculate_vision_point(player, &vp, 30000, ray_angl);
 		distance = 0;
 		draw_dda_line(player.pos, vp, &distance, PURPLE_COLOR);
 		distance *= cos(degrees_to_radians(ray_angl - player.direction));
