@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player_render.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yadereve <yadereve@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 13:21:00 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/09/24 19:47:33 by yadereve         ###   ########.fr       */
+/*   Updated: 2024/09/27 12:13:09 by gneto-co         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,8 +91,8 @@ void	draw_vision_line(t_data *data)
 	player = data->player;
 	player.pos.x *= data->minimap.scale;
 	player.pos.y *= data->minimap.scale;
-	player.pos.x += player.minimap_rendered_size / 2;
-	player.pos.y += player.minimap_rendered_size / 2;
+	player.pos.x += player.size / 2;
+	player.pos.y += player.size / 2;
 	while (screen_x < data->win_width)
 	{
 		ray_angl = player.direction + ((fov * (float)(screen_x - data->win_width
@@ -112,5 +112,5 @@ void	player_render(void)
 	data = get_data();
 	draw_vision_line(data);
 	draw_full_square(data->player.color, data->minimap.pos.x + data->minimap.size / 2,
-		data->minimap.pos.y + data->minimap.size / 2, data->player.minimap_rendered_size);
+		data->minimap.pos.y + data->minimap.size / 2, data->player.size);
 }

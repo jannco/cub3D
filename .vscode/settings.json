@@ -9,6 +9,7 @@
 		"locale": "c",
 		"__config": "c",
 		"vector": "c",
-		"random": "c"
+		"random": "c",
+		"game_configuration.h": "c"
 	}
 }

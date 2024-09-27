@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initialize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yadereve <yadereve@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 13:08:48 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/09/25 18:49:24 by yadereve         ###   ########.fr       */
+/*   Updated: 2024/09/27 13:09:58 by gneto-co         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,18 +121,18 @@ void	data_initialize_screen_map(t_data *data)
 	get_screen_resolution(&data->screen_width, &data->screen_height);
 	data->win_height = data->screen_height;
 	data->win_width = data->screen_width;
-	data->tile_size = 50;
+	data->tile_size = 250;
 	// map info
 	data->minimap.scale = 10;
 	data->minimap.size = data->win_width / 6;
 	data->minimap.pos = (t_point){data->win_width - data->minimap.size
 		- (data->minimap.size / 12), (data->minimap.size / 12)};
 	// text
-	data->text.pos = (t_point){10,data->win_height-100};
+	data->text.pos = (t_point){10, data->win_height - 100};
 	data->text.str = "lets save our little ducks";
 }
 
-void	data_initialize_player_ducks(t_data *data, t_player *player)
+void	data_initialize_player(t_data *data, t_player *player)
 {
 	// ---movement
 	player->move_speed = PLAYER_REGULAR_SPEED;
@@ -145,15 +145,18 @@ void	data_initialize_player_ducks(t_data *data, t_player *player)
 	player->looking_speed = LOOKING_REGULAR_SPEED;
 	player->looking_left = 0;
 	player->looking_right = 0;
-	player->mouse_new_x = 0;
-	player->mouse_old_x = 0;
+	player->mouse_new_x = data->screen_width / 2;
+	player->mouse_old_x = player->mouse_new_x;
 	// ---other
-	player->size = 0.5;
+	player->size = 0.25;
 	player->rendered_size = data->tile_size * player->size;
 	player->minimap_rendered_size = data->minimap.scale * player->size;
 	player->capacity = PLAYER_CAPACITY;
 	player->holding = 0;
 	player->color = PINK_COLOR;
+}
+void	data_initialize_ducks(t_data *data)
+{
 	// ducks
 	data->duck_amount = map_item_count(DUCK);
 	data->duck = (t_duck *)malloc(sizeof(t_duck) * (data->duck_amount + 1));
@@ -168,7 +171,6 @@ void	data_initialize_player_ducks(t_data *data, t_player *player)
 			* (data->backpack_amount + 1));
 	data->backpack_size = 1;
 	//
-	get_map_info();
 }
 
 int	data_initialize(void)
@@ -176,7 +178,9 @@ int	data_initialize(void)
 	t_data	*data;
 
 	data = get_data();
-	data_initialize_player_ducks(data, &data->player);
+	data_initialize_player(data, &data->player);
+	data_initialize_ducks(data);
+	get_map_info();
 	data_initialize_screen_map(data);
 	return (0);
 }

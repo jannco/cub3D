@@ -6,7 +6,7 @@
 /*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 13:21:00 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/09/26 15:03:00 by gneto-co         ###   ########.fr       */
+/*   Updated: 2024/09/27 13:03:46 by gneto-co         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,10 @@ bool	sensor(t_point item_pos, double gap, double item_size)
 void	game_logic(void)
 {
 	player_logic();
-	backpacks_logic();
-	ducks_logic();
-	gates_logic();
+	if (BONUS == ON)
+	{
+		backpacks_logic();
+		ducks_logic();
+		gates_logic();
+	}
 }

@@ -48,11 +48,13 @@ static void	movement_update(t_data *data, t_player *player)
 	temp_y = player->pos.y;
 	direction_radians = degrees_to_radians(player->direction);
 	update_speed(player, &temp_x, &temp_y, direction_radians);
-	if (map_wall_collision(temp_x, data->player.pos.y, WALL) == false
-		&& map_wall_collision(temp_x, data->player.pos.y, GATE) == false)
+	if (!(map_wall_collision(temp_x, data->player.pos.y, WALL)
+			|| (map_wall_collision(temp_x, data->player.pos.y, GATE)
+				&& BONUS == ON)))
 		data->player.pos.x = temp_x;
-	if (map_wall_collision(data->player.pos.x, temp_y, WALL) == false
-		&& map_wall_collision(data->player.pos.x, temp_y, GATE) == false)
+	if (!(map_wall_collision(data->player.pos.x, temp_y, WALL)
+			|| (map_wall_collision(data->player.pos.x, temp_y, GATE)
+				&& BONUS == ON)))
 		data->player.pos.y = temp_y;
 }
 
@@ -93,7 +95,8 @@ static void	vision_update(t_player *player)
 		target_direction -= player->looking_speed;
 	if (player->looking_right)
 		target_direction += player->looking_speed;
-	mouse_vision_update(player, &target_direction);
+	if (BONUS == ON)
+		mouse_vision_update(player, &target_direction);
 	player->direction = player->direction + (target_direction
 			- player->direction) * smoothing_factor;
 	if (player->direction < 0)
@@ -109,9 +112,9 @@ void	player_logic(void)
 
 	data = get_data();
 	player = &data->player;
-	if (player->status == RUNNING)
+	if (player->status == RUNNING && BONUS == ON)
 		player->move_speed = PLAYER_RUNNING_SPEED;
-	else if (player->status == SNEAKING)
+	else if (player->status == SNEAKING && BONUS == ON)
 		player->move_speed = PLAYER_SNEAKING_SPEED;
 	else
 		player->move_speed = PLAYER_REGULAR_SPEED;
