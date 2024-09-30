@@ -1,0 +1,26 @@
+1. Inicialização do projeto
+	[ ] Criar uma estrutura de dados Game para armazenar o estado do jogo e dos
+		seus componentes.
+	[ ] Implementar a função init_game() para inicializar todos os parâmetros do
+		jogo (carregar texturas, objectos, etc.).
+	[ ] Definir as principais constantes e macros (tamanho da janela,
+		parâmetros, etc.).
+2. Loop principal do jogo
+	[ ] Implementar a função game_loop() para o ciclo principal do jogo.
+	[ ] Adicionar a função de tratamento de eventos handle_events() para gerir
+		os eventos de entrada.
+	[ ] Implementar a função update_game() para atualizar o estado do jogo.
+3. Gráficos e ecrã
+	[ ] Implementar a função render() para desenhar os objectos do jogo no ecrã.
+	[ ] Configurar um sistema de animação para os objectos do jogo.
+4. Lógica do jogo
+	[ ] Implementar a mecânica de movimento e interação dos objectos.
+	[ ] Adicionar um sistema para lidar com colisões e interações entre
+		objectos.
+	[ ] Implementar um sistema de controlo do jogador (processamento de teclas
+		e rato).
+	[ ] Implementar cenários básicos do jogo, como o início e o fim do jogo.
+5. Som
+	[ ] Tentar configurar a reprodução de música de fundo.
+7. Documentação
+	[ ] Escrever comentários e documentação para o código.
