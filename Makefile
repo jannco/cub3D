@@ -6,7 +6,7 @@
 #    By: yadereve <yadereve@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/01 13:00:00 by yadereve          #+#    #+#              #
-#    Updated: 2024/09/30 12:13:07 by yadereve         ###   ########.fr        #
+#    Updated: 2024/09/30 13:25:19 by yadereve         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -90,6 +90,9 @@ $(NAME): $(OBJ) $(MLX_LIB) $(LIBFT)
 	@echo "more... $(BLUE)make info$(NC)"
 
 bonus:
+	@$(RM) $(NAME)
+	@$(RM) $(OBJ_DIR)
+	@$(MAKE) -C $(LIBFT_DIR) fclean --no-print-directory
 	@$(MAKE) BONUS=ON
 #	@echo "$(RED)error 3301$(NC)"
 
