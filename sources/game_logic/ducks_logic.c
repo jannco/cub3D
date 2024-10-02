@@ -6,7 +6,7 @@
 /*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 13:21:00 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/09/26 15:05:45 by gneto-co         ###   ########.fr       */
+/*   Updated: 2024/10/02 19:00:14 by gneto-co         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static void	map_update(int i, int y, int x)
 			+ x] = DUCK;
 		data->duck[i].pos.y += y;
 		data->duck[i].pos.x += x;
-		data->text.str = "quack quack quack";
+		set_text("quack quack quack");
 	}
 }
 
@@ -92,12 +92,12 @@ static void	catch_ducks(t_data *data)
 			{
 				data->duck[i].status = CAUGHT;
 				ft_printf("\a");
-				data->text.str = "gotcha";
+				set_text("gotcha");
 				data->player.holding++;
 				data->map.map[(int)data->duck[i].pos.y][(int)data->duck[i].pos.x] = FLOOR;
 			}
 			else
-				data->text.str = "cant grab more ducks";
+				set_text("cant grab more ducks");
 		}
 		if (data->duck[i].status == FREE && data->player.status != SNEAKING)
 			ducks_movement(data, i);
@@ -111,13 +111,14 @@ static void	save_ducks(t_data *data)
 	if (data->caught_ducks >= data->duck_amount && data->duck_amount > 0)
 	{
 		ft_usleep(SEC * 1);
+		end_window2();
 		close_window(NULL);
 	}
 	if (map_wall_collision(data->player.pos.x, data->player.pos.y, LAKE) == true
 		&& data->player.holding > 0 && data->player.action)
 	{
 		ft_printf("\a");
-		data->text.str = "here you are safe";
+		set_text("here you are safe");
 		data->player.holding--;
 		data->caught_ducks++;
 	}

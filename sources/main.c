@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yadereve <yadereve@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 13:03:09 by yadereve          #+#    #+#             */
-/*   Updated: 2024/09/26 12:20:11 by yadereve         ###   ########.fr       */
+/*   Updated: 2024/10/02 18:56:39 by gneto-co         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ void	game_window(void)
 	mlx_hook(data->mlx.win, 6, 1L << 6, mouse_move, NULL);
 	mlx_hook(data->mlx.win, 4, 1L << 2, mouse_press, NULL);
 	mlx_hook(data->mlx.win, 5, 1L << 3, mouse_release, NULL);
+	intro_window2();
+	set_text("lets save our little ducks");
 	mlx_loop_hook(data->mlx.mlx, update_frame, NULL);
 	mlx_loop(data->mlx.mlx);
 }

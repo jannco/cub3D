@@ -6,14 +6,14 @@
 /*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 18:41:20 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/09/26 15:43:48 by gneto-co         ###   ########.fr       */
+/*   Updated: 2024/09/30 15:18:25 by gneto-co         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
 
 void	add_image_to_main_image(t_mlx new_img, int img_height, int img_width,
-		t_point pos)
+		t_point pos, int color)
 {
 	int		x;
 	int		y;
@@ -35,9 +35,13 @@ void	add_image_to_main_image(t_mlx new_img, int img_height, int img_width,
 				&& (y + (int)pos.y) >= 0 && (y + (int)pos.y) < data->win_height)
 			{
 				if (add_pixel != -16777216)
+				{
+					if (color >= 0)
+						add_pixel = color;
 					*(unsigned int *)(data->mlx.img_data + ((y + (int)pos.y)
 								* data->mlx.line_length + (x + (int)pos.x)
 								* (data->mlx.bpp / 8))) = add_pixel;
+				}
 			}
 			x++;
 		}
@@ -66,7 +70,33 @@ void	xpm_image_render(char *str, t_point pos)
 	}
 	img_data = mlx_get_data_addr(img_ptr, &bpp, &line_length, &endian);
 	add_image_to_main_image((t_mlx){img_data, bpp, line_length, 0, NULL, NULL,
-		NULL}, img_width, img_height, pos);
+		NULL}, img_width, img_height, pos, -1);
+	if (data->mlx.img)
+		mlx_destroy_image(data->mlx.mlx, img_ptr);
+}
+
+void	xpm_image_render_color(char *str, t_point pos, int color)
+{
+	int		img_width;
+	int		img_height;
+	void	*img_ptr;
+	char	*img_data;
+	int		bpp;
+	int		line_length;
+	int		endian;
+	t_data	*data;
+
+	(void)pos;
+	data = get_data();
+	img_ptr = mlx_xpm_file_to_image(data->mlx.mlx, str, &img_width,
+			&img_height);
+	if (!img_ptr)
+	{
+		printf("ERROR\n");
+	}
+	img_data = mlx_get_data_addr(img_ptr, &bpp, &line_length, &endian);
+	add_image_to_main_image((t_mlx){img_data, bpp, line_length, 0, NULL, NULL,
+		NULL}, img_width, img_height, pos, color);
 	if (data->mlx.img)
 		mlx_destroy_image(data->mlx.mlx, img_ptr);
 }

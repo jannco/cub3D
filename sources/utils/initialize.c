@@ -6,7 +6,7 @@
 /*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 13:08:48 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/09/27 13:09:58 by gneto-co         ###   ########.fr       */
+/*   Updated: 2024/09/30 15:35:48 by gneto-co         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,8 +88,8 @@ void	map_info_selector(t_point pos, char c)
 			data->player.direction = EAST;
 		else if (c == PLAYER_WEST)
 			data->player.direction = WEST;
-		data->player.pos.x = pos.x;
-		data->player.pos.y = pos.y;
+		data->player.pos.x = pos.x += data->player.size/2;
+		data->player.pos.y = pos.y += data->player.size/2;
 	}
 }
 
@@ -128,8 +128,9 @@ void	data_initialize_screen_map(t_data *data)
 	data->minimap.pos = (t_point){data->win_width - data->minimap.size
 		- (data->minimap.size / 12), (data->minimap.size / 12)};
 	// text
-	data->text.pos = (t_point){10, data->win_height - 100};
-	data->text.str = "lets save our little ducks";
+	data->intro = true;
+	data->text.pos = (t_point){data->win_width / 4, data->win_height / 3 * 2};
+	set_text("lets save our little ducks");
 }
 
 void	data_initialize_player(t_data *data, t_player *player)

@@ -6,7 +6,7 @@
 /*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 11:08:14 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/09/27 13:05:54 by gneto-co         ###   ########.fr       */
+/*   Updated: 2024/09/27 14:49:43 by gneto-co         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,7 @@ void	vision_point(int fov, int screen_x, float *distance, t_player player)
 	data = get_data();
 	ray_angl = player.direction + ((fov * (float)(screen_x - data->win_width
 					/ 2) / data->win_width));
-	calculate_vision_point(player, &vp, 3000, ray_angl);
+	calculate_vision_point(player, &vp, 30000, ray_angl);
 	*distance = 0;
 	get_dda_line(player.pos, vp, distance);
 	// get_dda_with_subpixel(player.pos, vp, distance);

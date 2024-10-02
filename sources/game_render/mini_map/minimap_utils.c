@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yadereve <yadereve@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 21:48:21 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/09/24 19:47:30 by yadereve         ###   ########.fr       */
+/*   Updated: 2024/09/30 12:20:49 by gneto-co         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,15 @@ void	draw_grid_on_map(int color, int x, int y, int size)
 		size);
 }
 
-void	draw_line_on_map(int color, int thickness, t_point p1, t_point p2)
+void	draw_line_on_map(int color, t_point p1, t_point p2)
 {
-	t_data	*data;
+	t_data *data;
 
 	data = get_data();
-	minimap_draw_line(p1.x - data->camera.pos.x, p1.y - data->camera.pos.y, p2.x
-		- data->camera.pos.x, p2.y - data->camera.pos.y, color, thickness);
+	p1.x -= data->camera.pos.x;
+	p1.y -= data->camera.pos.y;
+	p2.x -= data->camera.pos.x;
+	p2.y -= data->camera.pos.y;
+	// minimap_draw_line(p1.x ,p1.y,p2.x, p2.y, color, thickness);
+	minimap_draw_line(p1, p2, color);
 }

@@ -6,7 +6,7 @@
 /*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 13:21:00 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/09/26 14:58:33 by gneto-co         ###   ########.fr       */
+/*   Updated: 2024/09/30 13:51:44 by gneto-co         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void	catch_backpacks(int gap, int i)
 	{
 		data->backpack[i].status = CAUGHT;
 		ft_printf("\a");
-		data->text.str = "nice backpack";
+		set_text("nice backpack");
 		data->player.capacity += 2;
 		data->map.map[(int)data->backpack[i].pos.y][(int)data->backpack[i].pos.x] = FLOOR;
 	}

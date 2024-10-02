@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   start_window.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yadereve <yadereve@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 13:07:29 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/09/24 20:55:32 by yadereve         ###   ########.fr       */
+/*   Updated: 2024/09/30 15:32:18 by gneto-co         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,12 @@
 
 void	intro_window(void)
 {
-	if (HISTORY_MOD == ON)
+	if (HISTORY_MOD == CMD)
 		display_text_letter_by_letter(INTRO);
 }
 
 void	end_window(void)
 {
-	if (HISTORY_MOD == ON)
+	if (HISTORY_MOD == CMD)
 		display_text_letter_by_letter(END);
 }

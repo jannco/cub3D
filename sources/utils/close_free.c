@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   close_free.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yadereve <yadereve@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 13:21:39 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/09/25 10:19:32 by yadereve         ###   ########.fr       */
+/*   Updated: 2024/10/02 19:02:58 by gneto-co         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	data_clear(void)
 
 int	close_window(void *param)
 {
-	t_data *data;
+	t_data	*data;
 
 	data = get_data();
 	(void)param;
