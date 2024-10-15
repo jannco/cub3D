@@ -6,7 +6,7 @@
 /*   By: yadereve <yadereve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 13:21:00 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/10/14 20:44:27 by yadereve         ###   ########.fr       */
+/*   Updated: 2024/10/15 08:54:26 by yadereve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -242,9 +242,9 @@ void render_raycaster(t_data *data)
 		wall_height = (int)(data->screen_height / distance_to_wall);
 		wall_top = (data->screen_height / 2) - (wall_height / 2);
 		wall_bottom = (data->screen_height / 2) + (wall_height / 2);
-		draw_vertical_line(screen_x, 0, wall_top, LIGHT_BLUE_COLOR);
+		draw_vertical_line(screen_x, 0, wall_top, data->f_color);
 		draw_texture(data, screen_x, wall_top, wall_bottom, distance_to_wall); // NOTE pronto!!!
-		draw_vertical_line(screen_x, wall_bottom, data->screen_width, LIGHT_GREEN_COLOR);
+		draw_vertical_line(screen_x, wall_bottom, data->screen_width, data->c_color);
 		screen_x++;
 	}
 }

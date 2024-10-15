@@ -6,7 +6,7 @@
 /*   By: yadereve <yadereve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 13:05:26 by yadereve          #+#    #+#             */
-/*   Updated: 2024/10/15 08:13:51 by yadereve         ###   ########.fr       */
+/*   Updated: 2024/10/15 09:45:21 by yadereve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -273,6 +273,8 @@ typedef struct s_data
 	int				tile_size;
 
 	t_texture		*textures;
+	int				f_color;
+	int				c_color;
 
 	t_mlx			mlx;
 

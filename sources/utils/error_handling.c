@@ -6,7 +6,7 @@
 /*   By: yadereve <yadereve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 17:19:36 by yadereve          #+#    #+#             */
-/*   Updated: 2024/09/30 08:22:16 by yadereve         ###   ########.fr       */
+/*   Updated: 2024/10/15 09:35:40 by yadereve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,11 @@
 
 void	error_message(char *str)
 {
-	char *tmp_str;
+	// char *tmp_str;
 
-	tmp_str = ft_multi_strjoin("%sError: %s%s", RED_COLOR, str, NC);
-	printf("%s\n", tmp_str);
+	// tmp_str = ft_multi_strjoin("%sError: %s%s", RED_COLOR, str, NC);
+	printf("Error: ");
+	printf("%s\n", str);
 	exit (STDERR_FILENO);
 }
 

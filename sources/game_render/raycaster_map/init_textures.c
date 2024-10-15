@@ -6,7 +6,7 @@
 /*   By: yadereve <yadereve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 13:01:41 by yadereve          #+#    #+#             */
-/*   Updated: 2024/10/15 08:29:20 by yadereve         ###   ########.fr       */
+/*   Updated: 2024/10/15 08:53:56 by yadereve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,11 @@ void	load_texture(t_image **texture, char *file)
 	// printf("curent: %p, texture: %p\n", curent, *texture); // MARK
 }
 
+int	create_rgb(int r, int g, int b)
+{
+	return (r << 16 | g << 8 | b);
+}
+
 void	init_textures(t_texture	*textures)
 {
 	t_data		*data;
@@ -91,6 +96,7 @@ void	init_textures(t_texture	*textures)
 	load_texture (&textures->duck, "./assets/textures/duck_03.xpm");
 	load_texture (&textures->gate, "./assets/textures/gate.xpm");
 	load_texture (&textures->lake, "./assets/textures/lake.xpm");
+
 	// while (i < 2)
 	// {
 	// 	char *path = ft_multi_strjoin("./assets/textures/duck_0%d.xpm", i + 1);
@@ -98,5 +104,8 @@ void	init_textures(t_texture	*textures)
 	// 	printf ("path: %s, h:%d\n\n", path, textures->duck_texture[i].height); // MARK
 	// 	i++;
 	// }
+
+	data->f_color = create_rgb(map.f_color.r, map.f_color.g, map.f_color.b);
+	data->c_color = create_rgb(map.c_color.r, map.c_color.g, map.c_color.b);
 	data->textures = textures;
 }

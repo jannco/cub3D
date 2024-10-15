@@ -6,7 +6,7 @@
 /*   By: yadereve <yadereve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 20:54:12 by yadereve          #+#    #+#             */
-/*   Updated: 2024/10/15 08:24:41 by yadereve         ###   ########.fr       */
+/*   Updated: 2024/10/15 09:45:00 by yadereve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,8 +93,13 @@ bool	is_map_valid(char **map)
 		j = 0;
 		while (map[i][j])
 		{
-			if (!ft_strchr("NEWS 10", map[i][j]) && (BONUS == ON && !ft_strchr("GBDL", map[i][j])))
+			if (BONUS == OFF && !ft_strchr("NEWS 10", map[i][j]))
 				return (false);
+			if (BONUS == ON && !ft_strchr("NEWS 10GBDL", map[i][j])) // TODO bonus "GBDL"
+			{
+				printf("OK\n");
+				return (false);
+			}
 			j++;
 		}
 		i++;
@@ -154,19 +159,21 @@ int		validate_map(t_map *map)
 	bool	access;
 
 	find_map_size(map);
+	find_start = false;
+	access = false;
 	map_copy = copy_map(map);
 	map_valid = is_map_valid(map_copy);
-	find_start = find_start_position(map_copy);
-	access = access_validate(map_copy, map);
+	if (map_valid)
+		find_start = find_start_position(map_copy);
+	if (find_start)
+		access = access_validate(map_copy, map);
 	if (map_valid && find_start && access)
-	{
 		free_copy_map(map_copy);
-	}
 	else
 	{
 		free_copy_map(map_copy);
 		free_map(map);
-		error_message("Error: map is not valid");
+		error_message("map is not valid");
 	}
 	return (0);
 }
