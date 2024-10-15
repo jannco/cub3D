@@ -6,7 +6,7 @@
 /*   By: yadereve <yadereve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 20:54:12 by yadereve          #+#    #+#             */
-/*   Updated: 2024/10/15 16:25:18 by yadereve         ###   ########.fr       */
+/*   Updated: 2024/10/15 19:21:00 by yadereve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,13 +188,15 @@ int	extract_number(char *color, int *i)
 		*i= *i + 1;
 	}
 	num = ft_atoi(number);
+	if (num < 0 && num > 255)
+		num = -2;
 	free(number);
 	return (num);
 }
 
 bool	get_color(char *color, t_rgb *rgb)
 {
-	int		i;
+	int	i;
 
 	i = 0;
 	rgb->r = extract_number(color, &i);
@@ -202,12 +204,9 @@ bool	get_color(char *color, t_rgb *rgb)
 	rgb->g = extract_number(color, &i);
 	i++;
 	rgb->b = extract_number(color, &i);
-	if (rgb->r && rgb->g && rgb->b)
-	{
-		free(color);
-		return (true);
-	}
 	free(color);
+	if (rgb->r && rgb->g && rgb->b)
+		return (true);
 	return (false);
 }
 
@@ -220,11 +219,15 @@ bool	find_color(char *str)
 	if (!ft_strncmp("F ", str, 2))
 	{
 		color = ft_substr(str, 2, ft_strlen(str));
+		if (!color)
+			return (false);
 		return (get_color(color, &data->map.f_color)); // LEAK
 	}
 	else if (!ft_strncmp("C ", str, 2))
 	{
 		color = ft_substr(str, 2, ft_strlen(str));
+		if (!color)
+			return (false);
 		return (get_color(color, &data->map.c_color)); // LEAK
 	}
 	return (false);
@@ -241,6 +244,7 @@ bool	find_path_and_color(char *str)
 {
 	t_data	*data;
 	char	*temp_str;
+	bool	result;
 
 	data = get_data();
 	if (!ft_strcmp("\n", str))
@@ -248,16 +252,18 @@ bool	find_path_and_color(char *str)
 	temp_str = ft_strtrim(str, "\n");
 	if (data->map.no_texture == NULL && !ft_strncmp("NO ./", temp_str, 5))
 		return (create_path(&data->map.no_texture, temp_str)); // LEAK \n
-	else if (data->map.so_texture == NULL && !ft_strncmp("SO ./", temp_str, 5))
+	if (data->map.so_texture == NULL && !ft_strncmp("SO ./", temp_str, 5))
 		return (create_path(&data->map.so_texture, temp_str)); // LEAK \n
-	else if (data->map.we_texture == NULL && !ft_strncmp("WE ./", temp_str, 5))
+	if (data->map.we_texture == NULL && !ft_strncmp("WE ./", temp_str, 5))
 		return (create_path(&data->map.we_texture, temp_str)); // LEAK \n
-	else if (data->map.ea_texture == NULL && !ft_strncmp("EA ./", temp_str, 5))
+	if (data->map.ea_texture == NULL && !ft_strncmp("EA ./", temp_str, 5))
 		return (create_path(&data->map.ea_texture, temp_str)); // LEAK \n
-	else if (data->map.f_color.r == 0)
-		return (find_color(temp_str));
-	else if (data->map.c_color.r == 0)
-		return (find_color(temp_str));
+	if (data->map.f_color.r == -1)
+	{
+		result = find_color(temp_str);
+		free(temp_str);
+		return (result);
+	}
 	free(temp_str);
 	return (false);
 }
@@ -274,9 +280,6 @@ void	parse_file(int fd, t_map *map, int rows)
 		checker = false;
 		rows = -1;
 	}
-	// printf("row: %d\n", rows); // MARK
-	// printf("ch %d\n", checker); // MARK
-	// printf("line: %s\n", line); // MARK
 	if (line)
 		parse_file(fd, map, rows + 1);
 	else if (checker)
@@ -288,43 +291,33 @@ void	parse_file(int fd, t_map *map, int rows)
 	if (line && checker)
 	{
 		map->map[rows] = ft_strtrim(line, "\n");
-		// printf("map[%d] %s\n", rows, map->map[rows]); // MARK
-
 		if (map->map[rows] == NULL)
 			error_message("Invalid memory allocatin.");
 	}
 	if (line)
 		free(line);
 }
-
-void	parse_config(int fd, t_data *data)
+void	init_textures_and_colors(t_data *data)
 {
-	char	*line;
-
-	line = get_next_line(fd);
-	if (find_path_and_color(line))
-		parse_config(fd, data);
-	if (line)
-		free(line);
+	data->map.ea_texture = NULL;
+	data->map.no_texture = NULL;
+	data->map.so_texture = NULL;
+	data->map.we_texture = NULL;
+	data->map.f_color.b = -1;
+	data->map.f_color.b = -1;
+	data->map.f_color.g = -1;
+	data->map.f_color.r = -1;
+	data->map.c_color.b = -1;
+	data->map.c_color.g = -1;
+	data->map.c_color.r = -1;
 }
-
 void	init_map(int argc, char **argv)
 {
 	int		fd;
 	t_data	*data;
 
 	data = get_data();
-	data->map.ea_texture = NULL;
-	data->map.no_texture = NULL;
-	data->map.so_texture = NULL;
-	data->map.we_texture = NULL;
-	data->map.f_color.b = 0;
-	data->map.f_color.g = 0;
-	data->map.f_color.r = 0;
-	data->map.c_color.b = 0;
-	data->map.c_color.g = 0;
-	data->map.c_color.r = 0;
-
+	init_textures_and_colors(data);
 	if (argc != 2)
 	{
 		ft_printf("Usage: ./cub3D assets/maps/map1.cub\n");
@@ -348,5 +341,9 @@ void	init_map(int argc, char **argv)
 	// printf("f_color_r: %d\n", data->map.f_color.r); // MARK
 	// printf("f_color_g: %d\n", data->map.f_color.g); // MARK
 	// printf("f_color_b: %d\n", data->map.f_color.b); // MARK
+	if (data->map.f_color.r == -2)
+		exit_game("error floor color");
+	if (data->map.c_color.r == -2)
+		exit_game("error ceiling color");
 	validate_map(&data->map);
 }
