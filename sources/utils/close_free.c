@@ -6,7 +6,7 @@
 /*   By: yadereve <yadereve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 13:21:39 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/10/15 11:36:16 by yadereve         ###   ########.fr       */
+/*   Updated: 2024/10/15 14:48:44 by yadereve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	mlx_clear(void)
 		mlx_destroy_window(data->mlx.mlx, data->mlx.win);
 	if (data->mlx.mlx)
 	{
-		// mlx_destroy_display(data->mlx.mlx); //FIXME
+		mlx_destroy_display(data->mlx.mlx); //FIXME
 		free(data->mlx.mlx);
 	}
 }
@@ -49,6 +49,7 @@ int	close_window(void *param)
 
 	data = get_data();
 	(void)param;
+	clean_up(data);
 	mlx_clear();
 	data_clear();
 	if (data->caught_ducks == data->duck_amount)

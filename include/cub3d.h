@@ -6,7 +6,7 @@
 /*   By: yadereve <yadereve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 13:05:26 by yadereve          #+#    #+#             */
-/*   Updated: 2024/10/15 11:24:20 by yadereve         ###   ########.fr       */
+/*   Updated: 2024/10/15 14:15:36 by yadereve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -311,6 +311,7 @@ void				init_map(int argc, char **argv);
 // void				init_mlx(t_game *game);
 // void				start_game(t_game *game);
 int					exit_game(char *msg);
+void	clean_up(t_data *data);
 void				error_message(char *str);
 void	error_img(t_data *data);
 void	error_malloc(t_data	*data);

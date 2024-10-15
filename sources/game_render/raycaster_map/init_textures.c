@@ -6,7 +6,7 @@
 /*   By: yadereve <yadereve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 13:01:41 by yadereve          #+#    #+#             */
-/*   Updated: 2024/10/15 08:53:56 by yadereve         ###   ########.fr       */
+/*   Updated: 2024/10/15 16:37:17 by yadereve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ t_image	*load_image(char *file)
 	t_image	*new_texture;
 
 	data = get_data();
-	new_texture = malloc(sizeof(t_image)); //LEAK
+	// new_texture = malloc(sizeof(t_image)); //LEAK
+	new_texture = ft_calloc(1, sizeof(t_image)); //LEAK
 	if (!new_texture)
 		error_malloc(data);
 	new_texture->img_ptr = mlx_xpm_file_to_image(data->mlx.mlx, file, &new_texture->width,

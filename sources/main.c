@@ -6,7 +6,7 @@
 /*   By: yadereve <yadereve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 13:03:09 by yadereve          #+#    #+#             */
-/*   Updated: 2024/10/15 11:30:48 by yadereve         ###   ########.fr       */
+/*   Updated: 2024/10/15 15:11:24 by yadereve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,6 @@ int	main(int argc, char **argv)
 	// init_player(game.map);
 	// start_game(&game);
 
-	exit_game(NULL);
+	// exit_game(NULL);
 	return (EXIT_SUCCESS);
 }

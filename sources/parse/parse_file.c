@@ -6,7 +6,7 @@
 /*   By: yadereve <yadereve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 20:54:12 by yadereve          #+#    #+#             */
-/*   Updated: 2024/10/15 09:47:47 by yadereve         ###   ########.fr       */
+/*   Updated: 2024/10/15 16:25:18 by yadereve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,6 +179,7 @@ int	extract_number(char *color, int *i)
 {
 	int		start;
 	char	*number;
+	int		num;
 
 	start = *i;
 	while (ft_isdigit(color[*i]))
@@ -186,7 +187,9 @@ int	extract_number(char *color, int *i)
 		number = ft_substr(color, start, *i + 1);
 		*i= *i + 1;
 	}
-	return (ft_atoi(number));
+	num = ft_atoi(number);
+	free(number);
+	return (num);
 }
 
 bool	get_color(char *color, t_rgb *rgb)
@@ -200,7 +203,11 @@ bool	get_color(char *color, t_rgb *rgb)
 	i++;
 	rgb->b = extract_number(color, &i);
 	if (rgb->r && rgb->g && rgb->b)
+	{
+		free(color);
 		return (true);
+	}
+	free(color);
 	return (false);
 }
 
@@ -223,26 +230,35 @@ bool	find_color(char *str)
 	return (false);
 }
 
+bool	create_path(char **texture, char *path)
+{
+	*texture = ft_substr(path, 3, ft_strlen(path));
+	free(path);
+	return (true);
+}
+
 bool	find_path_and_color(char *str)
 {
 	t_data	*data;
+	char	*temp_str;
 
 	data = get_data();
 	if (!ft_strcmp("\n", str))
 		return (true);
-	str = ft_strtrim(str, "\n");
-	if (data->map.no_texture == NULL && !ft_strncmp("NO ./", str, 5))
-		return (data->map.no_texture = ft_substr(str, 3, ft_strlen(str))); // LEAK \n
-	else if (data->map.so_texture == NULL && !ft_strncmp("SO ./", str, 5))
-		return (data->map.so_texture = ft_substr(str, 3, ft_strlen(str))); // LEAK \n
-	else if (data->map.we_texture == NULL && !ft_strncmp("WE ./", str, 5))
-		return (data->map.we_texture = ft_substr(str, 3, ft_strlen(str))); // LEAK \n
-	else if (data->map.ea_texture == NULL && !ft_strncmp("EA ./", str, 5))
-		return (data->map.ea_texture = ft_substr(str, 3, ft_strlen(str))); // LEAK \n
+	temp_str = ft_strtrim(str, "\n");
+	if (data->map.no_texture == NULL && !ft_strncmp("NO ./", temp_str, 5))
+		return (create_path(&data->map.no_texture, temp_str)); // LEAK \n
+	else if (data->map.so_texture == NULL && !ft_strncmp("SO ./", temp_str, 5))
+		return (create_path(&data->map.so_texture, temp_str)); // LEAK \n
+	else if (data->map.we_texture == NULL && !ft_strncmp("WE ./", temp_str, 5))
+		return (create_path(&data->map.we_texture, temp_str)); // LEAK \n
+	else if (data->map.ea_texture == NULL && !ft_strncmp("EA ./", temp_str, 5))
+		return (create_path(&data->map.ea_texture, temp_str)); // LEAK \n
 	else if (data->map.f_color.r == 0)
-		return (find_color(str));
+		return (find_color(temp_str));
 	else if (data->map.c_color.r == 0)
-		return (find_color(str));
+		return (find_color(temp_str));
+	free(temp_str);
 	return (false);
 }
 
@@ -320,6 +336,8 @@ void	init_map(int argc, char **argv)
 	if (fd < 0)
 		error_message("Invalid file");
 
+	parse_file(fd, &data->map, 0);
+	close(fd);
 	// printf("no: %s\n", data->map.no_texture); // MARK
 	// printf("so: %s\n", data->map.so_texture); // MARK
 	// printf("we: %s\n", data->map.we_texture); // MARK
@@ -330,7 +348,5 @@ void	init_map(int argc, char **argv)
 	// printf("f_color_r: %d\n", data->map.f_color.r); // MARK
 	// printf("f_color_g: %d\n", data->map.f_color.g); // MARK
 	// printf("f_color_b: %d\n", data->map.f_color.b); // MARK
-	parse_file(fd, &data->map, 0);
-	close(fd);
 	validate_map(&data->map);
 }
