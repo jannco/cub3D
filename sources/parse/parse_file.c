@@ -6,7 +6,7 @@
 /*   By: yadereve <yadereve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 20:54:12 by yadereve          #+#    #+#             */
-/*   Updated: 2024/10/15 09:45:00 by yadereve         ###   ########.fr       */
+/*   Updated: 2024/10/15 09:47:47 by yadereve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,10 +96,7 @@ bool	is_map_valid(char **map)
 			if (BONUS == OFF && !ft_strchr("NEWS 10", map[i][j]))
 				return (false);
 			if (BONUS == ON && !ft_strchr("NEWS 10GBDL", map[i][j])) // TODO bonus "GBDL"
-			{
-				printf("OK\n");
 				return (false);
-			}
 			j++;
 		}
 		i++;
