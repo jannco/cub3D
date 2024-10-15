@@ -6,7 +6,7 @@
 /*   By: yadereve <yadereve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 13:21:00 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/09/30 08:10:33 by yadereve         ###   ########.fr       */
+/*   Updated: 2024/10/15 11:31:41 by yadereve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,10 @@
 // close gate
 static void	close_gates(int i)
 {
-	struct timeval	current_time;
-	t_data			*data;
-	unsigned int	elapsed;
+	t_data	*data;
 
 	data = get_data();
-	gettimeofday(&current_time, NULL);
-	elapsed = (current_time.tv_sec - data->gate[i].open_time.tv_sec) * 1000000
-		+ (current_time.tv_usec - data->gate[i].open_time.tv_usec);
-	if (elapsed >= SEC * 3)
+	if (time_over(data->gate[i].open_time, 3 * SEC))
 	{
 		data->gate[i].status = CLOSED;
 		data->map.map[(int)data->gate[i].pos.y][(int)data->gate[i].pos.x] = GATE;
@@ -40,9 +35,9 @@ static void	open_gates(int i, double gap)
 			|| data->gate[i].status == OPENED))
 	{
 		if (data->gate[i].status == CLOSED)
-			data->text.str = "knock knock";
+			set_text("knock knock");
 		data->gate[i].status = OPENED;
-		gettimeofday(&data->gate[i].open_time, NULL);
+		set_timer(&data->gate[i].open_time);
 		data->map.map[(int)data->gate[i].pos.y][(int)data->gate[i].pos.x] = FLOOR;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: yadereve <yadereve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 13:21:00 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/10/11 17:08:26 by yadereve         ###   ########.fr       */
+/*   Updated: 2024/10/15 11:31:54 by yadereve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	minimap_render(void)
 	ducks_render();
 	gates_render();
 	backpacks_render();
-	text_render();
+	text_render(20, BLACK_COLOR);
 }
 
 void	game_render(void)
@@ -30,11 +30,11 @@ void	game_render(void)
 	data = get_data();
 	draw_background(BACKGROUND_COLOR);
 	raycaster_map_render();
-	/* if (data->player.action)
+	if (data->player.action)
 	{
-		xpm_image_render("assets/textures/wings_100.xpm",
-			(t_point){data->screen_width / 2 - 100, 0});
-	} */
+		xpm_image_render("assets/textures/wings_500.xpm",
+			(t_point){data->screen_width / 2 - 250, data->screen_height - 250});
+	}
 	if (BONUS == ON)
 	{
 		minimap_render();

@@ -6,7 +6,7 @@
 /*   By: yadereve <yadereve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 13:07:29 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/09/27 16:18:40 by yadereve         ###   ########.fr       */
+/*   Updated: 2024/10/15 11:36:44 by yadereve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,12 @@
 
 void	intro_window(void)
 {
-	if (HISTORY_MOD == ON)
+	if (HISTORY_MOD == CMD)
 		display_text_letter_by_letter(INTRO);
 }
 
 void	end_window(void)
 {
-	if (HISTORY_MOD == ON)
+	if (HISTORY_MOD == CMD)
 		display_text_letter_by_letter(END);
 }

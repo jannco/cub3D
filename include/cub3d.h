@@ -6,7 +6,7 @@
 /*   By: yadereve <yadereve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 13:05:26 by yadereve          #+#    #+#             */
-/*   Updated: 2024/10/15 09:45:21 by yadereve         ###   ########.fr       */
+/*   Updated: 2024/10/15 11:24:20 by yadereve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -219,7 +219,7 @@ typedef struct s_minimap
 
 # define ON 1
 # define OFF 2
-
+# define CMD 3
 
 typedef struct s_backpack
 {
@@ -245,6 +245,7 @@ typedef struct s_text
 {
 	t_point			pos;
 	char			*str;
+	struct timeval	start_time;
 }					t_text;
 
 typedef struct s_mlx
@@ -303,6 +304,7 @@ typedef struct s_data
 	t_point			fraction;
 	int				dir;
 
+	int				intro;
 }					t_data;
 
 void				init_map(int argc, char **argv);
@@ -319,26 +321,30 @@ void	init_textures(t_texture	*textures);
 void	load_texture(t_image **texture, char *file);
 
 t_data				*get_data(void);
+
 void				ft_usleep(unsigned int microseconds);
+void				set_timer(struct timeval *start_time);
+int					time_over(struct timeval start_time,
+						unsigned int microseconds);
+
 void				put_pixel_to_image(int x, int y, int color);
 void				draw_full_square(int color, int pos_x, int pos_y, int size);
 void				draw_empty_square(int color, int pos_x, int pos_y,
 						int size);
 void				draw_background(int color);
-void				draw_line(int x1, int y1, int x2, int y2, int color,
-						int thickness);
 void				minimap_draw_full_square(int color, int pos_x, int pos_y,
 						int size);
 void				minimap_draw_empty_square(int color, int pos_x, int pos_y,
 						int size);
 void				minimap_draw_background(int color);
-void				minimap_draw_line(int x1, int y1, int x2, int y2, int color,
-						int thickness);
-void				draw_full_triangle(int color, int pos_x, int pos_y,
-						int height);
+
+void				minimap_draw_line(t_point p1, t_point p2, int color);
 
 void				intro_window(void);
 void				end_window(void);
+
+void				intro_window2(void);
+void				end_window2(void);
 
 void				get_screen_resolution(int *width, int *height);
 int					data_initialize(void);
@@ -382,14 +388,15 @@ void				status_bar_render(void);
 void				raycaster_map_render(void);
 
 void				xpm_image_render(char *str, t_point pos);
-void				text_render(void);
+void				xpm_image_render_color(char *str, t_point pos, int color);
+void				set_text(char *str);
+void				text_render(int max_char, int color);
 
 void				vision_point(int fov, int screen_x, float *distance,
 						t_player player);
 void				draw_item_on_map(int color, int x, int y, int size);
 void				draw_grid_on_map(int color, int x, int y, int size);
-void				draw_line_on_map(int color, int thickness, t_point p1,
-						t_point p2);
+void				draw_line_on_map(int color, t_point p1, t_point p2);
 
 double				degrees_to_radians(double degree);
 

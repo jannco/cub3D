@@ -6,7 +6,7 @@
 /*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 10:10:39 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/09/27 14:30:52 by gneto-co         ###   ########.fr       */
+/*   Updated: 2024/09/30 15:37:18 by gneto-co         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,11 @@
 
 # include "game_configuration.h"
 
-// ON / OFF
-# define HISTORY_MOD OFF
+// ON / OFF / CMD
+# define HISTORY_MOD ON
 
 # ifndef BONUS
-#  define BONUS OFF
+#  define BONUS ON
 # endif
 
 # define PLAYER_SNEAKING_SPEED 0.125 // 0.25

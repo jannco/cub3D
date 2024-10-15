@@ -6,7 +6,7 @@
 /*   By: yadereve <yadereve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 13:21:00 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/09/30 08:51:56 by yadereve         ###   ########.fr       */
+/*   Updated: 2024/10/15 11:33:34 by yadereve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	draw_dda_line(t_point pos, t_point vp, float *distance, int cor)
 		*distance += sqrt(step.x * step.x + step.y * step.y);
 		i++;
 	}
-	draw_line_on_map(cor, 1, pos, line);
+	draw_line_on_map(cor, pos, line);
 }
 
 void	draw_vision_line(t_data *data)
@@ -111,6 +111,7 @@ void	player_render(void)
 
 	data = get_data();
 	draw_vision_line(data);
-	draw_full_square(data->player.color, data->minimap.pos.x + data->minimap.size / 2,
-		data->minimap.pos.y + data->minimap.size / 2, data->player.size);
+	draw_full_square(data->player.color, data->minimap.pos.x
+		+ data->minimap.size / 2, data->minimap.pos.y + data->minimap.size / 2,
+		data->player.size);
 }

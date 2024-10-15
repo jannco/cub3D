@@ -6,7 +6,7 @@
 /*   By: yadereve <yadereve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 13:03:09 by yadereve          #+#    #+#             */
-/*   Updated: 2024/10/11 10:29:20 by yadereve         ###   ########.fr       */
+/*   Updated: 2024/10/15 11:30:48 by yadereve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ void	game_window(void)
 	mlx_hook(data->mlx.win, 6, 1L << 6, mouse_move, NULL);
 	mlx_hook(data->mlx.win, 4, 1L << 2, mouse_press, NULL);
 	mlx_hook(data->mlx.win, 5, 1L << 3, mouse_release, NULL);
+	intro_window2();
+	set_text("lets save our little ducks");
 	mlx_loop_hook(data->mlx.mlx, update_frame, NULL);
 	mlx_loop(data->mlx.mlx);
 }

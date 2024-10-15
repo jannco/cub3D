@@ -6,7 +6,7 @@
 /*   By: yadereve <yadereve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 13:21:39 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/09/27 16:12:29 by yadereve         ###   ########.fr       */
+/*   Updated: 2024/10/15 11:36:16 by yadereve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	data_clear(void)
 
 int	close_window(void *param)
 {
-	t_data *data;
+	t_data	*data;
 
 	data = get_data();
 	(void)param;
