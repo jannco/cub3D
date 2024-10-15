@@ -10,6 +10,10 @@
 		"__config": "c",
 		"vector": "c",
 		"random": "c",
-		"game_configuration.h": "c"
+		"game_configuration.h": "c",
+		"bitset": "c",
+		"cstdio": "c",
+		"string": "c",
+		"string_view": "c"
 	}
 }

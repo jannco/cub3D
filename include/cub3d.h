@@ -6,7 +6,7 @@
 /*   By: yadereve <yadereve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 13:05:26 by yadereve          #+#    #+#             */
-/*   Updated: 2024/09/30 10:24:58 by yadereve         ###   ########.fr       */
+/*   Updated: 2024/10/15 08:13:51 by yadereve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,14 +38,13 @@
 # define SEC 1000000
 # define DELAY 80000
 
-// # define NORTH PI_2
-// # define SOUTH PI_0_5
-// # define EAST 0
-// # define WEST M_PI
 # define NORTH 270
 # define SOUTH 90
 # define EAST 0
 # define WEST 180
+
+# define FOV 60.0
+# define SCALE 0.95
 
 # define SNEAKING 1
 # define WALKING 2
@@ -155,22 +154,36 @@ typedef struct s_camera
 # define GATE_COLOR 0x8f3700
 # define BACKPACK_COLOR 0xa1154f
 
-typedef struct s_texture
+typedef struct s_image
 {
-	void				*img;
+	void				*img_ptr;
 	char				*addr;
 	int					bits_per_pixel;
-	int					line_length;
-	int					endian;
-	int					x;
-	int					y;
 	int					width;
 	int					height;
-	int					move_sprite_x;
-	int					move_sprite_y;
-	int					move_key;
-	t_point				tmp;
-	struct s_texture	*next;
+	int					line_length;
+	int					endian;
+	struct s_image	*next;
+
+}					t_image;
+
+typedef struct s_rgb
+{
+	// int	t;
+	int	r;
+	int	g;
+	int	b;;
+}					t_rgb;
+
+typedef struct s_texture
+{
+	t_image		*north;
+	t_image		*south;
+	t_image		*east;
+	t_image		*west;
+	t_image		*gate;
+	t_image		*duck;
+	t_image		*lake;
 
 }					t_texture;
 
@@ -180,13 +193,15 @@ typedef struct s_map
 	int				width;
 	int				height;
 
-	t_texture		wall_texture;
-	t_texture		duck_texture;
-	t_texture		lake_texture;
+	char				*no_texture;
+	char				*so_texture;
+	char				*we_texture;
+	char				*ea_texture;
+
+	t_rgb		f_color;
+	t_rgb		c_color;
 
 	t_point			start;
-	t_point			size;
-	int				space;
 }					t_map;
 
 typedef struct s_minimap
@@ -216,6 +231,7 @@ typedef struct s_duck
 {
 	t_point			pos;
 	int				status;
+
 }					t_duck;
 
 typedef struct s_gate
@@ -242,6 +258,12 @@ typedef struct s_mlx
 	void			*img;
 }					t_mlx;
 
+typedef struct s_point_int
+{
+	int				x;
+	int				y;
+}					t_point_int;
+
 typedef struct s_data
 {
 	int				screen_width;
@@ -249,6 +271,8 @@ typedef struct s_data
 	int				win_width;
 	int				win_height;
 	int				tile_size;
+
+	t_texture		*textures;
 
 	t_mlx			mlx;
 
@@ -274,30 +298,23 @@ typedef struct s_data
 	t_map			map;
 	t_minimap		minimap;
 	t_camera		camera;
-	t_texture		wall;
+	t_point			fraction;
+	int				dir;
 
 }					t_data;
-
-typedef struct s_game
-{
-	t_map			map;
-	t_player		*player;
-	void			*mlx;
-	void			*windows;
-
-}					t_game;
 
 void				init_map(int argc, char **argv);
 // void				init_mlx(t_game *game);
 // void				start_game(t_game *game);
 int					exit_game(char *msg);
 void				error_message(char *str);
-void				parse_map(int fd, t_map *map, int rows);
-void				free_map(t_map *map);
 void	error_img(t_data *data);
 void	error_malloc(t_data	*data);
-void	init_textures(t_texture *tmp_img, int i, char *path);
+void				parse_file(int fd, t_map *map, int rows);
+void				free_map(t_map *map);
 int					validate_map(t_map *map);
+void	init_textures(t_texture	*textures);
+void	load_texture(t_image **texture, char *file);
 
 t_data				*get_data(void);
 void				ft_usleep(unsigned int microseconds);
@@ -331,7 +348,7 @@ int					close_window(void *param);
 
 int					get_random_value(int min, int max);
 
-void				game_render(void);
+void				game_render(void); //COPY
 int					key_press(int keycode);
 int					key_release(int keycode);
 int					mouse_move(int x, int y, void *param);
@@ -353,7 +370,7 @@ void				ducks_logic(void);
 void				player_logic(void);
 bool				map_wall_collision(double x, double y, char c);
 
-void				game_render(void);
+void				game_render(void); //COPY
 void				ducks_render(void);
 void				gates_render(void);
 void				backpacks_render(void);

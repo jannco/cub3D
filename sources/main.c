@@ -6,7 +6,7 @@
 /*   By: yadereve <yadereve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 13:03:09 by yadereve          #+#    #+#             */
-/*   Updated: 2024/09/30 11:55:25 by yadereve         ###   ########.fr       */
+/*   Updated: 2024/10/11 10:29:20 by yadereve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,13 @@ void	game_window(void)
 
 int	main(int argc, char **argv)
 {
+	t_texture	textures;
+
 	init_map(argc, argv);
 	intro_window();
 	data_initialize();
 	mlx_initialize();
+	init_textures(&textures);
 	game_window();
 
 	// init_mlx(&game);

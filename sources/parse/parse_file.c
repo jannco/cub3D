@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_map.c                                        :+:      :+:    :+:   */
+/*   parse_file.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yadereve <yadereve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 20:54:12 by yadereve          #+#    #+#             */
-/*   Updated: 2024/09/30 09:48:46 by yadereve         ###   ########.fr       */
+/*   Updated: 2024/10/15 08:24:41 by yadereve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,10 @@ char	**copy_map(t_map *map)
 	int		i;
 
 	i = 0;
-	copy = calloc(map->size.y + 1, sizeof(char *));
+	copy = calloc(map->height + 1, sizeof(char *));
 	if (copy == NULL)
 		free_map(map);
-	while (i < map->size.y)
+	while (i < map->height)
 	{
 		copy[i] = ft_strdup(map->map[i]);
 		i++;
@@ -93,7 +93,7 @@ bool	is_map_valid(char **map)
 		j = 0;
 		while (map[i][j])
 		{
-			if (!ft_strchr("NEWS 10", map[i][j]))
+			if (!ft_strchr("NEWS 10", map[i][j]) && (BONUS == ON && !ft_strchr("GBDL", map[i][j])))
 				return (false);
 			j++;
 		}
@@ -117,7 +117,7 @@ bool	find_start_position(char **map)
 		j = 0;
 		while (map[i][j])
 		{
-			if (ft_strchr("NEWS", map[i][j]))
+			if (ft_strchr(PLAYER, map[i][j]))
 			{
 				data->map.start.x = j;
 				data->map.start.y = i;
@@ -153,14 +153,15 @@ int		validate_map(t_map *map)
 	bool	find_start;
 	bool	access;
 
-	map_copy = copy_map(map);
 	find_map_size(map);
+	map_copy = copy_map(map);
 	map_valid = is_map_valid(map_copy);
-	map_valid = true; //FIXME
 	find_start = find_start_position(map_copy);
 	access = access_validate(map_copy, map);
 	if (map_valid && find_start && access)
+	{
 		free_copy_map(map_copy);
+	}
 	else
 	{
 		free_copy_map(map_copy);
@@ -170,31 +171,121 @@ int		validate_map(t_map *map)
 	return (0);
 }
 
-void	parse_map(int fd, t_map *map, int rows)
+int	extract_number(char *color, int *i)
+{
+	int		start;
+	char	*number;
+
+	start = *i;
+	while (ft_isdigit(color[*i]))
+	{
+		number = ft_substr(color, start, *i + 1);
+		*i= *i + 1;
+	}
+	return (ft_atoi(number));
+}
+
+bool	get_color(char *color, t_rgb *rgb)
+{
+	int		i;
+
+	i = 0;
+	rgb->r = extract_number(color, &i);
+	i++;
+	rgb->g = extract_number(color, &i);
+	i++;
+	rgb->b = extract_number(color, &i);
+	if (rgb->r && rgb->g && rgb->b)
+		return (true);
+	return (false);
+}
+
+bool	find_color(char *str)
+{
+	t_data	*data;
+	char	*color;
+
+	data = get_data();
+	if (!ft_strncmp("F ", str, 2))
+	{
+		color = ft_substr(str, 2, ft_strlen(str));
+		return (get_color(color, &data->map.f_color)); // LEAK
+	}
+	else if (!ft_strncmp("C ", str, 2))
+	{
+		color = ft_substr(str, 2, ft_strlen(str));
+		return (get_color(color, &data->map.c_color)); // LEAK
+	}
+	return (false);
+}
+
+bool	find_path_and_color(char *str)
+{
+	t_data	*data;
+
+	data = get_data();
+	if (!ft_strcmp("\n", str))
+		return (true);
+	str = ft_strtrim(str, "\n");
+	if (data->map.no_texture == NULL && !ft_strncmp("NO ./", str, 5))
+		return (data->map.no_texture = ft_substr(str, 3, ft_strlen(str))); // LEAK \n
+	else if (data->map.so_texture == NULL && !ft_strncmp("SO ./", str, 5))
+		return (data->map.so_texture = ft_substr(str, 3, ft_strlen(str))); // LEAK \n
+	else if (data->map.we_texture == NULL && !ft_strncmp("WE ./", str, 5))
+		return (data->map.we_texture = ft_substr(str, 3, ft_strlen(str))); // LEAK \n
+	else if (data->map.ea_texture == NULL && !ft_strncmp("EA ./", str, 5))
+		return (data->map.ea_texture = ft_substr(str, 3, ft_strlen(str))); // LEAK \n
+	else if (data->map.f_color.r == 0)
+		return (find_color(str));
+	else if (data->map.c_color.r == 0)
+		return (find_color(str));
+	return (false);
+}
+
+void	parse_file(int fd, t_map *map, int rows)
+{
+	char	*line;
+	bool	checker;
+
+	checker = true;
+	line = get_next_line(fd);
+	if (find_path_and_color(line))
+	{
+		checker = false;
+		rows = -1;
+	}
+	// printf("row: %d\n", rows); // MARK
+	// printf("ch %d\n", checker); // MARK
+	// printf("line: %s\n", line); // MARK
+	if (line)
+		parse_file(fd, map, rows + 1);
+	else if (checker)
+	{
+		map->map = ft_calloc(rows + 1, sizeof(char *)); // LEAK
+		if (map->map == NULL)
+			error_message("Invalid memory allocatin.");
+	}
+	if (line && checker)
+	{
+		map->map[rows] = ft_strtrim(line, "\n");
+		// printf("map[%d] %s\n", rows, map->map[rows]); // MARK
+
+		if (map->map[rows] == NULL)
+			error_message("Invalid memory allocatin.");
+	}
+	if (line)
+		free(line);
+}
+
+void	parse_config(int fd, t_data *data)
 {
 	char	*line;
 
 	line = get_next_line(fd);
+	if (find_path_and_color(line))
+		parse_config(fd, data);
 	if (line)
-	{
-		if (!ft_strchr(" 1", line[0]))
-			parse_map(fd, map, rows);
-		parse_map(fd, map, rows + 1);
-	}
-	else
-	{
-		map->map = ft_calloc(rows + 1, sizeof(char *));
-		if (map->map == NULL)
-			error_message("Invalid memory allocatin.");
-		map->size.y = rows;
-	}
-	if (line)
-	{
-		map->map[rows] = ft_strtrim(line, "\n");
-		if (map->map[rows] == NULL)
-			error_message("Invalid memory allocatin.");
 		free(line);
-	}
 }
 
 void	init_map(int argc, char **argv)
@@ -203,7 +294,17 @@ void	init_map(int argc, char **argv)
 	t_data	*data;
 
 	data = get_data();
-	data->map.space = 0;
+	data->map.ea_texture = NULL;
+	data->map.no_texture = NULL;
+	data->map.so_texture = NULL;
+	data->map.we_texture = NULL;
+	data->map.f_color.b = 0;
+	data->map.f_color.g = 0;
+	data->map.f_color.r = 0;
+	data->map.c_color.b = 0;
+	data->map.c_color.g = 0;
+	data->map.c_color.r = 0;
+
 	if (argc != 2)
 	{
 		ft_printf("Usage: ./cub3D assets/maps/map1.cub\n");
@@ -214,7 +315,18 @@ void	init_map(int argc, char **argv)
 	fd = open(argv[1], O_RDONLY);
 	if (fd < 0)
 		error_message("Invalid file");
-	parse_map(fd, &data->map, 0);
+
+	// printf("no: %s\n", data->map.no_texture); // MARK
+	// printf("so: %s\n", data->map.so_texture); // MARK
+	// printf("we: %s\n", data->map.we_texture); // MARK
+	// printf("ea: %s\n", data->map.ea_texture); // MARK
+	// printf("c_color_r: %d\n", data->map.c_color.r); // MARK
+	// printf("c_color_g: %d\n", data->map.c_color.g); // MARK
+	// printf("c_color_b: %d\n", data->map.c_color.b); // MARK
+	// printf("f_color_r: %d\n", data->map.f_color.r); // MARK
+	// printf("f_color_g: %d\n", data->map.f_color.g); // MARK
+	// printf("f_color_b: %d\n", data->map.f_color.b); // MARK
+	parse_file(fd, &data->map, 0);
 	close(fd);
 	validate_map(&data->map);
 }
