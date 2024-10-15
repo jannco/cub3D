@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game_configuration.h                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: yadereve <yadereve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 10:10:39 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/09/30 15:37:18 by gneto-co         ###   ########.fr       */
+/*   Updated: 2024/10/15 11:41:16 by yadereve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # define HISTORY_MOD ON
 
 # ifndef BONUS
-#  define BONUS ON
+#  define BONUS OFF
 # endif
 
 # define PLAYER_SNEAKING_SPEED 0.125 // 0.25
