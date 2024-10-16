@@ -6,7 +6,7 @@
 /*   By: yadereve <yadereve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 20:54:12 by yadereve          #+#    #+#             */
-/*   Updated: 2024/10/16 07:51:59 by yadereve         ###   ########.fr       */
+/*   Updated: 2024/10/16 16:27:22 by yadereve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -183,10 +183,8 @@ int	extract_number(char *color, int *i)
 
 	start = *i;
 	while (ft_isdigit(color[*i]))
-	{
-		number = ft_substr(color, start, *i + 1);
 		*i= *i + 1;
-	}
+	number = ft_substr(color, start, *i + 1);
 	num = ft_atoi(number);
 	// if (num < 0 && num > 255) // TODO
 	// 	num = -2;
@@ -235,7 +233,7 @@ bool	find_color(char *str)
 
 bool	create_path(char **texture, char *path)
 {
-	*texture = ft_substr(path, 3, ft_strlen(path));
+	*texture = ft_substr(path, 3, ft_strlen(path) - 3);
 	free(path);
 	return (true);
 }
@@ -252,19 +250,19 @@ bool	find_path_and_color(char *str)
 	temp_str = ft_strtrim(str, "\n");
 	if (data->map.no_texture == NULL && !ft_strncmp("NO ./", temp_str, 5))
 		return (create_path(&data->map.no_texture, temp_str)); // LEAK \n
-	if (data->map.so_texture == NULL && !ft_strncmp("SO ./", temp_str, 5))
+	else if (data->map.so_texture == NULL && !ft_strncmp("SO ./", temp_str, 5))
 		return (create_path(&data->map.so_texture, temp_str)); // LEAK \n
-	if (data->map.we_texture == NULL && !ft_strncmp("WE ./", temp_str, 5))
+	else if (data->map.we_texture == NULL && !ft_strncmp("WE ./", temp_str, 5))
 		return (create_path(&data->map.we_texture, temp_str)); // LEAK \n
-	if (data->map.ea_texture == NULL && !ft_strncmp("EA ./", temp_str, 5))
+	else if (data->map.ea_texture == NULL && !ft_strncmp("EA ./", temp_str, 5))
 		return (create_path(&data->map.ea_texture, temp_str)); // LEAK \n
-	if (data->map.f_color.r == -1)
+	else if (data->map.f_color.r == -1)
 	{
 		result = find_color(temp_str);
 		free(temp_str);
 		return (result);
 	}
-	if (data->map.c_color.r == -1)
+	else if (data->map.c_color.r == -1)
 	{
 		result = find_color(temp_str);
 		free(temp_str);
@@ -281,10 +279,12 @@ void	parse_file(int fd, t_map *map, int rows)
 
 	checker = true;
 	line = get_next_line(fd);
-	if (find_path_and_color(line))
+	if (line == NULL)
+		free(line);
+	else if (find_path_and_color(line))
 	{
 		checker = false;
-		rows = -1;
+		rows--;
 	}
 	if (line)
 		parse_file(fd, map, rows + 1);
@@ -300,9 +300,10 @@ void	parse_file(int fd, t_map *map, int rows)
 		if (map->map[rows] == NULL)
 			error_message("Invalid memory allocatin.");
 	}
-	if (line)
-		free(line);
+	free(line);
 }
+
+
 void	init_textures_and_colors(t_data *data)
 {
 	data->map.ea_texture = NULL;
