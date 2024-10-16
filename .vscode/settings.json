@@ -14,6 +14,12 @@
 		"bitset": "c",
 		"cstdio": "c",
 		"string": "c",
-		"string_view": "c"
+		"string_view": "c",
+		"xlib.h": "c",
+		"string.h": "c",
+		"stdlib.h": "c",
+		"defines.h": "c",
+		"functions.h": "c",
+		"structures.h": "c"
 	}
 }

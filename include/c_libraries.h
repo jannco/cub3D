@@ -1,26 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3d.h                                            :+:      :+:    :+:   */
+/*   c_libraries.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 13:05:26 by yadereve          #+#    #+#             */
-/*   Updated: 2024/10/16 15:09:07 by gneto-co         ###   ########.fr       */
+/*   Updated: 2024/10/16 15:03:57 by gneto-co         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUB3D_H
-# define CUB3D_H
+#ifndef C_LIBRARIES
+# define C_LIBRARIES
 
-# include "../libraries/libft/libft.h"
-# include "X11/X.h"
-# include "colors.h"
-# include "c_libraries.h"
-# include "defines.h"
-# include "game_configuration.h"
-// # include "parse.h"
-# include "structures.h"
-# include "functions.h"
+# include <X11/Xlib.h>
+# include <errno.h>
+# include <fcntl.h>
+# include <math.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <string.h>
+# include <sys/time.h>
+# include <time.h>
+# include <unistd.h>
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wall_collision.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yadereve <yadereve@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 21:23:22 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/09/24 19:48:11 by yadereve         ###   ########.fr       */
+/*   Updated: 2024/10/16 16:12:47 by gneto-co         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,12 @@ bool	map_wall_collision(double x, double y, char c)
 	char	**map;
 	int		pos_y;
 	int		pos_x;
+	float 	gap;
 
 	data = get_data();
 	map = data->map.map;
 	pos_y = 0;
+	gap = 0.5;
 	while (map[pos_y])
 	{
 		pos_x = 0;
@@ -30,7 +32,7 @@ bool	map_wall_collision(double x, double y, char c)
 		{
 			if (map[pos_y][pos_x] == c)
 			{
-				if (squares_touch((t_point){x, y}, data->player.size,
+				if (squares_touch((t_point){x - gap, y - gap}, data->player.size + gap,
 						(t_point){pos_x, pos_y}, 1))
 					return (true);
 			}

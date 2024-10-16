@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player_render.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yadereve <yadereve@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 13:21:00 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/10/15 11:33:34 by yadereve         ###   ########.fr       */
+/*   Updated: 2024/10/16 16:14:41 by gneto-co         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,10 +108,12 @@ void	draw_vision_line(t_data *data)
 void	player_render(void)
 {
 	t_data	*data;
+	double	player_size;
 
 	data = get_data();
+	player_size = data->minimap.scale / 3;
 	draw_vision_line(data);
-	draw_full_square(data->player.color, data->minimap.pos.x
-		+ data->minimap.size / 2, data->minimap.pos.y + data->minimap.size / 2,
-		data->player.size);
+	draw_circle(data->player.color, data->minimap.pos.x
+		+ data->minimap.size / 2 - player_size / 5, data->minimap.pos.y
+		+ data->minimap.size / 2 - player_size / 5, player_size);
 }

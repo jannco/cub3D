@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initialize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yadereve <yadereve@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 13:08:48 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/10/15 11:36:29 by yadereve         ###   ########.fr       */
+/*   Updated: 2024/10/16 16:10:26 by gneto-co         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,7 @@ void	data_initialize_screen_map(t_data *data)
 	data->win_width = data->screen_width;
 	data->tile_size = 250;
 	// map info
-	data->minimap.scale = 10;
+	data->minimap.scale = 30;
 	data->minimap.size = data->win_width / 6;
 	data->minimap.pos = (t_point){data->win_width - data->minimap.size
 		- (data->minimap.size / 12), (data->minimap.size / 12)};
@@ -149,7 +149,7 @@ void	data_initialize_player(t_data *data, t_player *player)
 	player->mouse_new_x = data->screen_width / 2;
 	player->mouse_old_x = player->mouse_new_x;
 	// ---other
-	player->size = 0.25;
+	player->size = 0.5;
 	player->rendered_size = data->tile_size * player->size;
 	player->minimap_rendered_size = data->minimap.scale * player->size;
 	player->capacity = PLAYER_CAPACITY;

@@ -18,7 +18,7 @@ void	map_structure_selector(char item, int x, int y)
 	// draw_grid_on_map(BLACK_COLOR, x, y, data->tile_size);
 }
 
-void	map_render(void)
+void	map_render(int status)
 {
 	t_data	*data;
 	char	**map;
@@ -35,7 +35,8 @@ void	map_render(void)
 		x = 0;
 		while (map[y][x])
 		{
-			map_structure_selector(map[y][x], x, y);
+			if (status == OFF || map[y][x] == WALL)
+				map_structure_selector(map[y][x], x, y);
 			x++;
 		}
 		y++;

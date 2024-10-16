@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game_render.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yadereve <yadereve@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 13:21:00 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/10/16 09:52:49 by yadereve         ###   ########.fr       */
+/*   Updated: 2024/10/16 16:19:33 by gneto-co         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,9 @@
 void	minimap_render(void)
 {
 	minimap_draw_background(GREY_COLOR);
-	map_render();
+	map_render(OFF);
 	player_render();
+	map_render(ON);
 	ducks_render();
 	gates_render();
 	backpacks_render();
