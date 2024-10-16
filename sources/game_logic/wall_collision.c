@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wall_collision.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: yadereve <yadereve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 21:23:22 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/10/16 16:12:47 by gneto-co         ###   ########.fr       */
+/*   Updated: 2024/10/16 17:10:01 by yadereve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ bool	map_wall_collision(double x, double y, char c)
 	data = get_data();
 	map = data->map.map;
 	pos_y = 0;
-	gap = 0.5;
+	gap = 0.25;
 	while (map[pos_y])
 	{
 		pos_x = 0;
