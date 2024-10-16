@@ -6,7 +6,7 @@
 /*   By: yadereve <yadereve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 10:10:39 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/10/15 11:41:16 by yadereve         ###   ########.fr       */
+/*   Updated: 2024/10/16 07:44:37 by yadereve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include "game_configuration.h"
 
 // ON / OFF / CMD
-# define HISTORY_MOD ON
+# define HISTORY_MOD OFF
 
 # ifndef BONUS
 #  define BONUS OFF

@@ -6,7 +6,7 @@
 /*   By: yadereve <yadereve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 20:54:12 by yadereve          #+#    #+#             */
-/*   Updated: 2024/10/15 19:21:00 by yadereve         ###   ########.fr       */
+/*   Updated: 2024/10/16 07:51:59 by yadereve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,8 +188,8 @@ int	extract_number(char *color, int *i)
 		*i= *i + 1;
 	}
 	num = ft_atoi(number);
-	if (num < 0 && num > 255)
-		num = -2;
+	// if (num < 0 && num > 255) // TODO
+	// 	num = -2;
 	free(number);
 	return (num);
 }
@@ -259,6 +259,12 @@ bool	find_path_and_color(char *str)
 	if (data->map.ea_texture == NULL && !ft_strncmp("EA ./", temp_str, 5))
 		return (create_path(&data->map.ea_texture, temp_str)); // LEAK \n
 	if (data->map.f_color.r == -1)
+	{
+		result = find_color(temp_str);
+		free(temp_str);
+		return (result);
+	}
+	if (data->map.c_color.r == -1)
 	{
 		result = find_color(temp_str);
 		free(temp_str);

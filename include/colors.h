@@ -78,5 +78,6 @@
 # define MAROON_COLOR     0x800000
 # define OLIVE_COLOR      0x808000
 
+# define TRANSPARENT_COLOR 0xfff000
 
 #endif

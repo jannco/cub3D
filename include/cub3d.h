@@ -6,7 +6,7 @@
 /*   By: yadereve <yadereve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 13:05:26 by yadereve          #+#    #+#             */
-/*   Updated: 2024/10/15 14:15:36 by yadereve         ###   ########.fr       */
+/*   Updated: 2024/10/16 08:14:32 by yadereve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -320,6 +320,7 @@ void				free_map(t_map *map);
 int					validate_map(t_map *map);
 void	init_textures(t_texture	*textures);
 void	load_texture(t_image **texture, char *file);
+int		get_texture_color(t_data *data, int tex_x, int tex_y);
 
 t_data				*get_data(void);
 
