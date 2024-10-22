@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   defines.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: yadereve <yadereve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 14:57:20 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/10/16 15:04:59 by gneto-co         ###   ########.fr       */
+/*   Updated: 2024/10/22 09:09:13 by yadereve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,7 @@
 # define DEFINES_H
 
 
-// # define M_PI 3.14159265358979323846
 # define PI_2 2 * M_PI
-# define PI_0_5 M_PI / 2
-# define PI_1_5 PI_0_5 * 3
 
 # define EVENT_CLOSE 17
 # define SEC 1000000
@@ -30,7 +27,7 @@
 # define WEST 180
 
 # define FOV 60.0
-# define SCALE 0.95
+# define SCALE 0.99999999
 
 # define SNEAKING 1
 # define WALKING 2
@@ -70,9 +67,6 @@
 // # define KeyReleaseMask (1L << 1)
 # define KeyPress 2
 # define KeyRelease 3
-
-
-
 
 
 # define MAP 'm'

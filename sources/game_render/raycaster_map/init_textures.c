@@ -6,7 +6,7 @@
 /*   By: yadereve <yadereve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 13:01:41 by yadereve          #+#    #+#             */
-/*   Updated: 2024/10/15 16:37:17 by yadereve         ###   ########.fr       */
+/*   Updated: 2024/10/22 09:09:49 by yadereve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,8 @@ void	load_texture(t_image **texture, char *file)
 	else
 	{
 		curent = *texture;
-		while (curent->next){
+		while (curent->next)
+		{
 			// printf("i: %d\n", i++); // MARK
 			curent = curent->next;
 		}
@@ -72,17 +73,9 @@ void	init_textures(t_texture	*textures)
 {
 	t_data		*data;
 	t_map		map;
-	// int			i = 0;
 
 	data = get_data();
 	map = data->map;
-
-	// map.so_texture = "./assets/textures/wall01.xpm"; //NOTE
-	// map.ea_texture = "./assets/textures/wall02.xpm"; //NOTE
-	// map.no_texture = "./assets/textures/wall03.xpm"; //NOTE
-	// map.we_texture = "./assets/textures/wall04.xpm"; //NOTE
-
-
 	textures->south = NULL;
 	textures->east = NULL;
 	textures->north = NULL;
@@ -94,18 +87,10 @@ void	init_textures(t_texture	*textures)
 	load_texture (&textures->east, map.ea_texture);
 	load_texture (&textures->north, map.no_texture);
 	load_texture (&textures->west, map.we_texture);
-	load_texture (&textures->duck, "./assets/textures/duck_03.xpm");
+	load_texture (&textures->duck, "./assets/textures/duck_air_1.xpm");
+	load_texture (&textures->duck, "./assets/textures/duck_air_2.xpm");
 	load_texture (&textures->gate, "./assets/textures/gate.xpm");
 	load_texture (&textures->lake, "./assets/textures/lake.xpm");
-
-	// while (i < 2)
-	// {
-	// 	char *path = ft_multi_strjoin("./assets/textures/duck_0%d.xpm", i + 1);
-	// 	load_texture (&textures->duck_texture, path);
-	// 	printf ("path: %s, h:%d\n\n", path, textures->duck_texture[i].height); // MARK
-	// 	i++;
-	// }
-
 	data->f_color = create_rgb(map.f_color.r, map.f_color.g, map.f_color.b);
 	data->c_color = create_rgb(map.c_color.r, map.c_color.g, map.c_color.b);
 	data->textures = textures;

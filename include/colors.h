@@ -79,5 +79,6 @@
 # define OLIVE_COLOR      0x808000
 
 # define TRANSPARENT_COLOR 0xfff000
+// # define TRANSPARENT_COLOR 16773120
 
 #endif

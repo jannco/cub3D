@@ -6,7 +6,7 @@
 /*   By: yadereve <yadereve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 13:21:00 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/10/15 08:54:26 by yadereve         ###   ########.fr       */
+/*   Updated: 2024/10/22 11:46:28 by yadereve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 
 
-double	cast_ray(t_point ray, double angle_degrees, t_data *data)
+double	cast_ray(t_data *data, t_point ray, double angle_degrees)
 {
 	t_point	ray_dir; // all
 	t_point	delta_dist;
@@ -73,12 +73,15 @@ double	cast_ray(t_point ray, double angle_degrees, t_data *data)
 			map_y += step_y;
 			side = 1;
 		}
-		if (map[map_y][map_x] == WALL || (BONUS == ON
-			&& (map[map_y][map_x] == VOID
-				|| (map[map_y][map_x] == GATE)
-				|| (map[map_y][map_x] == LAKE))))
+		if (data->type_duck == true && map[map_y][map_x] == DUCK)
+			break;
+		else if (map[map_y][map_x] == WALL || map[map_y][map_x] == VOID
+			|| map[map_y][map_x] == GATE
+			|| map[map_y][map_x] == LAKE)
 			break ;
 	}
+	data->duck->pos_to_player.x = map_x;
+	data->duck->pos_to_player.y = map_y;
 	data->temp_type = map[map_y][map_x];
 	data->fraction.x = fmod((ray.x + ray_dir.x * ray_len), SCALE) / SCALE;
 	data->fraction.y = fmod((ray.y + ray_dir.y * ray_len), SCALE) / SCALE;
@@ -109,7 +112,7 @@ int get_wall_color(double distance, int color)
 {
 	double	darkness_factor;
 
-	darkness_factor = 1.0 / (1.0 + (distance / 50.0));
+	darkness_factor = 1.0 / (1.0 + (distance / 20.0));
 	int red = (int)((color >> 16) & 0xFF) * darkness_factor;
 	int green = (int)((color >> 8) & 0xFF) * darkness_factor;
 	int blue = (int)(color & 0xFF) * darkness_factor;
@@ -144,14 +147,16 @@ void	handle_special_textures(t_data *data, int *color, int tex_x, int tex_y)
 	t = data->textures;
 	bpp = t->north->bits_per_pixel;
 	len = t->north->line_length;
-	if (data->temp_type == GATE && data->dir == NORTH)
-		*color = *(int *)&t->east->addr[tex_x * (bpp / 8) + (tex_y * len)];
-	else if (data->temp_type == GATE && data->dir == SOUTH)
-		*color = *(int *)&t->west->addr[tex_x * (bpp / 8) + (tex_y * len)];
-	else if (data->temp_type == GATE && data->dir == WEST)
-		*color = *(int *)&t->south->addr[tex_x * (bpp / 8) + (tex_y * len)];
-	else if (data->temp_type == GATE && data->dir == EAST)
-		*color = *(int *)&t->north->addr[tex_x * (bpp / 8) + (tex_y * len)];
+	// if (data->temp_type == GATE && data->dir == NORTH)
+	// 	*color = *(int *)&t->east->addr[tex_x * (bpp / 8) + (tex_y * len)];
+	// else if (data->temp_type == GATE && data->dir == SOUTH)
+	// 	*color = *(int *)&t->west->addr[tex_x * (bpp / 8) + (tex_y * len)];
+	// else if (data->temp_type == GATE && data->dir == WEST)
+	// 	*color = *(int *)&t->south->addr[tex_x * (bpp / 8) + (tex_y * len)];
+	// else if (data->temp_type == GATE && data->dir == EAST)
+	// 	*color = *(int *)&t->north->addr[tex_x * (bpp / 8) + (tex_y * len)];
+	if (data->temp_type == GATE)
+		*color = *(int *)&t->gate->addr[tex_x * (bpp / 8) + (tex_y * len)];
 	else if (data->temp_type == LAKE)
 		*color = *(int *)&t->lake->addr[tex_x * (bpp / 8) + (tex_y * len)];
 }
@@ -222,15 +227,59 @@ double	distance(t_data *data, int screen_x)
 	ray.x = data->player.pos.x;
 	ray.y = data->player.pos.y;
 	angle_degrees = data->player.direction - (FOV / 2) + (screen_x * FOV / data->screen_width);
-	distance_to_wall = cast_ray(ray, angle_degrees, data);
+	distance_to_wall = cast_ray(data, ray, angle_degrees);
 	distance_to_wall *= cos(degrees_to_radians(angle_degrees - data->player.direction));
 	return (distance_to_wall);
+}
+
+void draw_duck(t_data *data, int x, double distance_to_duck)
+{
+	int	duck_height;
+	int	start_y;
+	int	end_y;
+	float	tex_x;
+	float	tex_y;
+	float	step;
+	int	color;
+	static struct timeval	last_frame_time;
+	static t_image	*curent = NULL;
+
+	if (curent == NULL)
+		curent = data->textures->duck;
+	if (time_over(last_frame_time, 200000))
+	{
+		if (curent->next)
+			curent = curent->next;
+		else
+			curent = data->textures->duck;
+		set_timer(&last_frame_time);
+	}
+	duck_height = (int)(data->screen_height / (distance_to_duck));
+	start_y = (data->screen_height / 2) - (duck_height / 2);
+	end_y = (data->screen_height / 2) + (duck_height / 2);
+	if (start_y < 0)
+		start_y = 0;
+	if (end_y >= data->screen_height)
+		end_y = data->screen_height - 1;
+	tex_x = data->fraction.y * curent->width;
+	tex_y = 0;
+	step = (float)curent->height / duck_height;
+	while (start_y < end_y)
+	{
+		color = *(int *)&curent->addr[(int)tex_x * (curent->bits_per_pixel / 8) +
+				((int)tex_y * curent->line_length)];
+		if (color != TRANSPARENT_COLOR)
+			put_pixel_to_image(x, start_y, color);
+		tex_y += step;
+		start_y++;
+	}
 }
 
 void render_raycaster(t_data *data)
 {
 	int screen_x;
 	double	distance_to_wall;
+	double	distance_to_duck;
 	int	wall_height;
 	int	wall_top;
 	int	wall_bottom;
@@ -238,6 +287,7 @@ void render_raycaster(t_data *data)
 	screen_x = 0;
 	while (screen_x < data->screen_width)
 	{
+		data->type_duck = false;
 		distance_to_wall = distance(data, screen_x);
 		wall_height = (int)(data->screen_height / distance_to_wall);
 		wall_top = (data->screen_height / 2) - (wall_height / 2);
@@ -245,6 +295,10 @@ void render_raycaster(t_data *data)
 		draw_vertical_line(screen_x, 0, wall_top, data->f_color);
 		draw_texture(data, screen_x, wall_top, wall_bottom, distance_to_wall); // NOTE pronto!!!
 		draw_vertical_line(screen_x, wall_bottom, data->screen_width, data->c_color);
+		data->type_duck = true;
+		distance_to_duck = distance(data, screen_x);
+		if (data->temp_type == DUCK)
+			draw_duck(data, screen_x, distance_to_duck);
 		screen_x++;
 	}
 }
