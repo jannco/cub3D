@@ -6,7 +6,7 @@
 /*   By: yadereve <yadereve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 13:01:41 by yadereve          #+#    #+#             */
-/*   Updated: 2024/10/22 09:09:49 by yadereve         ###   ########.fr       */
+/*   Updated: 2024/10/22 13:18:15 by yadereve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,8 @@ void	init_textures(t_texture	*textures)
 	load_texture (&textures->west, map.we_texture);
 	load_texture (&textures->duck, "./assets/textures/duck_air_1.xpm");
 	load_texture (&textures->duck, "./assets/textures/duck_air_2.xpm");
-	load_texture (&textures->gate, "./assets/textures/gate.xpm");
+	// load_texture (&textures->gate, "./assets/textures/gate.xpm");
+	load_texture (&textures->gate, "./assets/textures/door.xpm");
 	load_texture (&textures->lake, "./assets/textures/lake.xpm");
 	data->f_color = create_rgb(map.f_color.r, map.f_color.g, map.f_color.b);
 	data->c_color = create_rgb(map.c_color.r, map.c_color.g, map.c_color.b);
