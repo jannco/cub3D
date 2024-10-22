@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structures.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: yadereve <yadereve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 15:00:34 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/10/16 15:04:20 by gneto-co         ###   ########.fr       */
+/*   Updated: 2024/10/22 11:49:20 by yadereve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,7 @@ typedef struct s_duck
 {
 	t_point			pos;
 	int				status;
-
+	t_point			pos_to_player;
 }					t_duck;
 
 typedef struct s_gate
@@ -189,6 +189,7 @@ typedef struct s_data
 	t_text			text;
 
 	char			temp_type;
+	bool			type_duck;
 
 	t_player		player;
 
