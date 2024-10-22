@@ -6,7 +6,7 @@
 /*   By: yadereve <yadereve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 20:54:12 by yadereve          #+#    #+#             */
-/*   Updated: 2024/10/22 16:45:06 by yadereve         ###   ########.fr       */
+/*   Updated: 2024/10/22 18:45:45 by yadereve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,8 +172,7 @@ int		validate_map(t_map *map)
 	else
 	{
 		free_copy_map(map_copy);
-		free_map(map);
-		error_message("map is not valid");
+		exit_game("map is not valid");
 	}
 	return (0);
 }
@@ -237,6 +236,7 @@ bool	find_color(char *str)
 
 bool	create_path(char **texture, char *path)
 {
+
 	*texture = ft_substr(path, 3, ft_strlen(path) - 3);
 	free(path);
 	return (true);
@@ -252,25 +252,28 @@ bool	find_path_and_color(char *str)
 	if (!ft_strcmp("\n", str))
 		return (true);
 	temp_str = ft_strtrim(str, "\n");
-	if (data->map.no_texture == NULL && !ft_strncmp("NO ./", temp_str, 5))
-		return (create_path(&data->map.no_texture, temp_str)); // LEAK \n
-	else if (data->map.so_texture == NULL && !ft_strncmp("SO ./", temp_str, 5))
-		return (create_path(&data->map.so_texture, temp_str)); // LEAK \n
-	else if (data->map.we_texture == NULL && !ft_strncmp("WE ./", temp_str, 5))
-		return (create_path(&data->map.we_texture, temp_str)); // LEAK \n
-	else if (data->map.ea_texture == NULL && !ft_strncmp("EA ./", temp_str, 5))
-		return (create_path(&data->map.ea_texture, temp_str)); // LEAK \n
-	else if (data->map.f_color.r == -1)
+	if (!ft_strncmp(str + ft_strlen(str) - 4, ".xpm", 4))
 	{
-		result = find_color(temp_str);
-		free(temp_str);
-		return (result);
-	}
-	else if (data->map.c_color.r == -1)
-	{
-		result = find_color(temp_str);
-		free(temp_str);
-		return (result);
+		if (data->map.no_texture == NULL && !ft_strncmp("NO ./", temp_str, 5))
+			return (create_path(&data->map.no_texture, temp_str)); // LEAK \n
+		else if (data->map.so_texture == NULL && !ft_strncmp("SO ./", temp_str, 5))
+			return (create_path(&data->map.so_texture, temp_str)); // LEAK \n
+		else if (data->map.we_texture == NULL && !ft_strncmp("WE ./", temp_str, 5))
+			return (create_path(&data->map.we_texture, temp_str)); // LEAK \n
+		else if (data->map.ea_texture == NULL && !ft_strncmp("EA ./", temp_str, 5))
+			return (create_path(&data->map.ea_texture, temp_str)); // LEAK \n
+		else if (data->map.f_color.r == -1)
+		{
+			result = find_color(temp_str);
+			free(temp_str);
+			return (result);
+		}
+		else if (data->map.c_color.r == -1)
+		{
+			result = find_color(temp_str);
+			free(temp_str);
+			return (result);
+		}
 	}
 	free(temp_str);
 	return (false);
@@ -284,10 +287,7 @@ void	parse_file(int fd, t_map *map, int rows)
 	checker = true;
 	line = get_next_line(fd);
 	if (line == NULL)
-	{
 		free(line);
-		return ;
-	}
 	else if (find_path_and_color(line))
 	{
 		checker = false;
@@ -342,7 +342,6 @@ void	init_map(int argc, char **argv)
 	fd = open(argv[1], O_RDONLY);
 	if (fd < 0)
 		error_message("Invalid file");
-
 	parse_file(fd, &data->map, 0);
 	close(fd);
 	// printf("no: %s\n", data->map.no_texture); // MARK

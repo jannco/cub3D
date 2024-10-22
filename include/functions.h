@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   functions.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: yadereve <yadereve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 15:01:07 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/10/16 16:20:01 by gneto-co         ###   ########.fr       */
+/*   Updated: 2024/10/22 17:52:28 by yadereve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@
 # define FUNCTIONS_H
 
 void	init_map(int argc, char **argv);
-// void				init_mlx(t_game *game);
-// void				start_game(t_game *game);
 int		exit_game(char *msg);
 void	clean_up(t_data *data);
 void	error_message(char *str);

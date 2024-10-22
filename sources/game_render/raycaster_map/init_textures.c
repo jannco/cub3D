@@ -6,7 +6,7 @@
 /*   By: yadereve <yadereve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 13:01:41 by yadereve          #+#    #+#             */
-/*   Updated: 2024/10/22 15:59:02 by yadereve         ###   ########.fr       */
+/*   Updated: 2024/10/22 18:36:51 by yadereve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,12 @@ t_image	*load_image(char *file)
 	new_texture->addr = mlx_get_data_addr(new_texture->img_ptr,
 			&new_texture->bits_per_pixel, &new_texture->line_length,
 			&new_texture->endian);
+	if (!new_texture->addr)
+	{
+		mlx_destroy_image(data->mlx.mlx, new_texture->img_ptr);
+		free(new_texture);
+		error_img(data);
+	}
 	new_texture->next = NULL;
 	return (new_texture);
 }
@@ -42,7 +48,7 @@ void	load_texture(t_image **texture, char *file)
 
 	curent = NULL;
 	if (!file)
-		error_message("Invalid texture file path");
+		exit_game("Invalid texture file path");
 	new_image = load_image(file);
 	if (!new_image)
 	{
