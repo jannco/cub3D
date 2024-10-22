@@ -6,7 +6,7 @@
 /*   By: yadereve <yadereve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 20:54:12 by yadereve          #+#    #+#             */
-/*   Updated: 2024/10/16 16:27:22 by yadereve         ###   ########.fr       */
+/*   Updated: 2024/10/22 16:04:16 by yadereve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,12 +182,13 @@ int	extract_number(char *color, int *i)
 	int		num;
 
 	start = *i;
+	num = -1;
 	while (ft_isdigit(color[*i]))
 		*i= *i + 1;
 	number = ft_substr(color, start, *i + 1);
 	num = ft_atoi(number);
-	// if (num < 0 && num > 255) // TODO
-	// 	num = -2;
+	if (num < 0 || num > 255) // TODO
+		num = -1;
 	free(number);
 	return (num);
 }
@@ -348,9 +349,9 @@ void	init_map(int argc, char **argv)
 	// printf("f_color_r: %d\n", data->map.f_color.r); // MARK
 	// printf("f_color_g: %d\n", data->map.f_color.g); // MARK
 	// printf("f_color_b: %d\n", data->map.f_color.b); // MARK
-	if (data->map.f_color.r == -2)
+	if (data->map.f_color.r == -1 || data->map.f_color.g == -1 || data->map.f_color.b == -1)
 		exit_game("error floor color");
-	if (data->map.c_color.r == -2)
+	if (data->map.c_color.r == -1 || data->map.c_color.g == -1 || data->map.c_color.b == -1)
 		exit_game("error ceiling color");
 	validate_map(&data->map);
 }
