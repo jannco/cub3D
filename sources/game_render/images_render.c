@@ -6,7 +6,7 @@
 /*   By: yadereve <yadereve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 18:41:20 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/10/15 11:32:14 by yadereve         ###   ########.fr       */
+/*   Updated: 2024/10/22 22:16:53 by yadereve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	xpm_image_render(char *str, t_point pos)
 			&img_height);
 	if (!img_ptr)
 	{
-		error_img(data);
+		error_img(data, NULL);
 	}
 	img_data = mlx_get_data_addr(img_ptr, &bpp, &line_length, &endian);
 	add_image_to_main_image((t_mlx){img_data, bpp, line_length, 0, NULL, NULL,

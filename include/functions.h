@@ -6,7 +6,7 @@
 /*   By: yadereve <yadereve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 15:01:07 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/10/22 17:52:28 by yadereve         ###   ########.fr       */
+/*   Updated: 2024/10/22 22:11:11 by yadereve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	init_map(int argc, char **argv);
 int		exit_game(char *msg);
 void	clean_up(t_data *data);
 void	error_message(char *str);
-void	error_img(t_data *data);
+void	error_img(t_data *data, char *msg);
 void	error_malloc(t_data *data);
 void	parse_file(int fd, t_map *map, int rows);
 void	free_map(t_map *map);

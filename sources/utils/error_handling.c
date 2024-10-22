@@ -6,7 +6,7 @@
 /*   By: yadereve <yadereve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 17:19:36 by yadereve          #+#    #+#             */
-/*   Updated: 2024/10/22 18:22:44 by yadereve         ###   ########.fr       */
+/*   Updated: 2024/10/22 22:28:46 by yadereve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 void	error_message(char *str)
 {
 	printf("Error: ");
-	printf("%s\n", str);
+	if (str)
+		printf("%s\n", str);
 	exit (STDERR_FILENO);
 }
 
@@ -23,7 +24,7 @@ void	ft_free_textures(t_image *lst, t_mlx *mlx)
 {
 	t_image	*tmp;
 
-	while (lst)
+	while (lst != NULL)
 	{
 		tmp = lst;
 		if (lst->img_ptr)
@@ -60,14 +61,6 @@ void	free_path_texture(t_data *data)
 
 void	clean_up(t_data *data)
 {
-	// if (data->map.no_texture != NULL)
-	// 	free(data->map.no_texture);
-	// if (data->map.so_texture != NULL)
-	// 	free(data->map.so_texture);
-	// if (data->map.we_texture != NULL)
-	// 	free(data->map.we_texture);
-	// if (data->map.ea_texture != NULL)
-	// 	free(data->map.ea_texture);
 	free_path_texture(data);
 	if (data->textures)
 	{
@@ -86,7 +79,7 @@ void	clean_up(t_data *data)
 		if (data->textures->lake != NULL)
 			ft_free_textures(data->textures->lake, &data->mlx);
 		if (data->textures->backpack != NULL)
-			ft_free_textures(data->textures->lake, &data->mlx);
+			ft_free_textures(data->textures->backpack, &data->mlx);
 	}
 }
 
@@ -103,18 +96,17 @@ int	exit_game(char *msg)
 	return (0);
 }
 
-void	error_img(t_data *data)
+void	error_img(t_data *data, char *msg)
 {
-	// (void) *data;
 	clean_up(data);
 	mlx_clear();
 	data_clear();
-	error_message("Error load image");
+	printf("Error: Error load image %s\n", msg);
+	exit (STDERR_FILENO);
 }
 
 void	error_malloc(t_data	*data)
 {
-	// (void) *data;
 	clean_up(data);
 	mlx_clear();
 	data_clear();

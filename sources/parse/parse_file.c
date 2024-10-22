@@ -6,7 +6,7 @@
 /*   By: yadereve <yadereve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 20:54:12 by yadereve          #+#    #+#             */
-/*   Updated: 2024/10/22 18:45:45 by yadereve         ###   ########.fr       */
+/*   Updated: 2024/10/22 22:04:10 by yadereve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ char	**copy_map(t_map *map)
 	copy = calloc(map->height + 1, sizeof(char *));
 	if (copy == NULL)
 	{
-		return (NULL);
 		free_map(map);
+		return (NULL);
 	}
 	while (i < map->height)
 	{
@@ -252,7 +252,7 @@ bool	find_path_and_color(char *str)
 	if (!ft_strcmp("\n", str))
 		return (true);
 	temp_str = ft_strtrim(str, "\n");
-	if (!ft_strncmp(str + ft_strlen(str) - 4, ".xpm", 4))
+	if (!ft_strncmp(temp_str + ft_strlen(temp_str) - 4, ".xpm", 4))
 	{
 		if (data->map.no_texture == NULL && !ft_strncmp("NO ./", temp_str, 5))
 			return (create_path(&data->map.no_texture, temp_str)); // LEAK \n
@@ -262,18 +262,18 @@ bool	find_path_and_color(char *str)
 			return (create_path(&data->map.we_texture, temp_str)); // LEAK \n
 		else if (data->map.ea_texture == NULL && !ft_strncmp("EA ./", temp_str, 5))
 			return (create_path(&data->map.ea_texture, temp_str)); // LEAK \n
-		else if (data->map.f_color.r == -1)
-		{
-			result = find_color(temp_str);
-			free(temp_str);
-			return (result);
-		}
-		else if (data->map.c_color.r == -1)
-		{
-			result = find_color(temp_str);
-			free(temp_str);
-			return (result);
-		}
+	}
+	else if (data->map.f_color.r == -1)
+	{
+		result = find_color(temp_str);
+		free(temp_str);
+		return (result);
+	}
+	else if (data->map.c_color.r == -1)
+	{
+		result = find_color(temp_str);
+		free(temp_str);
+		return (result);
 	}
 	free(temp_str);
 	return (false);

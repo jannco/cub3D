@@ -6,7 +6,7 @@
 /*   By: yadereve <yadereve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 13:01:41 by yadereve          #+#    #+#             */
-/*   Updated: 2024/10/22 18:36:51 by yadereve         ###   ########.fr       */
+/*   Updated: 2024/10/22 22:28:32 by yadereve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ t_image	*load_image(char *file)
 	if (!new_texture->img_ptr)
 	{
 		free(new_texture);
-		error_img(data);
+		error_img(data, file);
 	}
 	new_texture->addr = mlx_get_data_addr(new_texture->img_ptr,
 			&new_texture->bits_per_pixel, &new_texture->line_length,
@@ -35,7 +35,7 @@ t_image	*load_image(char *file)
 	{
 		mlx_destroy_image(data->mlx.mlx, new_texture->img_ptr);
 		free(new_texture);
-		error_img(data);
+		error_img(data, file);
 	}
 	new_texture->next = NULL;
 	return (new_texture);
@@ -90,12 +90,10 @@ void	init_textures(t_texture	*textures)
 	load_texture (&textures->east, map.ea_texture);
 	load_texture (&textures->north, map.no_texture);
 	load_texture (&textures->west, map.we_texture);
-	load_texture (&textures->backpack, "./assets/textures/duck_01.xpm");
-	load_texture (&textures->backpack, "./assets/textures/duck_02.xpm");
-	load_texture (&textures->backpack, "./assets/textures/duck_03.xpm");
-	load_texture (&textures->backpack, "./assets/textures/duck_04.xpm");
-	load_texture (&textures->duck, "./assets/textures/duck_air_1.xpm");
-	load_texture (&textures->duck, "./assets/textures/duck_air_2.xpm");
+	load_texture (&textures->backpack, "./assets/textures/backpack_01.xpm");
+	load_texture (&textures->backpack, "./assets/textures/backpack_02.xpm");
+	load_texture (&textures->duck, "./assets/textures/duck_air_01.xpm");
+	load_texture (&textures->duck, "./assets/textures/duck_air_02.xpm");
 	load_texture (&textures->gate, "./assets/textures/door.xpm");
 	load_texture (&textures->lake, "./assets/textures/lake.xpm");
 	data->f_color = create_rgb(map.f_color.r, map.f_color.g, map.f_color.b);
