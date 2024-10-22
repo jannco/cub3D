@@ -6,7 +6,7 @@
 /*   By: yadereve <yadereve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 13:21:00 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/10/22 11:46:28 by yadereve         ###   ########.fr       */
+/*   Updated: 2024/10/22 11:53:49 by yadereve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ double	cast_ray(t_data *data, t_point ray, double angle_degrees)
 			map_y += step_y;
 			side = 1;
 		}
-		if (data->type_duck == true && map[map_y][map_x] == DUCK)
+		if (data->type_duck == true && (map[map_y][map_x] == DUCK || map[map_y][map_x] == BACKPACK))
 			break;
 		else if (map[map_y][map_x] == WALL || map[map_y][map_x] == VOID
 			|| map[map_y][map_x] == GATE
@@ -297,7 +297,7 @@ void render_raycaster(t_data *data)
 		draw_vertical_line(screen_x, wall_bottom, data->screen_width, data->c_color);
 		data->type_duck = true;
 		distance_to_duck = distance(data, screen_x);
-		if (data->temp_type == DUCK)
+		if (data->temp_type == DUCK || data->temp_type == BACKPACK)
 			draw_duck(data, screen_x, distance_to_duck);
 		screen_x++;
 	}
