@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game_configuration.h                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yadereve <yadereve@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 10:10:39 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/10/22 15:23:10 by yadereve         ###   ########.fr       */
+/*   Updated: 2024/10/22 16:14:13 by gneto-co         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include "game_configuration.h"
 
 // ON / OFF / CMD
-# define HISTORY_MOD ON
+# define HISTORY_MOD OFF
 
 # ifndef BONUS
 #  define BONUS OFF
