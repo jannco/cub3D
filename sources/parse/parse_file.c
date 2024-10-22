@@ -6,7 +6,7 @@
 /*   By: yadereve <yadereve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 20:54:12 by yadereve          #+#    #+#             */
-/*   Updated: 2024/10/22 16:04:16 by yadereve         ###   ########.fr       */
+/*   Updated: 2024/10/22 16:45:06 by yadereve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,10 @@ char	**copy_map(t_map *map)
 	i = 0;
 	copy = calloc(map->height + 1, sizeof(char *));
 	if (copy == NULL)
+	{
+		return (NULL);
 		free_map(map);
+	}
 	while (i < map->height)
 	{
 		copy[i] = ft_strdup(map->map[i]);
@@ -204,7 +207,7 @@ bool	get_color(char *color, t_rgb *rgb)
 	i++;
 	rgb->b = extract_number(color, &i);
 	free(color);
-	if (rgb->r && rgb->g && rgb->b)
+	if (rgb->r != -1 && rgb->g != -1 && rgb->b != -1)
 		return (true);
 	return (false);
 }
@@ -281,7 +284,10 @@ void	parse_file(int fd, t_map *map, int rows)
 	checker = true;
 	line = get_next_line(fd);
 	if (line == NULL)
+	{
 		free(line);
+		return ;
+	}
 	else if (find_path_and_color(line))
 	{
 		checker = false;
