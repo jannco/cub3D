@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initialize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yadereve <yadereve@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 13:08:48 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/10/22 14:21:07 by yadereve         ###   ########.fr       */
+/*   Updated: 2024/10/22 16:40:03 by gneto-co         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,7 +146,7 @@ void	data_initialize_player(t_data *data, t_player *player)
 	player->looking_speed = LOOKING_REGULAR_SPEED;
 	player->looking_left = 0;
 	player->looking_right = 0;
-	player->mouse_new_x = 0;
+	player->mouse_new_x = -1;
 	player->mouse_old_x = 0;
 	// ---other
 	player->size = 0.5;
