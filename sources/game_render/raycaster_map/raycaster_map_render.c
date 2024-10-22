@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycaster_map_render.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: yadereve <yadereve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 13:21:00 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/10/22 12:38:20 by gneto-co         ###   ########.fr       */
+/*   Updated: 2024/10/22 14:52:50 by yadereve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -245,11 +245,18 @@ void draw_duck(t_data *data, int x, double distance_to_duck)
 	static t_image	*curent = NULL;
 
 	if (curent == NULL)
-		curent = data->textures->duck;
+	{
+		if (data->temp_type == BACKPACK)
+			curent = data->textures->backpack;
+		else
+			curent = data->textures->duck;
+	}
 	if (time_over(last_frame_time, 150000))
 	{
 		if (curent->next)
 			curent = curent->next;
+		else if(data->temp_type == BACKPACK)
+			curent = data->textures->backpack;
 		else
 			curent = data->textures->duck;
 		set_timer(&last_frame_time);

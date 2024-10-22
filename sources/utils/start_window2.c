@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   start_window2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: yadereve <yadereve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 13:07:29 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/10/02 18:51:43 by gneto-co         ###   ########.fr       */
+/*   Updated: 2024/10/22 15:07:41 by yadereve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	intro_window2(void)
 		draw_background(BLACK_COLOR);
 		data->text.pos = (t_point){data->win_width / 100, data->win_height
 			/ 10};
-		// display_text_letter_by_letter(INTRO);
+		display_text_letter_by_letter(INTRO);
 		data->text.pos = p;
 	}
 }

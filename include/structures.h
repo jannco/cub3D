@@ -6,7 +6,7 @@
 /*   By: yadereve <yadereve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 15:00:34 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/10/22 11:49:20 by yadereve         ###   ########.fr       */
+/*   Updated: 2024/10/22 14:49:36 by yadereve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ typedef struct s_texture
 	t_image			*gate;
 	t_image			*duck;
 	t_image			*lake;
+	t_image			*backpack;
 
 }					t_texture;
 

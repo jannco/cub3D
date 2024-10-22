@@ -6,7 +6,7 @@
 /*   By: yadereve <yadereve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 13:21:00 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/10/15 11:31:41 by yadereve         ###   ########.fr       */
+/*   Updated: 2024/10/22 14:20:58 by yadereve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static void	close_gates(int i)
 	t_data	*data;
 
 	data = get_data();
-	if (time_over(data->gate[i].open_time, 3 * SEC))
+	if (data->gate[i].status == OPENED && time_over(data->gate[i].open_time, 3 * SEC))
 	{
 		data->gate[i].status = CLOSED;
 		data->map.map[(int)data->gate[i].pos.y][(int)data->gate[i].pos.x] = GATE;

@@ -6,7 +6,7 @@
 #    By: yadereve <yadereve@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/01 13:00:00 by yadereve          #+#    #+#              #
-#    Updated: 2024/10/15 11:30:20 by yadereve         ###   ########.fr        #
+#    Updated: 2024/10/22 14:36:45 by yadereve         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ NAME_BONUS = cub3D_bonus
 MSG = make.msg
 CC = cc
 # -g -fsanitize=address
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -ffast-math -O3 -Ofast
 RM = rm -rf
 
 LIBFT_DIR = libraries/libft

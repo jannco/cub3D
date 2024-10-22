@@ -64,6 +64,8 @@ static void	mouse_vision_update(t_player *player, float *target_direction)
 	int		gap;
 
 	data = get_data();
+	if (player->mouse_new_x == 0)
+		return;
 	gap = 100;
 	if (player->mouse_old_x < player->mouse_new_x - gap)
 		*target_direction += player->looking_speed * 3;
