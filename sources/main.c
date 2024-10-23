@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yadereve <yadereve@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 13:03:09 by yadereve          #+#    #+#             */
-/*   Updated: 2024/10/22 15:15:47 by yadereve         ###   ########.fr       */
+/*   Updated: 2024/10/23 11:25:26 by gneto-co         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,5 @@ int	main(int argc, char **argv)
 	mlx_initialize();
 	init_textures(&textures);
 	game_window();
-
-	// init_mlx(&game);
-	// init_player(game.map);
-	// start_game(&game);
-
-	// exit_game(NULL);
 	return (EXIT_SUCCESS);
 }
