@@ -6,12 +6,12 @@
 /*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 13:05:26 by yadereve          #+#    #+#             */
-/*   Updated: 2024/10/16 15:03:57 by gneto-co         ###   ########.fr       */
+/*   Updated: 2024/10/23 15:30:36 by gneto-co         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef C_LIBRARIES
-# define C_LIBRARIES
+#ifndef C_LIBRARIES_H
+# define C_LIBRARIES_H
 
 # include <X11/Xlib.h>
 # include <errno.h>

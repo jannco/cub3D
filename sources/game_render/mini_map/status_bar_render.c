@@ -6,7 +6,7 @@
 /*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 13:21:00 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/10/22 12:48:37 by gneto-co         ###   ########.fr       */
+/*   Updated: 2024/10/23 14:19:38 by gneto-co         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ static void	holding_ducks(t_data *data, int size, int y_pos)
 		i++;
 	}
 }
+
 static void	saved_ducks(t_data *data, int size, int y_pos)
 {
 	int	i;
@@ -35,7 +36,6 @@ static void	saved_ducks(t_data *data, int size, int y_pos)
 
 	i = 0;
 	x = 0;
-
 	xpm_image_render("assets/textures/lake_50.xpm", (t_point){(size), y_pos});
 	while (i < data->duck_amount)
 	{

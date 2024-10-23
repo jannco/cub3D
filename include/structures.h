@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   structures.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yadereve <yadereve@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 15:00:34 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/10/22 14:49:36 by yadereve         ###   ########.fr       */
+/*   Updated: 2024/10/23 15:16:00 by gneto-co         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
-
 #ifndef STRUCTURES_H
 # define STRUCTURES_H
+
+# include "cub3d.h"
 
 typedef struct s_point
 {
@@ -54,7 +54,6 @@ typedef struct s_camera
 	t_point			pos;
 	int				width;
 	int				height;
-	// t_point		screen_pos;
 }					t_camera;
 
 typedef struct s_image
@@ -72,11 +71,9 @@ typedef struct s_image
 
 typedef struct s_rgb
 {
-	// int	t;
 	int				r;
 	int				g;
 	int				b;
-	;
 }					t_rgb;
 
 typedef struct s_texture

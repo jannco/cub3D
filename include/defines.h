@@ -3,19 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   defines.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yadereve <yadereve@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 14:57:20 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/10/22 09:09:13 by yadereve         ###   ########.fr       */
+/*   Updated: 2024/10/23 15:29:12 by gneto-co         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #ifndef DEFINES_H
 # define DEFINES_H
 
-
-# define PI_2 2 * M_PI
+# define PI_2 6.283185307
 
 # define EVENT_CLOSE 17
 # define SEC 1000000
@@ -36,38 +34,34 @@
 # ifdef __APPLE__
 // MAC
 #  include "../libraries/minilibx_opengl_20191021/mlx.h"
-#  define XK_Escape 0x35
-#  define XK_w 0x0D
-#  define XK_a 0x00
-#  define XK_s 0x01
-#  define XK_d 0x02
-#  define XK_Left 0x7B
-#  define XK_Right 0x7C
-#  define XK_Control_L 0x3B
-#  define XK_Shift_L 0x38
-#  define XK_space 0x31
+#  define XK_ESCAPE 0x35
+#  define XK_W 0x0D
+#  define XK_A 0x00
+#  define XK_S 0x01
+#  define XK_D 0x02
+#  define XK_LEFT 0x7B
+#  define XK_RIGHT 0x7C
+#  define XK_CONTROL_L 0x3B
+#  define XK_SHIFT_L 0x38
+#  define XK_SPACE 0x31
 # else
 // Linux
 #  include "../libraries/minilibx-linux/mlx.h"
-#  define XK_Escape 0xff1b
-#  define XK_w 0x0077
-#  define XK_a 0x0061
-#  define XK_s 0x0073
-#  define XK_d 0x0064
-#  define XK_Up 0xff52
-#  define XK_Down 0xff54
-#  define XK_Left 0xff51
-#  define XK_Right 0xff53
-#  define XK_Control_L 0xffe3
-#  define XK_Shift_L 0xffe1
-#  define XK_space 0x0020
+#  define XK_ESCAPE 0xff1b
+#  define XK_W 0x0077
+#  define XK_A 0x0061
+#  define XK_S 0x0073
+#  define XK_D 0x0064
+#  define XK_UP 0xff52
+#  define XK_DOWN 0xff54
+#  define XK_LEFT 0xff51
+#  define XK_RIGHT 0xff53
+#  define XK_CONTROL_L 0xffe3
+#  define XK_SHIFT_L 0xffe1
+#  define XK_SPACE 0x0020
 # endif
-
-// # define KeyPressMask (1L << 0)
-// # define KeyReleaseMask (1L << 1)
-# define KeyPress 2
-# define KeyRelease 3
-
+# define KEYPRESS 2
+# define KEYRELEASE 3
 
 # define MAP 'm'
 # define MAP_STRUCTURE "01 L"
@@ -96,8 +90,6 @@
 # define GATE_COLOR 0x8f3700
 # define BACKPACK_COLOR 0xa1154f
 
-
-
 # define FREE 1
 # define CAUGHT 0
 
@@ -107,8 +99,5 @@
 # define ON 1
 # define OFF 2
 # define CMD 3
-
-
-
 
 #endif

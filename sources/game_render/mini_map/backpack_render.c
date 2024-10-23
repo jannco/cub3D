@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   backpack_render.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yadereve <yadereve@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 13:21:00 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/09/24 19:47:04 by yadereve         ###   ########.fr       */
+/*   Updated: 2024/10/23 14:18:42 by gneto-co         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,7 @@ void	backpacks_render(void)
 {
 	t_data	*data;
 	int		i;
-	int backpack_size;
-
+	int		backpack_size;
 
 	data = get_data();
 	backpack_size = data->minimap.scale;
@@ -26,7 +25,8 @@ void	backpacks_render(void)
 	{
 		if (data->backpack[i].status == FREE)
 		{
-			draw_item_on_map(BACKPACK_COLOR, data->backpack[i].pos.x, data->backpack[i].pos.y, backpack_size);
+			draw_item_on_map(BACKPACK_COLOR, data->backpack[i].pos.x,
+				data->backpack[i].pos.y, backpack_size);
 		}
 		i++;
 	}

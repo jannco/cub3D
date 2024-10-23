@@ -6,14 +6,14 @@
 /*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 15:01:07 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/10/23 13:07:58 by gneto-co         ###   ########.fr       */
+/*   Updated: 2024/10/23 15:31:08 by gneto-co         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
-
 #ifndef FUNCTIONS_H
 # define FUNCTIONS_H
+
+# include "cub3d.h"
 
 void	init_map(int argc, char **argv);
 int		exit_game(char *msg);

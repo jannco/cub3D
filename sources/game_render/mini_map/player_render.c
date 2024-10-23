@@ -6,7 +6,7 @@
 /*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 13:21:00 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/10/16 16:14:41 by gneto-co         ###   ########.fr       */
+/*   Updated: 2024/10/23 14:21:59 by gneto-co         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,14 +77,13 @@ void	draw_dda_line(t_point pos, t_point vp, float *distance, int cor)
 	draw_line_on_map(cor, pos, line);
 }
 
-void	draw_vision_line(t_data *data)
+void	draw_vision_line(t_data *data, t_player player)
 {
-	t_player	player;
-	t_point		vp;
-	int			fov;
-	int			screen_x;
-	float		distance;
-	float		ray_angl;
+	t_point	vp;
+	int		fov;
+	int		screen_x;
+	float	distance;
+	float	ray_angl;
 
 	fov = 60;
 	screen_x = 0;
@@ -112,8 +111,8 @@ void	player_render(void)
 
 	data = get_data();
 	player_size = data->minimap.scale / 3;
-	draw_vision_line(data);
-	draw_circle(data->player.color, data->minimap.pos.x
-		+ data->minimap.size / 2 - player_size / 5, data->minimap.pos.y
-		+ data->minimap.size / 2 - player_size / 5, player_size);
+	draw_vision_line(data, data->player);
+	draw_circle(data->player.color, data->minimap.pos.x + data->minimap.size / 2
+		- player_size / 5, data->minimap.pos.y + data->minimap.size / 2
+		- player_size / 5, player_size);
 }
