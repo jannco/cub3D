@@ -6,7 +6,7 @@
 /*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 13:21:00 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/10/23 14:32:17 by gneto-co         ###   ########.fr       */
+/*   Updated: 2024/10/23 19:46:59 by gneto-co         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void	catch_backpacks(double gap, int i)
 	{
 		data->backpack[i].status = CAUGHT;
 		ft_printf("\a");
-		set_text("BONUS DUCK FOUNDED   CAPACITY INCREASED");
+		set_text("RAINBOW DUCK FOUNDED CAPACITY INCREASED");
 		data->player.capacity += BACKPACK_CAPACITY;
 		data->map.map[(int)data->backpack[i].pos.y]
 		[(int)data->backpack[i].pos.x] = FLOOR;

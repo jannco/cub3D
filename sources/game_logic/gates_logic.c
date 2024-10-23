@@ -6,7 +6,7 @@
 /*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 13:21:00 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/10/23 12:59:08 by gneto-co         ###   ########.fr       */
+/*   Updated: 2024/10/23 19:44:03 by gneto-co         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	gates_logic(void)
 
 	data = get_data();
 	i = 0;
-	gap = 1.5;
+	gap = 0.7;
 	while (i < data->gate_amount)
 	{
 		open_gates(i, gap);
