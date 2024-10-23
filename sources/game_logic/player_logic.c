@@ -1,4 +1,3 @@
-
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
@@ -7,7 +6,7 @@
 /*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 13:21:00 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/09/05 14:28:21 by gneto-co         ###   ########.fr       */
+/*   Updated: 2024/10/23 13:19:51 by gneto-co         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +64,7 @@ static void	mouse_vision_update(t_player *player, float *target_direction)
 
 	data = get_data();
 	if (player->mouse_new_x == -1)
-		return;
+		return ;
 	gap = 100;
 	if (player->mouse_old_x < player->mouse_new_x - gap)
 		*target_direction += player->looking_speed * 3;

@@ -6,10 +6,9 @@
 /*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 21:23:22 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/10/22 16:21:01 by gneto-co         ###   ########.fr       */
+/*   Updated: 2024/10/23 13:03:55 by gneto-co         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "../../include/cub3d.h"
 
@@ -19,7 +18,7 @@ bool	map_wall_collision(double x, double y, char c)
 	char	**map;
 	int		pos_y;
 	int		pos_x;
-	float 	gap;
+	float	gap;
 
 	data = get_data();
 	map = data->map.map;
@@ -31,11 +30,9 @@ bool	map_wall_collision(double x, double y, char c)
 		while (map[pos_y][pos_x])
 		{
 			if (map[pos_y][pos_x] == c)
-			{
-				if (squares_touch((t_point){x - gap, y - gap}, data->player.size,
-						(t_point){pos_x, pos_y}, 1))
+				if (squares_touch((t_point){x - gap, y - gap},
+					data->player.size, (t_point){pos_x, pos_y}, 1))
 					return (true);
-			}
 			pos_x++;
 		}
 		pos_y++;

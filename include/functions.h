@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   functions.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yadereve <yadereve@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 15:01:07 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/10/23 12:12:49 by yadereve         ###   ########.fr       */
+/*   Updated: 2024/10/23 13:07:58 by gneto-co         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ void	end_window2(void);
 void	get_screen_resolution(int *width, int *height);
 int		data_initialize(void);
 int		mlx_initialize(void);
+void	get_map_info(void);
 
 void	mlx_clear(void);
 void	data_clear(void);
@@ -86,6 +87,8 @@ bool	sensor(t_point item_pos, double gap, double item_size);
 void	gates_logic(void);
 void	backpacks_logic(void);
 void	ducks_logic(void);
+void	save_ducks(t_data *data);
+void	catch_ducks(t_data *data);
 void	player_logic(void);
 bool	map_wall_collision(double x, double y, char c);
 

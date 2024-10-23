@@ -1,22 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ducks_logic.c                                      :+:      :+:    :+:   */
+/*   error_handling2.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/05 13:21:00 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/10/23 13:07:00 by gneto-co         ###   ########.fr       */
+/*   Created: 2024/09/04 17:19:36 by yadereve          #+#    #+#             */
+/*   Updated: 2024/10/23 12:41:17 by gneto-co         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
 
-void	ducks_logic(void)
+void	error_img(t_data *data, char *msg)
 {
-	t_data	*data;
+	clean_up(data);
+	mlx_clear();
+	data_clear();
+	printf("Error: Error load image %s\n", msg);
+	exit(STDERR_FILENO);
+}
 
-	data = get_data();
-	catch_ducks(data);
-	save_ducks(data);
+void	error_malloc(t_data *data)
+{
+	clean_up(data);
+	mlx_clear();
+	data_clear();
+	error_message("Not enough memory to Malloc");
 }

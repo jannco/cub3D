@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   backpack_logic.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yadereve <yadereve@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 13:21:00 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/10/22 15:16:56 by yadereve         ###   ########.fr       */
+/*   Updated: 2024/10/23 13:19:22 by gneto-co         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,15 @@ static void	catch_backpacks(double gap, int i)
 		ft_printf("\a");
 		set_text("nice backpack");
 		data->player.capacity += BACKPACK_CAPACITY;
-		data->map.map[(int)data->backpack[i].pos.y][(int)data->backpack[i].pos.x] = FLOOR;
+		data->map.map[(int)data->backpack[i].pos.y]
+		[(int)data->backpack[i].pos.x] = FLOOR;
 	}
 }
 
 void	backpacks_logic(void)
 {
 	int		i;
-	double		gap;
+	double	gap;
 	t_data	*data;
 
 	data = get_data();

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error_handling.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yadereve <yadereve@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 17:19:36 by yadereve          #+#    #+#             */
-/*   Updated: 2024/10/22 22:28:46 by yadereve         ###   ########.fr       */
+/*   Updated: 2024/10/23 12:39:31 by gneto-co         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,21 +94,4 @@ int	exit_game(char *msg)
 	if (msg)
 		error_message(msg);
 	return (0);
-}
-
-void	error_img(t_data *data, char *msg)
-{
-	clean_up(data);
-	mlx_clear();
-	data_clear();
-	printf("Error: Error load image %s\n", msg);
-	exit (STDERR_FILENO);
-}
-
-void	error_malloc(t_data	*data)
-{
-	clean_up(data);
-	mlx_clear();
-	data_clear();
-	error_message("Not enough memory to Malloc");
 }

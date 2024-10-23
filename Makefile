@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: yadereve <yadereve@student.42.fr>          +#+  +:+       +#+         #
+#    By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/01 13:00:00 by yadereve          #+#    #+#              #
-#    Updated: 2024/10/23 12:11:37 by yadereve         ###   ########.fr        #
+#    Updated: 2024/10/23 13:08:24 by gneto-co         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,11 +29,11 @@ SRC_DIR = sources
 SRC_MAIN = main.c
 SRC_CONTROLS = input.c movement.c
 SRC_PARSER = parse_file.c validate.c free_and_find_map.c path_textures_color.c
-SRC_GAME_LOGIC = backpack_logic.c game_logic.c player_logic.c ducks_logic.c gates_logic.c wall_collision.c
+SRC_GAME_LOGIC = backpack_logic.c game_logic.c player_logic.c ducks_logic.c ducks_logic2.c gates_logic.c wall_collision.c
 SRC_GAME_RENDER = game_render.c images_render.c text_render.c
 SRC_MINI_MAP = backpack_render.c gates_render.c minimap_utils.c status_bar_render.c ducks_render.c map_render.c player_render.c
 SRC_RAYCASTER_MAP = raycaster_map_render.c vision_point.c init_textures.c
-SRC_UTILS = close_free.c ft_usleep.c initialize.c rand.c draw_utils.c draw_utils_minimap.c get_data.c keys_usage.c square_touches.c error_handling.c image_utils.c math_utils.c start_window.c start_window2.c
+SRC_UTILS = close_free.c ft_usleep.c initialize.c initialize2.c rand.c draw_utils.c draw_utils_minimap.c get_data.c keys_usage.c mouse_usage.c square_touches.c error_handling.c error_handling2.c image_utils.c math_utils.c start_window.c start_window2.c
 
 SRC = $(addprefix $(SRC_DIR)/, $(SRC_MAIN))
 SRC += $(addprefix $(SRC_DIR)/controls/, $(SRC_CONTROLS))
