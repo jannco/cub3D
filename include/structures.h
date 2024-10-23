@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structures.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: yadereve <yadereve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 15:00:34 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/10/23 15:16:00 by gneto-co         ###   ########.fr       */
+/*   Updated: 2024/10/23 16:43:33 by yadereve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,12 @@ typedef struct s_point
 	double			x;
 	double			y;
 }					t_point;
+
+typedef struct s_point_int
+{
+	int				x;
+	int				y;
+}					t_point_int;
 
 typedef struct s_player
 {
@@ -151,11 +157,16 @@ typedef struct s_mlx
 	void			*img;
 }					t_mlx;
 
-typedef struct s_point_int
+typedef struct s_ray_tools
 {
-	int				x;
-	int				y;
-}					t_point_int;
+	t_point 		pos;
+	t_point			dir;
+	t_point			delta_dist;
+	t_point_int		map;
+	t_point_int		step;
+	double			len;
+	int 			side;
+}					t_ray_tools;
 
 typedef struct s_data
 {

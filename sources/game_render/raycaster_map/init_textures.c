@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_textures.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: yadereve <yadereve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 13:01:41 by yadereve          #+#    #+#             */
-/*   Updated: 2024/10/23 16:03:42 by gneto-co         ###   ########.fr       */
+/*   Updated: 2024/10/23 16:44:35 by yadereve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,11 @@ t_image	*load_image(char *file)
 	t_image	*new_texture;
 
 	data = get_data();
-	new_texture = ft_calloc(1, sizeof(t_image)); //LEAK
+	new_texture = ft_calloc(1, sizeof(t_image));
 	if (!new_texture)
 		error_malloc(data);
-	new_texture->img_ptr = mlx_xpm_file_to_image(data->mlx.mlx, file, &new_texture->width,
-			&new_texture->height);
+	new_texture->img_ptr = mlx_xpm_file_to_image(data->mlx.mlx, file,
+			&new_texture->width, &new_texture->height);
 	if (!new_texture->img_ptr)
 	{
 		free(new_texture);
@@ -44,7 +44,7 @@ t_image	*load_image(char *file)
 void	load_texture(t_image **texture, char *file)
 {
 	t_image	*curent;
-	t_image *new_image;
+	t_image	*new_image;
 
 	curent = NULL;
 	if (!file)
@@ -53,7 +53,7 @@ void	load_texture(t_image **texture, char *file)
 	if (!new_image)
 	{
 		error_message(ft_multi_strjoin("Failed to load image: %s\n", file));
-		return;
+		return ;
 	}
 	if (*texture == NULL)
 		*texture = new_image;
@@ -71,13 +71,8 @@ int	create_rgb(int r, int g, int b)
 	return (r << 16 | g << 8 | b);
 }
 
-void	init_textures(t_texture	*textures)
+void	initialize_textures(t_texture	*textures)
 {
-	t_data		*data;
-	t_map		map;
-
-	data = get_data();
-	map = data->map;
 	textures->south = NULL;
 	textures->east = NULL;
 	textures->north = NULL;
@@ -86,6 +81,16 @@ void	init_textures(t_texture	*textures)
 	textures->gate = NULL;
 	textures->lake = NULL;
 	textures->backpack = NULL;
+}
+
+void	init_textures(t_texture	*textures)
+{
+	t_data		*data;
+	t_map		map;
+
+	data = get_data();
+	map = data->map;
+	initialize_textures(textures);
 	load_texture (&textures->south, map.so_texture);
 	load_texture (&textures->east, map.ea_texture);
 	load_texture (&textures->north, map.no_texture);
@@ -98,10 +103,10 @@ void	init_textures(t_texture	*textures)
 	load_texture (&textures->backpack, "./assets/textures/backpack_22.xpm");
 	load_texture (&textures->backpack, "./assets/textures/backpack_31.xpm");
 	load_texture (&textures->backpack, "./assets/textures/backpack_32.xpm");
-	load_texture (&textures->backpack, "./assets/textures/backpack_41.xpm");
-	load_texture (&textures->backpack, "./assets/textures/backpack_42.xpm");
-	load_texture (&textures->backpack, "./assets/textures/backpack_51.xpm");
-	load_texture (&textures->backpack, "./assets/textures/backpack_52.xpm");
+	// load_texture (&textures->backpack, "./assets/textures/backpack_41.xpm");
+	// load_texture (&textures->backpack, "./assets/textures/backpack_42.xpm");
+	// load_texture (&textures->backpack, "./assets/textures/backpack_51.xpm");
+	// load_texture (&textures->backpack, "./assets/textures/backpack_52.xpm");
 	load_texture (&textures->duck, "./assets/textures/duck_air_01.xpm");
 	load_texture (&textures->duck, "./assets/textures/duck_air_02.xpm");
 	load_texture (&textures->gate, "./assets/textures/door.xpm");
