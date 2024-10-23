@@ -6,7 +6,7 @@
 /*   By: yadereve <yadereve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 15:00:34 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/10/23 16:43:33 by yadereve         ###   ########.fr       */
+/*   Updated: 2024/10/23 17:30:11 by yadereve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,14 @@ typedef struct s_rgb
 	int				b;
 }					t_rgb;
 
+typedef struct s_image_render
+{
+	void	*img_ptr;
+	int		img_width;
+	int		img_height;
+
+}			t_image_render;
+
 typedef struct s_texture
 {
 	t_image			*north;
@@ -111,6 +119,19 @@ typedef struct s_map
 
 	t_point			start;
 }					t_map;
+
+typedef struct s_bresenham
+{
+	int		dx;
+	int		dy;
+	int		sx;
+	int		sy;
+	int		err;
+	int		e2;
+	int		i;
+	int		j;
+	int		color;
+}			t_bresenham2;
 
 typedef struct s_minimap
 {
@@ -159,13 +180,13 @@ typedef struct s_mlx
 
 typedef struct s_ray_tools
 {
-	t_point 		pos;
+	t_point			pos;
 	t_point			dir;
 	t_point			delta_dist;
 	t_point_int		map;
 	t_point_int		step;
 	double			len;
-	int 			side;
+	int				side;
 }					t_ray_tools;
 
 typedef struct s_data

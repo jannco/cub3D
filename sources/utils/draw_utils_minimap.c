@@ -3,27 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   draw_utils_minimap.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: yadereve <yadereve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 13:04:59 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/10/23 12:16:18 by gneto-co         ###   ########.fr       */
+/*   Updated: 2024/10/23 16:53:25 by yadereve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
-
-typedef struct s_bresenham
-{
-	int		dx;
-	int		dy;
-	int		sx;
-	int		sy;
-	int		err;
-	int		e2;
-	int		i;
-	int		j;
-	int		color;
-}			t_bresenham2;
 
 static int	draw_line_2(t_point *p1, t_point *p2, t_bresenham2 *b)
 {

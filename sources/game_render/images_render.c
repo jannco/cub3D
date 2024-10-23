@@ -3,22 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   images_render.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: yadereve <yadereve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 18:41:20 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/10/23 15:11:56 by gneto-co         ###   ########.fr       */
+/*   Updated: 2024/10/23 16:56:10 by yadereve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
-
-typedef struct s_image_render
-{
-	void	*img_ptr;
-	int		img_width;
-	int		img_height;
-
-}			t_image_render;
 
 static void	add_image_to_main_image2(int add_pixel, int color, t_point pos,
 		t_point temp)

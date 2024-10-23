@@ -6,7 +6,7 @@
 /*   By: yadereve <yadereve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 13:01:41 by yadereve          #+#    #+#             */
-/*   Updated: 2024/10/23 16:44:35 by yadereve         ###   ########.fr       */
+/*   Updated: 2024/10/23 17:25:20 by yadereve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int	create_rgb(int r, int g, int b)
 	return (r << 16 | g << 8 | b);
 }
 
-void	initialize_textures(t_texture	*textures)
+void	initialize_textures(t_texture *textures)
 {
 	textures->south = NULL;
 	textures->east = NULL;
@@ -103,10 +103,6 @@ void	init_textures(t_texture	*textures)
 	load_texture (&textures->backpack, "./assets/textures/backpack_22.xpm");
 	load_texture (&textures->backpack, "./assets/textures/backpack_31.xpm");
 	load_texture (&textures->backpack, "./assets/textures/backpack_32.xpm");
-	// load_texture (&textures->backpack, "./assets/textures/backpack_41.xpm");
-	// load_texture (&textures->backpack, "./assets/textures/backpack_42.xpm");
-	// load_texture (&textures->backpack, "./assets/textures/backpack_51.xpm");
-	// load_texture (&textures->backpack, "./assets/textures/backpack_52.xpm");
 	load_texture (&textures->duck, "./assets/textures/duck_air_01.xpm");
 	load_texture (&textures->duck, "./assets/textures/duck_air_02.xpm");
 	load_texture (&textures->gate, "./assets/textures/door.xpm");
