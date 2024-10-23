@@ -6,7 +6,7 @@
 #    By: yadereve <yadereve@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/01 13:00:00 by yadereve          #+#    #+#              #
-#    Updated: 2024/10/22 14:36:45 by yadereve         ###   ########.fr        #
+#    Updated: 2024/10/23 12:11:37 by yadereve         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,7 @@ LIBFT = $(LIBFT_DIR)/libft.a
 SRC_DIR = sources
 SRC_MAIN = main.c
 SRC_CONTROLS = input.c movement.c
-SRC_PARSER = parse_file.c validate.c
+SRC_PARSER = parse_file.c validate.c free_and_find_map.c path_textures_color.c
 SRC_GAME_LOGIC = backpack_logic.c game_logic.c player_logic.c ducks_logic.c gates_logic.c wall_collision.c
 SRC_GAME_RENDER = game_render.c images_render.c text_render.c
 SRC_MINI_MAP = backpack_render.c gates_render.c minimap_utils.c status_bar_render.c ducks_render.c map_render.c player_render.c

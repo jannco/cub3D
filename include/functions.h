@@ -6,7 +6,7 @@
 /*   By: yadereve <yadereve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 15:01:07 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/10/22 22:11:11 by yadereve         ###   ########.fr       */
+/*   Updated: 2024/10/23 12:12:49 by yadereve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,14 @@ void	error_message(char *str);
 void	error_img(t_data *data, char *msg);
 void	error_malloc(t_data *data);
 void	parse_file(int fd, t_map *map, int rows);
+char	**copy_map(t_map *map);
 void	free_map(t_map *map);
+void	free_copy_map(char **copy);
 int		validate_map(t_map *map);
+void	find_map_size(t_map *map);
+bool	find_start_position(char **map);
+bool	set_texture_path(t_data *data, char *temp_str);
+bool	find_color(char *str);
 void	init_textures(t_texture *textures);
 void	load_texture(t_image **texture, char *file);
 int		get_texture_color(t_data *data, int tex_x, int tex_y);
