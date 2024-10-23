@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycaster_map_render.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yadereve <yadereve@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 13:21:00 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/10/23 16:29:33 by yadereve         ###   ########.fr       */
+/*   Updated: 2024/10/23 21:09:25 by gneto-co         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,23 @@ double	distance(t_data *data, int screen_x)
 
 	pos.x = data->player.pos.x;
 	pos.y = data->player.pos.y;
-	angle_degrees = data->player.direction - (FOV / 2)
-		+ (screen_x * FOV / data->screen_width);
+	angle_degrees = data->player.direction - (FOV / 2) + (screen_x * FOV
+			/ data->screen_width);
 	distance_to_wall = cast_ray(data, pos, angle_degrees);
 	distance_to_wall *= cos(degrees_to_radians(angle_degrees
 				- data->player.direction));
 	return (distance_to_wall);
+}
+
+static void	type_selector(int screen_x, double distance_to_duck)
+{
+	t_data	*data;
+
+	data = get_data();
+	if (data->temp_type == DUCK)
+		draw_duck(data, screen_x, distance_to_duck);
+	if (data->temp_type == BACKPACK)
+		draw_backpack(data, screen_x, distance_to_duck);
 }
 
 void	render_raycaster(t_data *data, int screen_x)
@@ -59,26 +70,32 @@ void	render_raycaster(t_data *data, int screen_x)
 		data->type_duck = false;
 		distance_to_wall = distance(data, screen_x);
 		wall_height = (int)(data->screen_height / distance_to_wall);
-		wall_top = (data->screen_height / 2) - (wall_height / 2);
-		wall_bottom = (data->screen_height / 2) + (wall_height / 2);
+		wall_top = (data->screen_height / 2) - (wall_height / 2)
+			+ data->temp_gap;
+		wall_bottom = (data->screen_height / 2) + (wall_height / 2)
+			+ data->temp_gap;
 		draw_vertical_line(screen_x, 0, wall_top, data->f_color);
 		draw_texture(screen_x, wall_top, wall_bottom, distance_to_wall);
 		draw_vertical_line(screen_x, wall_bottom, data->screen_width,
 			data->c_color);
 		data->type_duck = true;
 		distance_to_duck = distance(data, screen_x);
-		if (data->temp_type == DUCK || data->temp_type == BACKPACK)
-			draw_duck(data, screen_x, distance_to_duck);
+		type_selector(screen_x, distance_to_duck);
 		screen_x++;
 	}
 }
 
 void	raycaster_map_render(void)
 {
-	t_data	*data;
 	int		screen_x;
+	t_data	*data;
 
-	screen_x = 0;
 	data = get_data();
+	screen_x = 0;
+	data->temp_gap = 0;
+	if (data->player.status == RUNNING)
+		data->temp_gap = 50;
+	else if (data->player.status == SNEAKING)
+		data->temp_gap = -170;
 	render_raycaster(data, screen_x);
 }

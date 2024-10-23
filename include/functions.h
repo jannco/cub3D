@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   functions.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yadereve <yadereve@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 15:01:07 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/10/23 17:29:31 by yadereve         ###   ########.fr       */
+/*   Updated: 2024/10/23 21:05:19 by gneto-co         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ double	cast_ray(t_data *data, t_point pos, double angle_degrees);
 void	detect_collision(t_data *data, t_ray_tools *ray);
 void	draw_texture(int x, int start_y, int end_y, double distance_to_wall);
 void	draw_duck(t_data *data, int x, double distance_to_duck);
+void	draw_backpack(t_data *data, int x, double distance_to_duck);
 void	load_texture(t_image **texture, char *file);
 int		get_texture_color(t_data *data, int tex_x, int tex_y);
 

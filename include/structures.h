@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structures.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yadereve <yadereve@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 15:00:34 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/10/23 17:30:11 by yadereve         ###   ########.fr       */
+/*   Updated: 2024/10/23 20:32:36 by gneto-co         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,6 @@ typedef struct s_image
 	int				line_length;
 	int				endian;
 	struct s_image	*next;
-
 }					t_image;
 
 typedef struct s_rgb
@@ -84,11 +83,11 @@ typedef struct s_rgb
 
 typedef struct s_image_render
 {
-	void	*img_ptr;
-	int		img_width;
-	int		img_height;
+	void			*img_ptr;
+	int				img_width;
+	int				img_height;
 
-}			t_image_render;
+}					t_image_render;
 
 typedef struct s_texture
 {
@@ -122,16 +121,16 @@ typedef struct s_map
 
 typedef struct s_bresenham
 {
-	int		dx;
-	int		dy;
-	int		sx;
-	int		sy;
-	int		err;
-	int		e2;
-	int		i;
-	int		j;
-	int		color;
-}			t_bresenham2;
+	int				dx;
+	int				dy;
+	int				sx;
+	int				sy;
+	int				err;
+	int				e2;
+	int				i;
+	int				j;
+	int				color;
+}					t_bresenham2;
 
 typedef struct s_minimap
 {
@@ -219,6 +218,7 @@ typedef struct s_data
 	t_text			text;
 
 	char			temp_type;
+	int				temp_gap;
 	bool			type_duck;
 
 	t_player		player;
