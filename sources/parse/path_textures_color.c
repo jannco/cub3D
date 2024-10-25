@@ -6,7 +6,7 @@
 /*   By: yadereve <yadereve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 12:09:58 by yadereve          #+#    #+#             */
-/*   Updated: 2024/10/23 12:21:18 by yadereve         ###   ########.fr       */
+/*   Updated: 2024/10/25 14:45:21 by yadereve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,5 +86,6 @@ bool	set_texture_path(t_data *data, char *temp_str)
 		return (create_path(&data->map.we_texture, temp_str));
 	else if (data->map.ea_texture == NULL && !ft_strncmp("EA ./", temp_str, 5))
 		return (create_path(&data->map.ea_texture, temp_str));
+	free(temp_str);
 	return (false);
 }

@@ -6,7 +6,7 @@
 /*   By: yadereve <yadereve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 13:01:41 by yadereve          #+#    #+#             */
-/*   Updated: 2024/10/23 17:25:20 by yadereve         ###   ########.fr       */
+/*   Updated: 2024/10/25 14:50:10 by yadereve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	load_texture(t_image **texture, char *file)
 	new_image = load_image(file);
 	if (!new_image)
 	{
-		error_message(ft_multi_strjoin("Failed to load image: %s\n", file));
+		exit_game(ft_multi_strjoin("Failed to load image: %s\n", file));
 		return ;
 	}
 	if (*texture == NULL)
