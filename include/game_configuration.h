@@ -6,20 +6,19 @@
 /*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 10:10:39 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/10/28 10:25:24 by gneto-co         ###   ########.fr       */
+/*   Updated: 2024/10/28 10:29:59 by gneto-co         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GAME_CONFIGURATION_H
 # define GAME_CONFIGURATION_H
 
-# define AUDIO_FILE "masterOfPuppets"
-
 // ON / OFF / CMD
 # define HISTORY_MOD OFF
 
 // ON / OFF
 # define MUSIC ON
+# define AUDIO_FILE "masterOfPuppets"
 
 # ifndef BONUS
 #  define BONUS OFF
