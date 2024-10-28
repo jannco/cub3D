@@ -1,3 +1,11 @@
+NO ./assets/textures/wall01.xpm
+SO ./assets/textures/wall02.xpm
+WE ./assets/textures/wall03.xpm
+EA ./assets/textures/wall04.xpm
+
+F 173,116,230
+C 144,138,144
+
 111111111111111111111111111111111
 10000000000000000000000000LLLLLL1
 100E0000000000000D00000000LLLLLL1
