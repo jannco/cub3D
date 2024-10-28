@@ -6,7 +6,7 @@
 /*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 18:41:20 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/10/23 14:46:53 by gneto-co         ###   ########.fr       */
+/*   Updated: 2024/10/28 10:18:44 by gneto-co         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	text_render(int max_char, int color)
 
 	data = get_data();
 	text = data->text;
-	if (time_over(text.start_time, 2 * SEC) == false)
+	if (time_over(text.start_time, 3 * SEC) == false)
 	{
 		text_render2(text, data, color, max_char);
 	}

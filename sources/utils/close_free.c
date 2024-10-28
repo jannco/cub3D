@@ -6,7 +6,7 @@
 /*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 13:21:39 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/10/23 12:26:56 by gneto-co         ###   ########.fr       */
+/*   Updated: 2024/10/28 10:28:59 by gneto-co         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,5 +56,8 @@ int	close_window(void *param)
 	{
 		end_window();
 	}
+	if (BONUS == ON && MUSIC == ON && system("pkill aplay > /dev/null 2>&1")
+		== -1)
+		ft_printf("ardeu");
 	exit(0);
 }

@@ -6,7 +6,7 @@
 /*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 13:07:29 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/10/23 11:55:55 by gneto-co         ###   ########.fr       */
+/*   Updated: 2024/10/28 10:20:58 by gneto-co         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	intro_window2(void)
 		display_text_letter_by_letter(" Five little ducks went out one day\n\n"
 			"Over the hill and far away\n\n"
 			"Mother duck said quack quack quack quack\n\n"
-			"But none of the five little ducks came back\n\n"
+			"But none of the five little ducks  came back\n\n"
 			"\n\n"
 			"Go and bring your little ducks back home\n\n\n\n"
 			);

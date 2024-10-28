@@ -6,7 +6,7 @@
 /*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 13:03:09 by yadereve          #+#    #+#             */
-/*   Updated: 2024/10/23 11:25:26 by gneto-co         ###   ########.fr       */
+/*   Updated: 2024/10/28 10:27:06 by gneto-co         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,10 @@ void	game_window(void)
 	mlx_hook(data->mlx.win, 5, 1L << 3, mouse_release, NULL);
 	intro_window2();
 	set_text("lets save our little ducks");
+	if (BONUS == ON && MUSIC == ON
+		&& system("aplay assets/audio/" AUDIO_FILE ".wav > /dev/null 2>&1 &")
+		== -1)
+		ft_printf("Audio Error");
 	mlx_loop_hook(data->mlx.mlx, update_frame, NULL);
 	mlx_loop(data->mlx.mlx);
 }
