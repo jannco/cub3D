@@ -6,7 +6,7 @@
 /*   By: yadereve <yadereve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 11:27:22 by yadereve          #+#    #+#             */
-/*   Updated: 2024/10/23 12:15:00 by yadereve         ###   ########.fr       */
+/*   Updated: 2024/10/30 16:19:09 by yadereve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,9 @@ void	fill(char **map_copy, t_point move, bool *is_access)
 		*is_access = false;
 		return ;
 	}
-	if (!ft_strchr("0NEWS", map_copy[(int)move.y][(int)move.x]))
+	if (BONUS == OFF && !ft_strchr(VAL_C, map_copy[(int)move.y][(int)move.x]))
+		return ;
+	if (BONUS == ON && !ft_strchr(VAL_C_B, map_copy[(int)move.y][(int)move.x]))
 		return ;
 	map_copy[(int)move.y][(int)move.x] = 'V';
 	fill(map_copy, (t_point){move.x - 1, move.y}, is_access);

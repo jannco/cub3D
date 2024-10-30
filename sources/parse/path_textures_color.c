@@ -6,7 +6,7 @@
 /*   By: yadereve <yadereve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 12:09:58 by yadereve          #+#    #+#             */
-/*   Updated: 2024/10/25 14:45:21 by yadereve         ###   ########.fr       */
+/*   Updated: 2024/10/30 16:50:03 by yadereve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,16 @@ bool	find_color(char *str)
 
 bool	create_path(char **texture, char *path)
 {
+	int fd;
+
 	*texture = ft_substr(path, 3, ft_strlen(path) - 3);
+	fd = open(*texture, O_RDWR);
+	close(fd);
+	if (fd < 0)
+	{
+		free(path);
+		return (false);
+	}
 	free(path);
 	return (true);
 }

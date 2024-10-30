@@ -6,7 +6,7 @@
 /*   By: yadereve <yadereve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 11:56:35 by yadereve          #+#    #+#             */
-/*   Updated: 2024/10/23 12:19:48 by yadereve         ###   ########.fr       */
+/*   Updated: 2024/10/30 16:39:22 by yadereve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,23 +22,53 @@ void	free_map(t_map *map)
 	free(map->map);
 }
 
+char	*ft_strdup_mod(char *str, int size)
+{
+	char	*aa;
+	char	*rtrn;
+	int		i;
+	int		len;
+
+	i = 0;
+	if (str)
+		len = ft_strlen(str);
+	aa = (char *)malloc((size + 1) * sizeof(char));
+	if (aa == NULL)
+		return (NULL);
+	rtrn = aa;
+	while (i < size)
+	{
+		if (i < len)
+			aa[i] = str[i];
+		else
+			aa[i] = ' ';
+		i++;
+	}
+	aa[i] = '\0';
+	return (rtrn);
+}
+
 char	**copy_map(t_map *map)
 {
 	char	**copy;
 	int		i;
 
-	i = 0;
-	copy = calloc(map->height + 1, sizeof(char *));
+	copy = calloc(map->height + 3, sizeof(char *));
 	if (copy == NULL)
 	{
 		free_map(map);
 		return (NULL);
 	}
-	while (i < map->height)
+	i = 0;
+	copy[i] = ft_strdup_mod(NULL, map->width);
+	i++;
+	while (i < map->height + 1)
 	{
-		copy[i] = ft_strdup(map->map[i]);
+		copy[i] = ft_strdup_mod(map->map[i - 1], map->width);
 		i++;
 	}
+	copy[i] = ft_strdup_mod(NULL, map->width);
+	i++;
 	copy[i] = NULL;
 	return (copy);
 }

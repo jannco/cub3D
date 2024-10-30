@@ -6,7 +6,7 @@
 /*   By: yadereve <yadereve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 20:54:12 by yadereve          #+#    #+#             */
-/*   Updated: 2024/10/23 12:16:45 by yadereve         ###   ########.fr       */
+/*   Updated: 2024/10/30 16:54:53 by yadereve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,20 +17,19 @@ bool	find_path_and_color(char *str)
 	t_data	*data;
 	char	*temp_str;
 	bool	result;
+	int		len;
 
 	data = get_data();
 	if (!ft_strcmp("\n", str))
 		return (true);
 	temp_str = ft_strtrim(str, "\n");
-	if (!ft_strncmp(temp_str + ft_strlen(temp_str) - 4, ".xpm", 4))
-		return (set_texture_path(data, temp_str));
-	else if (data->map.f_color.r == -1)
+	len = ft_strlen(temp_str);
+	if (len >= 4 && !ft_strncmp(temp_str + len - 4, ".xpm", 4))
 	{
-		result = find_color(temp_str);
-		free(temp_str);
+		result = set_texture_path(data, temp_str);
 		return (result);
 	}
-	else if (data->map.c_color.r == -1)
+	else if (data->map.f_color.r == -1 || data->map.c_color.r == -1)
 	{
 		result = find_color(temp_str);
 		free(temp_str);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   defines.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: yadereve <yadereve@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 14:57:20 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/10/23 15:29:12 by gneto-co         ###   ########.fr       */
+/*   Updated: 2024/10/30 15:17:51 by yadereve         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,9 @@
 # define FLOOR '0'
 # define VOID ' '
 # define LAKE 'L'
+
+# define VAL_C "0NEWS"
+# define VAL_C_B "0NEWSDLG"
 
 # define DUCK 'D'
 # define DUCK_COLOR YELLOW_COLOR
