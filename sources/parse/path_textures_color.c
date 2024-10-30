@@ -71,7 +71,7 @@ bool	find_color(char *str)
 
 bool	create_path(char **texture, char *path)
 {
-	int fd;
+	int	fd;
 
 	*texture = ft_substr(path, 3, ft_strlen(path) - 3);
 	fd = open(*texture, O_RDWR);

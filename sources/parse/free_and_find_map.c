@@ -12,16 +12,6 @@
 
 #include "../../include/cub3d.h"
 
-void	free_map(t_map *map)
-{
-	int	i;
-
-	i = 0;
-	while (map->map[i])
-		free(map->map[i++]);
-	free(map->map);
-}
-
 char	*ft_strdup_mod(char *str, int size)
 {
 	char	*aa;
@@ -71,16 +61,6 @@ char	**copy_map(t_map *map)
 	i++;
 	copy[i] = NULL;
 	return (copy);
-}
-
-void	free_copy_map(char **copy)
-{
-	int	i;
-
-	i = -1;
-	while (copy[++i])
-		free(copy[i]);
-	free(copy);
 }
 
 bool	find_start_position(char **map)
