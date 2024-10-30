@@ -6,7 +6,7 @@
 /*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 13:08:48 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/10/23 14:37:09 by gneto-co         ###   ########.fr       */
+/*   Updated: 2024/10/30 15:55:43 by gneto-co         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static void	data_initialize_screen_map(t_data *data)
 	data->win_height = data->screen_height;
 	data->win_width = data->screen_width;
 	data->tile_size = 250;
-	data->minimap.scale = 30;
+	data->minimap.scale = MINIMAP_SCALE;
 	data->minimap.size = data->win_width / 6;
 	data->minimap.pos = (t_point){data->win_width - data->minimap.size
 		- (data->minimap.size / 12), (data->minimap.size / 12)};

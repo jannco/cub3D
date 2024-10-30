@@ -6,7 +6,7 @@
 /*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 10:10:39 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/10/28 10:29:59 by gneto-co         ###   ########.fr       */
+/*   Updated: 2024/10/30 15:58:49 by gneto-co         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,10 @@
 // ON / OFF
 # define MUSIC ON
 # define AUDIO_FILE "masterOfPuppets"
+
+// ON / OFF
+# define MINIMAP ON
+# define MINIMAP_SCALE 30 // 30
 
 # ifndef BONUS
 #  define BONUS OFF

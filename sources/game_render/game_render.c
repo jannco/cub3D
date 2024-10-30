@@ -6,7 +6,7 @@
 /*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 13:21:00 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/10/23 14:42:39 by gneto-co         ###   ########.fr       */
+/*   Updated: 2024/10/30 15:56:33 by gneto-co         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ void	game_render(void)
 	}
 	if (BONUS == ON)
 	{
-		minimap_render();
+		if (MINIMAP == ON)
+			minimap_render();
 		status_bar_render();
 	}
 	mlx_put_image_to_window(data->mlx.mlx, data->mlx.win, data->mlx.img, 0, 0);
