@@ -85,7 +85,8 @@ int	validate_map(t_map *map)
 		find_start = find_start_position(map_copy);
 	if (find_start)
 		access = access_validate(map_copy, map);
-	if (map_valid && find_start && access)
+	if (map_valid && find_start && access && (map->no_texture
+			&& map->so_texture && map->we_texture && map->ea_texture))
 		free_copy_map(map_copy);
 	else
 	{
